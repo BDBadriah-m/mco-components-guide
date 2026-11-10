@@ -1,0 +1,575 @@
+
+
+/* ===========================================================================
+   8. إضافات البناء في OutSystems
+   =========================================================================== */
+
+/* 8.1 الأيقونات كـ CSS — Block MCO_Icon يرسم عنصراً فارغاً بكلاس mco-icon mco-i-{الاسم}.
+   اللون يتبع لون النص (currentColor)، والحجم من width/height (الافتراضي 24px).
+   لإضافة أيقونة من المجموعة الكاملة: انسخ مسارها من vuesax-outline.json بنفس الصيغة. */
+span.mco-icon, div.mco-icon, i.mco-icon {
+  display: inline-block;
+  flex: none;
+  width: 24px;
+  height: 24px;
+  vertical-align: middle;
+  background-color: currentColor;
+  -webkit-mask: var(--mco-icon) center / contain no-repeat;
+          mask: var(--mco-icon) center / contain no-repeat;
+}
+.mco-icon.mco-size-16 { width: 16px; height: 16px; }
+.mco-icon.mco-size-18 { width: 18px; height: 18px; }
+.mco-icon.mco-size-20 { width: 20px; height: 20px; }
+.mco-icon.mco-size-22 { width: 22px; height: 22px; }
+.mco-icon.mco-size-24 { width: 24px; height: 24px; }
+.mco-icon.mco-size-32 { width: 32px; height: 32px; }
+/*@ICONS@*/
+
+/* 8.2 بدائل بالكلاسات للعناصر اللي كانت تعتمد على اسم الوسم */
+.mco-mcard__field { display: flex; justify-content: space-between; gap: var(--space-8); min-height: 34px; padding-bottom: var(--space-8); border-bottom: 1px solid var(--grey-soft); font-size: 14.4px; line-height: 25.2px; }
+.mco-mcard__k { font-weight: 700; }
+.mco-mcard__v { margin: 0; }
+/* بطاقة النقاط حسب Figma «PointsDetail» 119:7573: شرطة عمودية قبل العنوان، نقاط بعرض كامل ومع علامة نقطة */
+.mco-points { box-shadow: 0 0 6px #00000005, 0 2px 4px #00000014; }
+.mco-section-title { margin: 0 0 var(--space-12); font-size: 20px; line-height: 32px; color: var(--brand-secondary); }
+.mco-section-title::before { width: 4px; height: 30px; order: -1; }
+.mco-points__list { padding: 0; }
+.mco-points__item, .mco-points__list > li { position: relative; padding: var(--space-8) var(--space-16); padding-inline-start: 40px; background: var(--bg-soft); border-radius: var(--radius-sm);
+  font-size: 16px; line-height: 24px; color: var(--font-primary); text-align: justify; }
+.mco-points__item::before, .mco-points__list > li::before { content: ""; position: absolute; inset-inline-start: 24px; top: 18px; width: 5px; height: 5px; border-radius: 50%; background: currentColor; }
+.mco-crumbs__link { color: inherit; text-decoration: none; }
+.mco-crumbs__link:hover { text-decoration: underline; }
+.mco-addmore__title { font-weight: 700; font-size: 20px; line-height: 22px; }
+.mco-addmore--added .mco-addmore__title { font-size: 18px; line-height: 25.2px; }
+
+/* 8.3 ودجات OutSystems داخل الـ Blocks */
+.mco-card-choice:has(input:checked) { background: var(--brand-shade-30); border-color: var(--brand-secondary); color: var(--brand-secondary); }
+.mco-card-choice [data-checkbox], .mco-card-choice .radio-button { flex: none; }
+.mco-nav__titlerow .btn.btn-primary { background-color: var(--brand-secondary); border-color: var(--brand-secondary); }
+.mco-alert__text .btn.btn-link { font-size: 16px; }
+.mco-popup__actions .btn { flex: 1; }
+.mco-pfooter__size .dropdown-container { min-height: 40px; border-color: var(--grey-soft); border-radius: var(--radius-md); }
+.mco-field__box .form-control, .mco-field__box .mco-field__control { border: 0; box-shadow: none; min-height: 0; padding: 0; background: transparent; }
+.mco-field__box .osui-datepicker, .mco-field__box .osui-datepicker input { width: 100%; }
+.mco-field__trail .mco-icon { width: 22px; height: 22px; }
+.btn .mco-icon { width: 20px; height: 20px; }
+.btn.btn-small .mco-icon { width: 18px; height: 18px; }
+
+.mco-icon.mco-size-12 { width: 12px; height: 12px; }
+.mco-icon.mco-size-36 { width: 36px; height: 36px; }
+
+/* 8.4 أجزاء مساعدة للـ Blocks */
+.mco-btn__dots > * { width: 8px; height: 8px; border-radius: 2px; background: var(--bg-main); animation: mco-dot 1s infinite ease-in-out; }
+.mco-btn__dots > *:nth-child(2) { animation-delay: .15s; } .mco-btn__dots > *:nth-child(3) { animation-delay: .3s; }
+@media (prefers-reduced-motion: reduce) { .mco-btn__dots > * { animation: none; } }
+.mco-field__req { color: var(--danger); }
+.mco-field__box .validation-message, .mco-field .validation-message { display: none; }
+.mco-choice-row { display: inline-flex; align-items: center; gap: var(--space-8); color: var(--font-primary); font-size: 18px; line-height: 20px; }
+.mco-choice-row label { font-weight: 400; font-size: 18px; }
+.mco-status-icon--32 { width: 32px; height: 32px; }
+.mco-status-icon--40 { width: 40px; height: 40px; }
+.mco-status-icon--60 { width: 60px; height: 60px; }
+.mco-crumbs__list { display: inline-flex; align-items: center; gap: var(--space-8); flex-wrap: wrap; }
+.mco-crumbs__item { display: inline-flex; align-items: center; gap: var(--space-8); }
+.mco-tl__dot .mco-i-check { width: 12px; height: 12px; }
+.mco-span-all { grid-column: 1 / -1; }
+
+/* 8.5 النوافذ داخل ودجت Popup */
+.popup-dialog.mco-popup-default { width: 514px; max-width: calc(100vw - 32px); }
+.popup-dialog.mco-popup-large   { width: 720px; max-width: calc(100vw - 32px); }
+.popup-dialog.mco-popup-form    { width: 1000px; max-width: calc(100vw - 32px); }
+.popup-dialog .mco-popup, .popup-dialog .mco-formpopup { width: auto; max-width: none; padding: 0; border: 0; box-shadow: none; background: transparent; }
+
+/* 8.6 القائمة المنسدلة (Dropdown / Dropdown Search / Tags) حسب Figma «Drop-Down menu» 2:20009 و«Multi Select chips» 2:19972
+   السهم chevron (vuesax/linear/arrow-down)، والقائمة المفتوحة بطاقة بحد grey-dark وزوايا 8px، وبحث على brand-shade-20،
+   والرقائق على brand-shade-20 مع زر × 18px. أيقونات FontAwesome حق المكتبة تُستبدل بأيقونات Vuesax */
+.vscomp-toggle-button { height: 46px; min-height: 46px; padding-block: var(--space-8); font-size: 18px; color: var(--font-primary); border-color: var(--grey-dark) !important; }
+.vscomp-value { font-size: 18px; color: var(--font-primary); }
+.vscomp-wrapper.has-value .vscomp-value { color: var(--font-primary); }
+.vscomp-wrapper:not(.has-value) .vscomp-value { color: var(--font-tertiary); }
+.vscomp-arrow { display: none; }
+.vscomp-toggle-button::after, .dropdown-container::after { content: "" !important; font: inherit !important; position: absolute; top: 50%; margin-top: -11px; width: 22px; height: 22px;
+  border: 0 !important; transform: none !important; background-color: var(--font-primary); pointer-events: none; transition: transform 200ms ease;
+  -webkit-mask: url(@icon:chevron-down) center / contain no-repeat; mask: url(@icon:chevron-down) center / contain no-repeat; }
+.vscomp-wrapper.opened .vscomp-toggle-button::after, .dropdown-expanded.dropdown-container::after { transform: rotate(180deg) !important; }
+.vscomp-toggle-button::after { right: var(--space-16); }
+.is-rtl .vscomp-toggle-button::after, .text-direction-rtl .vscomp-toggle-button::after, .is-rtl .dropdown-container::after { right: auto; left: var(--space-16); }
+.vscomp-wrapper.text-direction-rtl .vscomp-toggle-button { padding-inline: var(--space-16) 48px; }
+.vscomp-wrapper.show-value-as-tags .vscomp-toggle-button { height: auto; padding-block: 8px; }
+.vscomp-wrapper.show-value-as-tags .vscomp-toggle-button::after { top: 23px; }
+.dropdown-container { border-color: var(--grey-dark); }
+/* القائمة المفتوحة */
+.vscomp-dropbox { padding: var(--space-12) var(--space-16) var(--space-16); border: 1px solid var(--grey-dark); border-radius: var(--radius-md); background: var(--bg-main); box-shadow: 0 0 4px #0000000a, 0 4px 8px #0000000f; }
+.vscomp-search-container { margin: 0; padding: var(--space-8) var(--space-16); height: auto; min-height: 36px; background: var(--brand-shade-20); border: 0; border-radius: var(--radius-sm); }
+.vscomp-search-container::before { content: "" !important; font: inherit !important; flex: none; width: 18px; height: 18px; opacity: .3; background-color: var(--font-primary);
+  -webkit-mask: url(@icon:search-normal) center / contain no-repeat; mask: url(@icon:search-normal) center / contain no-repeat; }
+.vscomp-search-input { background: transparent; font-size: 16px; color: var(--font-primary); }
+.vscomp-options-container { margin-top: var(--space-4); }
+.vscomp-option { min-height: 49px; padding-inline: 0; border-bottom: 1px solid var(--grey-soft); font-size: 16px; line-height: 22.4px; color: var(--font-primary); background: transparent; }
+.vscomp-option.focused, .vscomp-option:hover { background: var(--brand-shade-20); }
+.vscomp-option.selected { background: transparent; color: var(--brand-secondary); font-weight: 700; }
+/* الرقائق في الاختيار المتعدد */
+.vscomp-wrapper.show-value-as-tags .vscomp-value { display: flex; flex-wrap: wrap; gap: var(--space-4); }
+.vscomp-wrapper.show-value-as-tags .vscomp-value-tag { display: inline-flex; align-items: center; gap: var(--space-4); height: 28px; margin: 0; padding: var(--space-4) var(--space-8);
+  background: var(--brand-shade-20); border: 0; border-radius: var(--radius-sm); font-size: 14px; line-height: 20px; color: var(--font-primary); }
+.vscomp-wrapper.show-value-as-tags .vscomp-value-tag-clear-button { width: 18px; height: 18px; margin: 0; }
+.vscomp-ele .vscomp-clear-icon, .vscomp-search-clear { position: relative; display: inline-block; width: 18px; height: 18px; transform: none !important; }
+.vscomp-ele .vscomp-clear-icon::before { display: none; }
+.vscomp-ele .vscomp-clear-icon::after, .vscomp-search-clear::after { content: "" !important; font: inherit !important; position: absolute; inset: 0; left: 0; top: 0; width: 18px; height: 18px; transform: none;
+  background-color: var(--font-primary); -webkit-mask: url(@icon:close) center / contain no-repeat; mask: url(@icon:close) center / contain no-repeat; }
+.vscomp-ele .vscomp-clear-icon:hover::after { background-color: var(--danger); }
+.vscomp-wrapper .vscomp-clear-button { display: none !important; } /* زر «مسح الكل» غير موجود في Figma */
+
+
+/* 8.7 شريط التنقل مع التبويبات (Navbar type = tabs) — «#Nav Tab» 497:8310
+   التبويبات ملاصقة للحافة السفلية للشريط، بدون مسافة تحتها */
+.mco-nav__body:has(> .mco-nav__tabs:last-child) { padding-bottom: 0; }
+.mco-nav__tabs { padding-bottom: 0; }
+.mco-nav__tabs .osui-tabs { display: block; width: auto; }
+.mco-nav__tabs .osui-tabs__header { display: flex !important; gap: 0; width: auto; border-bottom: 0; }
+.mco-nav__tabs .osui-tabs__header__indicator { display: none; }
+.mco-nav .mco-nav__tabs .osui-tabs__header-item { flex: none !important; width: auto !important; min-width: 100px; height: 53px; justify-content: center; gap: var(--space-8);
+  padding: var(--space-16); border: 0; border-bottom: 4px solid transparent; border-radius: 0; background: transparent;
+  font-size: 16px; line-height: 24px; font-weight: 700; color: var(--font-secondary-dark); }
+.mco-nav .mco-nav__tabs .osui-tabs__header-item:hover:not(.osui-tabs--is-active) { color: var(--brand-secondary); border-bottom-color: var(--brand-shade-40); }
+.mco-nav .mco-nav__tabs .osui-tabs__header-item.osui-tabs--is-active { color: var(--brand-default); border-bottom-color: var(--brand-default); }
+
+/* شريط التنقل: الشريط العلوي bg/navbar (فاتح blue-950، داكن blue-300)، وجسم الشريط تحته bg/sidebar بنفس لون القائمة الجانبية */
+.mco-nav { background: var(--color-bg-sidebar); }
+.mco-nav__bar { background: var(--color-bg-navbar); color: var(--color-icon-on-navbar); }
+.mco-nav__tool { color: var(--color-icon-on-navbar); }
+.mco-nav__title, .mco-crumbs, .mco-crumbs__link { color: var(--color-text-brand); } /* text/brand كما في Figma */
+
+/* 8.8 مؤشر الخطوات — «Progress step» 2:20204
+   الطرفان المستويان بزوايا 8px: يمين الخطوة الأولى، ويسار الأخيرة.
+   الحد 1px بلون الحالة (غير النشطة font-secondary-dark، النشطة brand-shade-40، المكتملة brand-default).
+   الطبقة الداخلية لها مضلّع محسوب حتى يبقى الحد 1px على الأضلاع المائلة أيضاً،
+   والخطوات تتعشّق بمسافة 5px ثابتة بين رأس السهم والتجويف اللي بعده */
+.mco-step { margin-inline-start: -13px; background: var(--font-secondary-dark); }
+.mco-step--active { background: var(--brand-shade-40); }
+.mco-step--complete { background: var(--brand-default); }
+.mco-step::before { inset: 1px; border-radius: inherit;
+  clip-path: polygon(100% 0, 17.5px 0, 0.3px 50%, 17.5px 100%, 100% 100%, calc(100% - 17.3px) 50%) !important; }
+.mco-step--initial, .mco-step:first-child { margin-inline-start: 0; clip-path: polygon(100% 0, 18px 0, 0 50%, 18px 100%, 100% 100%);
+  border-start-start-radius: var(--radius-md); border-end-start-radius: var(--radius-md); }
+.mco-step--initial::before, .mco-step:first-child::before { clip-path: polygon(100% 0, 17.5px 0, 0.3px 50%, 17.5px 100%, 100% 100%) !important;
+  border-start-start-radius: 7px; border-end-start-radius: 7px; }
+.mco-step--final, .mco-step:last-child:not(:first-child) { clip-path: polygon(100% 0, 0 0, 0 100%, 100% 100%, calc(100% - 18px) 50%);
+  padding-inline-end: var(--space-16); border-start-end-radius: var(--radius-md); border-end-end-radius: var(--radius-md); }
+.mco-step--final::before, .mco-step:last-child:not(:first-child)::before { clip-path: polygon(100% 0, 0 0, 0 100%, 100% 100%, calc(100% - 17.3px) 50%) !important;
+  border-start-end-radius: 7px; border-end-end-radius: 7px; }
+
+
+/* ===========================================================================
+   9. مكوّنات Figma الجديدة (أكتوبر 2026)
+   القيم من ملف Figma «MCO Design system». الألوان من التوكنز؛ التدرجات والظلال
+   الجديدة مكتوبة هنا إلى أن تُضاف لنظام التصميم.
+   =========================================================================== */
+
+/* 9.1 التبويبات الرئيسية — نمط Tabs + ExtendedClass = mco-tabs-main («Tabs» 467:11975) */
+.mco-tabs-main .osui-tabs__header { display: flex !important; width: 100%; gap: 0; padding: 4px; background: var(--brand-shade-20); border: .5px solid var(--brand-shade-40); border-radius: 11px; overflow: hidden; }
+.mco-tabs-main .osui-tabs__header__indicator { display: none; }
+.mco-tabs-main .osui-tabs__header-item { flex: 1 1 0 !important; width: auto !important; min-width: 0; } /* كل تبويب يأخذ حصة متساوية من عرض الشريط */
+.mco-tabs-main .osui-tabs__header-item { flex: 1 1 0; justify-content: center; gap: var(--space-8); height: 54px; padding: 0 var(--space-16); border: 0; border-radius: var(--radius-md); background: transparent; font-size: 20px; line-height: 32px; font-weight: 700; color: var(--brand-secondary); }
+.mco-tabs-main .osui-tabs__header-item:hover:not(.osui-tabs--is-active) { background: var(--bg-main); color: var(--brand-secondary); }
+.mco-tabs-main .osui-tabs__header-item.osui-tabs--is-active { background: linear-gradient(90deg, var(--brand-primary), var(--brand-default)); color: var(--bg-main); box-shadow: 0 4px 10px #053b5c33; }
+.mco-tabs-main .osui-tabs__header-item .mco-icon { width: 24px; height: 24px; }
+
+/* 9.2 بطاقة الرقم — MCO_StatTile */
+.mco-stat { display: flex; align-items: center; gap: var(--space-12); min-width: 0; padding: 16px 19px 8px var(--space-16); background: var(--color-bg-stat); border: 1px solid var(--color-bg-stat); border-radius: 12px; box-shadow: 0 4px 16px #0a50830f, 0 1px 2px #0a50830a; }
+.mco-stat__icon { display: inline-flex; align-items: center; justify-content: center; flex: none; width: 44px; height: 44px; border-radius: var(--radius-md); background: linear-gradient(160deg, var(--brand-light), var(--brand-default) 60%, var(--brand-secondary)); color: var(--bg-main); box-shadow: 0 8px 18px -6px #1668a480, inset 0 1px 0 #ffffff40; }
+.mco-stat__icon .mco-icon { width: 24px; height: 24px; }
+.mco-stat__text { display: flex; flex-direction: column; gap: 0; min-width: 0; }
+.mco-stat--sm .mco-stat__text { gap: var(--space-4); }
+.mco-stat__label { font-size: 14px; line-height: 20px; color: var(--font-secondary-dark); }
+.mco-stat__value { align-self: flex-start; white-space: nowrap; font-size: 32px; line-height: 44px; font-weight: 700; color: var(--brand-secondary); }
+.mco-stat--sm .mco-stat__value { font-size: 24px; line-height: 36px; }
+
+/* 9.3 بطاقة الملخص — MCO_SummaryCard («Frame 1820548567» 467:12414) */
+.mco-summary { display: flex; align-items: center; gap: var(--space-24); padding: var(--space-32) 53px var(--space-32) var(--space-24); background: linear-gradient(90deg, var(--brand-shade-20), var(--brand-shade-40)); border: 1px solid var(--brand-shade-40); border-radius: var(--radius-sm); box-shadow: 0 0 3px #00000005, 0 2px 2px #00000014; }
+.mco-summary__main { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: var(--space-24); }
+.mco-summary__head { display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-12) 36px; }
+.mco-summary__title { margin: 0; font-size: 24px; line-height: 36px; font-weight: 700; color: var(--brand-secondary); }
+.mco-summary__stats { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--space-16); max-width: 820px; }
+.mco-summary__actions { display: flex; flex-wrap: wrap; gap: var(--space-12); margin-top: 7px; }
+.mco-summary__actions .btn { height: 32px; min-height: 32px; padding: var(--space-8); gap: var(--space-8); border-radius: var(--radius-button-sm); font-size: 14px; line-height: 20px; font-weight: 700; }
+.mco-summary__actions .btn:not(.btn-primary) { background: transparent; border-color: var(--brand-light); color: var(--brand-default); }
+.mco-summary__actions .btn:not(.btn-primary):hover { background: var(--bg-main); color: var(--brand-secondary); }
+.mco-summary__actions .btn-primary { background: var(--brand-default); border-color: var(--brand-default); color: var(--bg-main); }
+.mco-summary__actions .btn .mco-icon { width: 20px; height: 20px; }
+.mco-summary__art { flex: none; width: 227px; max-width: 30%; height: auto; }
+@media (max-width: 960px) { .mco-summary { flex-direction: column-reverse; align-items: stretch; padding: var(--space-24); } .mco-summary__art { align-self: center; } .mco-summary__stats { grid-template-columns: minmax(0, 1fr); } }
+
+/* 9.4 البطاقة المنسدلة — MCO_SlideCard («card slider» 424:7023) */
+.mco-slide { position: relative; overflow: hidden; background: linear-gradient(90deg, var(--bg-element), var(--brand-shade-20)); border: 1px solid var(--brand-shade-40); border-radius: 13px; box-shadow: var(--shadow-s); }
+.mco-slide::before { content: ""; display: block; height: 4px; background: linear-gradient(90deg, var(--brand-default), var(--brand-primary)); }
+.mco-slide:hover, .mco-slide.is-open { background: linear-gradient(90deg, var(--brand-shade-20), var(--brand-shade-40)); }
+.mco-slide__head { display: flex; align-items: center; justify-content: space-between; gap: var(--space-16); padding: var(--space-16); }
+.mco-slide__fields { display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-16) var(--space-32); min-width: 0; }
+.mco-slide__field { display: flex; align-items: center; gap: var(--space-12); }
+.mco-slide__tile { display: inline-flex; align-items: center; justify-content: center; flex: none; width: 44px; height: 44px; border-radius: var(--radius-md); background: var(--brand-shade-40); color: var(--brand-secondary); box-shadow: 0 4px 10px #053b5c1f; }
+.mco-slide__field:first-child .mco-slide__tile { background: linear-gradient(135deg, var(--brand-primary), var(--brand-default)); color: var(--bg-main); }
+.mco-slide__tile .mco-icon { width: 22px; height: 22px; }
+.mco-slide__text { display: flex; flex-direction: column; gap: var(--space-4); min-width: 0; }
+.mco-slide__label { font-size: 14px; line-height: 20px; color: var(--font-secondary-dark); }
+.mco-slide__value { font-size: 18px; line-height: 25.2px; font-weight: 700; color: var(--brand-secondary); }
+.mco-slide__tools { display: flex; align-items: center; gap: var(--space-8); flex: none; }
+.mco-slide__procs { display: inline-flex; align-items: center; gap: 17px; padding: var(--space-8) var(--space-12); background: var(--bg-element); border: 1px solid var(--brand-shade-40); border-radius: 12px; }
+.mco-slide__procs .mco-iconbtn { width: 28px; height: 28px; }
+.mco-slide__procs .mco-iconbtn--danger { color: var(--danger); }
+.mco-slide__sep { width: 1px; height: 24px; background: var(--brand-shade-40); }
+.mco-slide__toggle { display: inline-flex; align-items: center; justify-content: center; flex: none; width: 36px; height: 36px; padding: 0; border: 0; border-radius: 10px; background: var(--brand-primary); color: var(--bg-main); cursor: pointer; }
+.mco-slide__toggle:focus-visible { outline: 2px solid var(--brand-primary); outline-offset: 2px; }
+.mco-slide__body { display: flex; flex-direction: column; gap: 10px; padding: 0 var(--space-16) var(--space-16); }
+
+/* 9.5 بطاقة التفاصيل — MCO_DetailsCard («details card» 424:7542) */
+.mco-dcard { display: flex; flex-direction: column; gap: var(--space-16); padding: var(--space-16) var(--space-24); background: var(--bg-element); border: 1px solid var(--grey-soft); border-radius: var(--radius-md); box-shadow: var(--shadow-s); }
+.mco-dcard__title { display: flex; align-items: center; gap: 10px; margin: 0; font-size: 18px; line-height: 25.2px; font-weight: 700; color: var(--brand-secondary); }
+.mco-dcard__title::before { content: ""; flex: none; width: 4px; height: 24px; border-radius: 2px; background: var(--brand-default); }
+.mco-dcard__body { display: flex; flex-direction: column; gap: var(--space-8); min-width: 0; }
+.mco-dcard .table { margin: 0; }
+.mco-info.mco-info--lg { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); padding: var(--space-8) var(--space-16); }
+.mco-info--lg .mco-kv__k { font-size: 16px; line-height: 24px; }
+.mco-info--lg .mco-kv__v { font-size: 16px; line-height: 24px; }
+
+/* 9.6 النص القابل للتوسيع — MCO_ExpandableText */
+.mco-xtext { display: flex; flex-direction: column; align-items: center; gap: var(--space-8); }
+.mco-xtext__text { margin: 0; width: 100%; font-size: 14px; line-height: 20px; color: var(--font-secondary-dark); text-align: justify; }
+.mco-xtext.is-clamped .mco-xtext__text { max-height: 140px; overflow: hidden; -webkit-mask-image: linear-gradient(#000 45%, transparent); mask-image: linear-gradient(#000 45%, transparent); }
+
+/* 9.7 معرض الصور — MCO_Gallery */
+.mco-gallery { display: flex; align-items: stretch; gap: var(--space-16); }
+.mco-gallery__track { flex: 1; min-width: 0; display: flex; gap: 20px; overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; }
+.mco-gallery__track::-webkit-scrollbar { display: none; }
+.mco-gallery__item { flex: none; width: 280px; height: 169px; border: 1px solid var(--grey-soft); border-radius: var(--radius-md); overflow: hidden; scroll-snap-align: start; background: var(--bg-soft); }
+.mco-gallery__item img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.mco-gallery__nav { flex: none; width: 28px; display: inline-flex; align-items: center; justify-content: center; padding: 0; border: 0; border-radius: var(--radius-sm); background: var(--bg-soft); color: var(--font-primary); cursor: pointer; }
+.mco-gallery__nav:hover { background: var(--bg-light-grey); }
+
+/* 9.8 بطاقة الشخص — MCO_PersonCard */
+.mco-person { display: flex; align-items: center; gap: var(--space-16); min-height: 0; padding: var(--space-16) var(--space-24); background: var(--bg-element); border: 1px solid var(--info-stroke); border-radius: 16px; box-shadow: 0 0 2px #0000000a, 0 4px 4px #0000000f; }
+.mco-person__avatar { flex: none; width: 64px; height: 64px; padding: 3px; border: 2px solid var(--brand-default); border-radius: var(--radius-full); }
+.mco-person__avatar img, .mco-person__avatar .mco-person__initials { width: 100%; height: 100%; border-radius: var(--radius-full); object-fit: cover; display: flex; align-items: center; justify-content: center; }
+.mco-person__initials { background: var(--brand-shade-30); color: var(--brand-secondary); font-size: 18px; font-weight: 700; }
+.mco-person__info { display: flex; flex-direction: column; gap: var(--space-4); min-width: 0; }
+.mco-person__name { font-size: 16px; line-height: 24px; font-weight: 700; color: var(--brand-secondary); }
+.mco-person__role { font-size: 14px; line-height: 20px; color: var(--font-primary); }
+.mco-person__place { display: inline-flex; align-items: center; gap: var(--space-4); font-size: 12px; line-height: 18px; color: var(--font-secondary-dark); }
+.mco-person__place .mco-icon { width: 14px; height: 14px; }
+.mco-person-group { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--space-16); }
+.mco-person-group__col { display: flex; flex-direction: column; gap: var(--space-8); min-width: 0; }
+.mco-person-group__title { margin: 0; font-size: 16px; line-height: 22.4px; font-weight: 700; color: var(--font-secondary-dark); }
+@media (max-width: 720px) { .mco-person-group { grid-template-columns: minmax(0, 1fr); } }
+
+/* 9.9 شريط الإضافة مع العدّاد — MCO_AddBanner («Add Goal Banner» 599:9047) */
+.mco-addbanner { position: relative; overflow: hidden; display: flex; align-items: center; gap: var(--space-24); min-height: 108px; padding: var(--space-16) 29px var(--space-16) 44px; border: 1.5px solid var(--brand-shade-40); border-radius: var(--radius-md); background: linear-gradient(166deg, var(--bg-element) 11%, var(--brand-shade-20) 50%, var(--brand-shade-30) 89%); }
+.mco-addbanner::before { content: ""; position: absolute; inset-inline-end: -29px; top: -19px; width: 220px; height: 140px; background: url("data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 220 140%22%3E%3Ccircle cx=%2270%22 cy=%2270%22 r=%2298%22 fill=%22none%22 stroke=%22%23d6e7f4%22/%3E%3Ccircle cx=%2270%22 cy=%2270%22 r=%2266%22 fill=%22none%22 stroke=%22%23d6e7f4%22/%3E%3Ccircle cx=%2270%22 cy=%2270%22 r=%2234%22 fill=%22none%22 stroke=%22%23d6e7f4%22/%3E%3Ccircle cx=%22118%22 cy=%2222%22 r=%224%22 fill=%22%231668a4%22/%3E%3C/svg%3E") center / contain no-repeat; pointer-events: none; }
+.mco-addbanner > * { position: relative; }
+.mco-addbanner__tile { display: inline-flex; align-items: center; justify-content: center; flex: none; width: 56px; height: 56px; border-radius: var(--radius-md); background: linear-gradient(135deg, var(--brand-primary) 15%, var(--brand-default) 85%); color: var(--bg-main); box-shadow: 0 8px 18px -4px #1767a64d; }
+.mco-addbanner__tile .mco-icon { width: 28px; height: 28px; }
+.mco-addbanner__content { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 14px; }
+.mco-addbanner__title { margin: 0; font-size: 20px; line-height: 32px; font-weight: 700; color: var(--brand-secondary); }
+.mco-addbanner__progress { display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-8) 14px; }
+.mco-addbanner__steps { display: flex; gap: 6px; }
+.mco-addbanner__step { width: 36px; height: 6px; border-radius: 2px; background: var(--brand-shade-50); }
+.mco-addbanner__step.is-done { background: var(--brand-default); }
+.mco-addbanner__meta { font-size: 14px; line-height: 20px; color: var(--font-secondary-dark); }
+.mco-addbanner__meta b { color: var(--font-primary); }
+.mco-addbanner .btn { height: 56px; min-height: 56px; padding: var(--space-8) var(--space-16); gap: var(--space-8); background: var(--bg-element); border-color: var(--brand-secondary); color: var(--brand-secondary); border-radius: var(--radius-button-sm); font-size: 14.4px; box-shadow: 0 4px 6px #0d40660f; }
+.mco-addbanner .btn:hover { background: var(--brand-shade-20); color: var(--brand-secondary); }
+@media (max-width: 720px) { .mco-addbanner { flex-wrap: wrap; padding: var(--space-16); } .mco-addbanner .btn { width: 100%; } }
+
+/* 9.10 بطاقة المستخدم والقائمة الجانبية المحدّثة — MCO_UserCard + MCO_SideMenu («SideMenu» 74:6099) */
+.mco-side__brand { display: flex; align-items: center; justify-content: center; gap: var(--space-8); min-height: 55px; font-size: 20px; line-height: 32px; font-weight: 700; color: var(--brand-secondary); }
+.mco-side__brand img { width: 28px; height: 31px; flex: none; }
+.mco-side.is-collapsed .mco-side__brand span { display: none; }
+.mco-side > .mco-side__top > .mco-side__list { gap: var(--space-24); padding-inline: var(--space-8); }
+.mco-side.is-collapsed .mco-usercard { display: none; }
+.mco-usercard { display: flex; flex-direction: column; gap: var(--space-12); padding: var(--space-12); background: var(--bg-element); border: 1px solid var(--grey-soft); border-radius: var(--radius-md); }
+.mco-usercard__who { display: flex; align-items: center; gap: var(--space-12); }
+.mco-usercard__avatar { flex: none; width: 36px; height: 36px; border-radius: var(--radius-full); object-fit: cover; background: var(--brand-shade-30); color: var(--brand-secondary); display: inline-flex; align-items: center; justify-content: center; font-size: 13px; font-weight: 700; }
+.mco-usercard__text { display: flex; flex-direction: column; min-width: 0; }
+.mco-usercard__name { font-size: 14px; line-height: 20px; font-weight: 700; color: var(--font-primary); }
+.mco-usercard__role { font-size: 12px; line-height: 20px; color: var(--font-secondary-dark); }
+.mco-usercard__links { display: flex; justify-content: space-between; padding-top: var(--space-12); border-top: 1px solid var(--grey-soft); }
+.mco-usercard__link { display: inline-flex; align-items: center; gap: var(--space-4); padding: 0; border: 0; background: transparent; font: inherit; font-size: 12px; line-height: 20px; color: var(--font-secondary-dark); cursor: pointer; text-decoration: none; }
+.mco-usercard__link--danger { color: var(--danger); }
+.mco-usercard__link .mco-icon { width: 14px; height: 14px; }
+.mco-slide__procs.is-bare { padding: 0; border: 0; background: none; }
+
+/* 9.11 بطاقة قسم النموذج — MCO_FormSection («Frame 1820548551» 74:5178) */
+.mco-fsection { display: flex; flex-direction: column; }
+.mco-fsection__head { display: flex; align-items: center; gap: 10px; min-height: 70px; padding: var(--space-16) var(--space-32); background: var(--brand-shade-20); border: 1px solid var(--brand-shade-40); border-radius: 5px 5px 0 0; color: var(--brand-default); }
+.mco-fsection__head .mco-icon { width: 29px; height: 29px; }
+.mco-fsection__title { margin: 0; font-size: 20px; line-height: 32px; font-weight: 400; color: var(--brand-default); }
+.mco-fsection__body { display: flex; flex-direction: column; gap: var(--space-32); margin-top: -1px; padding: var(--space-32); background: var(--bg-main); border: 1px solid var(--grey-soft); border-radius: 0 0 5px 5px; }
+.mco-fsection__grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--space-32); }
+.mco-fsection__body .mco-field__label { font-size: 20px; line-height: 32px; font-weight: 700; color: var(--font-primary); }
+@media (max-width: 768px) { .mco-fsection__body { padding: var(--space-16); gap: var(--space-24); } .mco-fsection__grid { grid-template-columns: minmax(0, 1fr); gap: var(--space-24); } .mco-fsection__head { padding-inline: var(--space-16); } }
+
+/* 9.12 الحالة الفارغة — MCO_EmptyState («Frame 1820548552» 74:5204) */
+.mco-empty { display: flex; flex-direction: column; align-items: center; gap: var(--space-32); text-align: center; }
+.mco-empty__top { display: flex; flex-direction: column; align-items: center; gap: var(--space-16); }
+.mco-empty__icon { display: inline-flex; align-items: center; justify-content: center; width: 67px; height: 67px; padding: 14px; border-radius: var(--radius-sm); background: var(--brand-shade-30); color: var(--brand-default); }
+.mco-empty__icon .mco-icon { width: 39px; height: 39px; }
+.mco-empty__text { margin: 0; font-size: 20px; line-height: 32px; font-weight: 700; color: var(--font-primary); text-wrap: balance; }
+
+/* 9.13 التذييل — MCO_Footer («simple-footer» 370:5688) */
+.mco-footer { display: flex; align-items: center; justify-content: space-between; gap: var(--space-16) var(--space-24); flex-wrap: wrap; min-height: 72px; padding: var(--space-16) var(--space-24); background: var(--bg-main); border-top: 1px solid var(--grey-soft); font-size: 14px; line-height: 20px; color: var(--font-secondary-dark); }
+.mco-footer__brand { display: flex; align-items: center; gap: var(--space-12); }
+.mco-footer__crest { width: 24px; height: 24px; flex: none; }
+.mco-footer__links { display: flex; align-items: center; gap: var(--space-16); }
+.mco-footer__link { font-weight: 700; color: var(--font-secondary-dark); text-decoration: none; }
+.mco-footer__link:hover { color: var(--brand-default); text-decoration: underline; text-underline-offset: 4px; }
+@media (max-width: 600px) { .mco-footer { flex-direction: column; justify-content: center; text-align: center; } }
+
+/* 9.14 بطاقة السجل — MCO_RecordCard («#TableField» 61:6036) */
+.mco-record { display: flex; flex-direction: column; gap: var(--space-16); padding: var(--space-24); background: var(--bg-main); border: 1.5px solid var(--brand-shade-40); border-radius: var(--radius-md); box-shadow: 0 4px 14px #073f6814, 0 1px 3px #073f680f; }
+.mco-record__fields { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: var(--space-16) var(--space-32); padding-inline: var(--space-16); }
+.mco-record__field { display: flex; flex-direction: column; justify-content: space-between; gap: var(--space-8); min-width: 0; }
+.mco-record__label { font-size: 16px; line-height: 24px; color: var(--font-secondary-dark); }
+.mco-record__value { font-size: 20px; line-height: 32px; font-weight: 700; color: var(--brand-secondary); overflow-wrap: anywhere; }
+.mco-record__actions { display: flex; flex-wrap: wrap; justify-content: flex-end; gap: var(--space-4); padding-top: var(--space-16); border-top: 1px solid var(--grey-soft); }
+.mco-record__actions .btn { height: 36px; min-height: 36px; padding: var(--space-8); gap: var(--space-8); border-radius: 7px; font-size: 16px; line-height: 24px; font-weight: 700; }
+.mco-record__actions .btn .mco-icon { width: 20px; height: 20px; }
+.mco-record__actions .btn:not(.btn-primary):not(.btn-tertiary) { background: transparent; border-color: var(--brand-light); color: var(--brand-default); }
+.mco-record__actions .btn-tertiary:not(.btn-destructive) { color: var(--brand-default); }
+.mco-fsection__body .mco-field { max-width: none; }
+.mco-record__actions .btn { min-width: 0; }
+
+/* 9.15 مؤشر التحميل — MCO_Loader (شعار السيفين والنخلة يمتلئ بتدرّج الهوية من الأسفل للأعلى) */
+.mco-loader { --mco-loader-size: 80px; --mco-loader-dur: 2.6s; position: relative; display: inline-block; flex: none; width: var(--mco-loader-size); aspect-ratio: 17 / 19; overflow: hidden; background: var(--color-bg-brand-soft); -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='3.5 2.5 17 19'%3E%3Cpath fill-rule='evenodd' d='M14.2493 19.3059C14.8867 18.6196 14.7518 17.8444 14.2419 17.8356C14.4242 18.4053 14.0054 18.7737 13.8461 18.9632C13.4446 18.6129 13.0287 18.2236 12.5982 17.8227C14.6984 16.0605 16.9969 14.4974 20 14.4483C16.7666 13.2704 14.1856 15.2724 12.0004 17.2699C9.81499 15.2724 7.2342 13.2704 4 14.4483C7.00367 14.4974 9.30199 16.0603 11.4026 17.8227C10.9713 18.2236 10.5558 18.6129 10.1537 18.9632C9.99564 18.7737 9.57666 18.4053 9.75792 17.8356C9.24842 17.8444 9.11334 18.6196 9.75135 19.3059C9.49619 19.5214 9.08296 19.886 8.7541 19.9735C8.50119 20.0405 8.29817 19.9072 8.25239 19.6293C8.15591 19.0423 7.25945 19.13 7.36907 19.9591C7.46966 20.7152 8.37474 21.045 9.15029 20.6947C9.45801 20.5554 9.88068 20.1602 10.2276 19.8731C10.3863 20.0613 10.8051 20.4295 10.6232 21C11.1331 20.9904 11.2678 20.216 10.6304 19.5287C11.0832 19.1368 11.5377 18.7327 12.0004 18.3329C12.4627 18.7325 12.9174 19.1368 13.3707 19.5287C12.7329 20.216 12.8675 20.9904 13.3776 21C13.1958 20.4295 13.6145 20.0618 13.7728 19.8731C14.1203 20.1602 14.5426 20.5554 14.8507 20.6947C15.6263 21.045 16.5308 20.7152 16.6313 19.9591C16.741 19.13 15.8449 19.0423 15.7476 19.6293C15.7018 19.9072 15.4994 20.0403 15.2461 19.9735C14.9172 19.886 14.5042 19.5214 14.2493 19.3059ZM10.2832 8.31446C9.79611 9.62064 9.76921 11.0915 10.4696 12.7092C10.358 11.0293 10.7213 9.64167 11.3969 8.59598L11.5396 10.0365H11.3731L11.5396 11.7229H11.3731L11.5396 13.4088H11.3731L11.5394 15.0927L11.0688 15.5685H12.0004H12.9322L12.4613 15.0927L12.628 13.4088H12.4613L12.628 11.7229H12.4613L12.628 10.0365H12.4613L12.6041 8.59598C13.2795 9.64167 13.6431 11.0303 13.5314 12.7092C14.2312 11.0915 14.2049 9.62127 13.7178 8.31446C14.5449 9.30373 15.1847 10.4604 15.4723 11.9063C15.7708 10.0723 15.2605 8.57537 14.325 7.4139C15.2307 8.07646 16.0089 8.91622 16.5531 10.0519C16.4263 8.31425 15.5596 7.18756 14.3657 6.38028C15.3974 6.72239 16.2399 7.29501 16.9959 8.31155C16.4903 6.50855 15.3888 5.78643 14.0237 5.3804C14.9546 5.31148 15.8342 5.41788 16.7048 5.968C15.7599 4.67557 14.4915 4.46089 13.2052 4.60456C13.7461 4.32513 14.3548 4.18541 15.0086 4.28432C14.2716 3.73294 13.2885 3.67839 12.4471 4.14314L12.0004 3L11.5531 4.14252C10.7115 3.67839 9.72918 3.73273 8.99223 4.28432C9.64563 4.18562 10.2539 4.32513 10.795 4.60456C9.50912 4.46089 8.2411 4.67577 7.29558 5.968C8.16679 5.41788 9.0458 5.31148 9.97716 5.3804C8.61246 5.78643 7.51051 6.50855 7.00531 8.31155C7.76075 7.29521 8.60363 6.72239 9.63558 6.38028C8.44084 7.18735 7.57456 8.31425 7.44749 10.0519C7.99148 8.91622 8.77032 8.07646 9.67561 7.4139C8.74014 8.57537 8.22981 10.0723 8.52829 11.9063C8.81609 10.4604 9.45596 9.30373 10.2832 8.31446Z'/%3E%3C/svg%3E") center / contain no-repeat; mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='3.5 2.5 17 19'%3E%3Cpath fill-rule='evenodd' d='M14.2493 19.3059C14.8867 18.6196 14.7518 17.8444 14.2419 17.8356C14.4242 18.4053 14.0054 18.7737 13.8461 18.9632C13.4446 18.6129 13.0287 18.2236 12.5982 17.8227C14.6984 16.0605 16.9969 14.4974 20 14.4483C16.7666 13.2704 14.1856 15.2724 12.0004 17.2699C9.81499 15.2724 7.2342 13.2704 4 14.4483C7.00367 14.4974 9.30199 16.0603 11.4026 17.8227C10.9713 18.2236 10.5558 18.6129 10.1537 18.9632C9.99564 18.7737 9.57666 18.4053 9.75792 17.8356C9.24842 17.8444 9.11334 18.6196 9.75135 19.3059C9.49619 19.5214 9.08296 19.886 8.7541 19.9735C8.50119 20.0405 8.29817 19.9072 8.25239 19.6293C8.15591 19.0423 7.25945 19.13 7.36907 19.9591C7.46966 20.7152 8.37474 21.045 9.15029 20.6947C9.45801 20.5554 9.88068 20.1602 10.2276 19.8731C10.3863 20.0613 10.8051 20.4295 10.6232 21C11.1331 20.9904 11.2678 20.216 10.6304 19.5287C11.0832 19.1368 11.5377 18.7327 12.0004 18.3329C12.4627 18.7325 12.9174 19.1368 13.3707 19.5287C12.7329 20.216 12.8675 20.9904 13.3776 21C13.1958 20.4295 13.6145 20.0618 13.7728 19.8731C14.1203 20.1602 14.5426 20.5554 14.8507 20.6947C15.6263 21.045 16.5308 20.7152 16.6313 19.9591C16.741 19.13 15.8449 19.0423 15.7476 19.6293C15.7018 19.9072 15.4994 20.0403 15.2461 19.9735C14.9172 19.886 14.5042 19.5214 14.2493 19.3059ZM10.2832 8.31446C9.79611 9.62064 9.76921 11.0915 10.4696 12.7092C10.358 11.0293 10.7213 9.64167 11.3969 8.59598L11.5396 10.0365H11.3731L11.5396 11.7229H11.3731L11.5396 13.4088H11.3731L11.5394 15.0927L11.0688 15.5685H12.0004H12.9322L12.4613 15.0927L12.628 13.4088H12.4613L12.628 11.7229H12.4613L12.628 10.0365H12.4613L12.6041 8.59598C13.2795 9.64167 13.6431 11.0303 13.5314 12.7092C14.2312 11.0915 14.2049 9.62127 13.7178 8.31446C14.5449 9.30373 15.1847 10.4604 15.4723 11.9063C15.7708 10.0723 15.2605 8.57537 14.325 7.4139C15.2307 8.07646 16.0089 8.91622 16.5531 10.0519C16.4263 8.31425 15.5596 7.18756 14.3657 6.38028C15.3974 6.72239 16.2399 7.29501 16.9959 8.31155C16.4903 6.50855 15.3888 5.78643 14.0237 5.3804C14.9546 5.31148 15.8342 5.41788 16.7048 5.968C15.7599 4.67557 14.4915 4.46089 13.2052 4.60456C13.7461 4.32513 14.3548 4.18541 15.0086 4.28432C14.2716 3.73294 13.2885 3.67839 12.4471 4.14314L12.0004 3L11.5531 4.14252C10.7115 3.67839 9.72918 3.73273 8.99223 4.28432C9.64563 4.18562 10.2539 4.32513 10.795 4.60456C9.50912 4.46089 8.2411 4.67577 7.29558 5.968C8.16679 5.41788 9.0458 5.31148 9.97716 5.3804C8.61246 5.78643 7.51051 6.50855 7.00531 8.31155C7.76075 7.29521 8.60363 6.72239 9.63558 6.38028C8.44084 7.18735 7.57456 8.31425 7.44749 10.0519C7.99148 8.91622 8.77032 8.07646 9.67561 7.4139C8.74014 8.57537 8.22981 10.0723 8.52829 11.9063C8.81609 10.4604 9.45596 9.30373 10.2832 8.31446Z'/%3E%3C/svg%3E") center / contain no-repeat; }
+.mco-loader--sm { --mco-loader-size: 40px; }
+.mco-loader--lg { --mco-loader-size: 160px; }
+.mco-loader__level { position: absolute; inset-inline: 0; top: 0; height: 110%; transform: translateY(100%); -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 110' preserveAspectRatio='none'%3E%3Cpath d='M0 10q3 -7 6 0t6 0t6 0t6 0V110H0Z'/%3E%3C/svg%3E") 0 0 / 50% 100% repeat-x; mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 110' preserveAspectRatio='none'%3E%3Cpath d='M0 10q3 -7 6 0t6 0t6 0t6 0V110H0Z'/%3E%3C/svg%3E") 0 0 / 50% 100% repeat-x; animation: mco-loader-rise var(--mco-loader-dur) cubic-bezier(.45,.05,.35,1) infinite, mco-loader-wave 1.4s linear infinite; }
+.mco-loader__fill { position: absolute; inset-inline: 0; top: 0; height: 90.909%; background: linear-gradient(to top, var(--color-bg-loader-start), var(--color-bg-loader-end)); animation: mco-loader-hold var(--mco-loader-dur) cubic-bezier(.45,.05,.35,1) infinite; }
+@keyframes mco-loader-rise { 0% { transform: translateY(100%); opacity: 1; } 78%, 90% { transform: translateY(-9.0909%); opacity: 1; } 100% { transform: translateY(-9.0909%); opacity: 0; } }
+@keyframes mco-loader-hold { 0% { transform: translateY(-110%); } 78%, 100% { transform: translateY(10%); } }
+@keyframes mco-loader-wave { from { -webkit-mask-position: 0 0; mask-position: 0 0; } to { -webkit-mask-position: 100% 0; mask-position: 100% 0; } }
+.mco-loader-page { position: fixed; inset: 0; z-index: 1000; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: var(--space-24); background: var(--color-bg-page); }
+.mco-loader-page__label { margin: 0; font-size: 18px; line-height: 25.2px; font-weight: 700; color: var(--color-text-secondary); }
+@media (prefers-reduced-motion: reduce) { .mco-loader__level { animation-duration: calc(var(--mco-loader-dur) * 2), 0s; } .mco-loader__fill { animation-duration: calc(var(--mco-loader-dur) * 2); } }
+
+/* تكملة 8.6 — أولوية أعلى من قواعد OutSystems UI للرقائق والبحث */
+.vscomp-ele .vscomp-wrapper.show-value-as-tags .vscomp-value-tag { padding: var(--space-4) var(--space-8); font-weight: 400; font-size: 14px; color: var(--font-primary); }
+.vscomp-ele .vscomp-wrapper.show-value-as-tags .vscomp-value-tag .vscomp-value-tag-clear-button { position: static; flex: none; width: 18px; height: 18px; background: transparent; border-radius: 0; }
+.vscomp-ele .vscomp-wrapper.show-value-as-tags .vscomp-value-tag .vscomp-value-tag-clear-button .vscomp-clear-icon { width: 18px; height: 18px; }
+.vscomp-ele .vscomp-wrapper .vscomp-search-container { display: flex; align-items: center; gap: var(--space-8); height: auto; padding: var(--space-8) var(--space-16); border: 0; }
+.vscomp-ele .vscomp-wrapper .vscomp-search-container::before, .vscomp-dropbox-container .vscomp-search-container::before { display: block; position: static; }
+.vscomp-wrapper.text-direction-rtl .vscomp-search-container { flex-direction: row-reverse; }
+
+/* 9.10 تكملة — طول القائمة وزر الطي/الفتح حسب Figma «SideMenu» 74:6099 */
+.mco-side { min-height: 847px; transition: width 200ms ease; background: var(--color-bg-sidebar); } /* bg/sidebar كما في Figma */
+.mco-shell > .mco-side, .mco-shell .mco-side { min-height: 100vh; position: sticky; top: 0; align-self: flex-start; }
+.mco-side__collapse { align-self: flex-start; width: 40px; height: 40px; margin-inline-start: 5px; color: var(--font-primary); }
+.mco-side.is-collapsed .mco-side__collapse { align-self: center; margin-inline-start: 0; }
+.mco-side.is-collapsed .mco-side__label, .mco-side.is-collapsed .mco-side__item > .mco-icon + .mco-icon { display: none; }
+@media (prefers-reduced-motion: reduce) { .mco-side { transition: none; } }
+
+/* التذييل داخل قالب الصفحة */
+.mco-shell__footer:has(> .mco-footer) { display: block; min-height: 0; padding: 0; border-top: 0; }
+
+/* الأزرار المتجاورة داخل مكوّنات MCO: المسافة من gap الحاوية، لا من هامش OutSystems UI (.btn + .btn = 24px يسار) */
+[class*="mco-"] > .btn + .btn, .phone .layout:not(.layout-native) [class*="mco-"] > .btn + .btn { margin: 0; }
+
+/* الحوار المضمّن — الخطِر: العنوان فقط باللون الأحمر، والنص بلون text/secondary (مثل Figma) لقراءة أوضح،
+   والحد بلون status/danger/border مثل بقية الحالات (كان أفتح من الخلفية تقريباً) */
+.mco-dialog--danger { border-color: var(--color-status-danger-border); }
+.mco-dialog--danger .mco-dialog__title { color: var(--color-status-danger-text); }
+.mco-dialog--danger .mco-dialog__body { color: var(--color-text-secondary); }
+
+/* ===========================================================================
+   11. تحديث مكتبة Figma (نوفمبر 2026)
+   شريط التنقل الجديد (تدرّج + تموّجات + نوع stepper)، مؤشر الخطوات الدائري، بطاقة السجل،
+   شريط الإضافة بزرّين، ومكوّنات جديدة: الصورة الرمزية، حقل المعلومة، مربع التاريخ، عنصر الحقيقة،
+   رأس البطاقة، بطاقة النشاط، الحالة الفارغة كبطاقة، عنصر الملف، رأس صفحة التفاصيل.
+   كل الألوان متغيرات دلالية من ملف التوكنز، فتتبدّل في الوضع الداكن تلقائياً.
+   =========================================================================== */
+
+/* 11.1 شريط التنقل — «navbar» 2:20663: خلفية متدرّجة وتموّجات، والشريط العلوي متدرّج */
+.mco-nav { position: relative; isolation: isolate; overflow: hidden; background: linear-gradient(var(--mco-ga), var(--color-bg-brand-soft) 0%, var(--color-bg-brand-subtle) 55%, var(--color-bg-surface) 100%), var(--color-bg-sidebar); box-shadow: 0 1px 3px #00000033; }
+.mco-nav::before { content: ""; position: absolute; inset: 0; z-index: -1; pointer-events: none; opacity: .3;
+  background: repeating-radial-gradient(circle at var(--mco-ex) 78%, transparent 0 11.2px, var(--color-border-focus) 11.2px 12px);
+  -webkit-mask-image: radial-gradient(circle at var(--mco-ex) 78%, #000 0, transparent 410px); mask-image: radial-gradient(circle at var(--mco-ex) 78%, #000 0, transparent 410px); }
+.mco-nav__bar { background: linear-gradient(var(--mco-ga), var(--color-action-primary-default) 0%, var(--color-bg-navbar) 45%, var(--color-bg-navbar) 100%); border-bottom: 1px solid #ffffff4d; }
+.mco-nav__body { padding-top: 14px; padding-bottom: var(--space-24); }
+.mco-nav__body:has(> .mco-nav__tabs:last-child) { padding-bottom: 0; }
+.mco-nav .mco-crumbs, .mco-nav .mco-crumbs a, .mco-nav .mco-crumbs__link { font-size: 14px; line-height: 20px; color: var(--color-text-tertiary); }
+.mco-nav .mco-crumbs .mco-icon ~ .mco-icon { color: var(--color-text-disabled); }
+.mco-nav__title { line-height: 36px; color: var(--color-text-brand); }
+.mco-nav__back { border: 0; background: var(--color-bg-subtle); border-radius: var(--radius-sm); }
+.mco-nav__titlerow .btn { border-radius: var(--radius-sm); }
+@media (max-width: 600px) { .mco-nav__titlerow { flex-wrap: wrap; } .mco-nav__titlerow .mco-nav__title { flex-basis: 0; min-width: 60%; } }
+
+/* 11.2 مؤشر الخطوات الدائري — «Stepper step» 643:7093، ونوع navbar = stepper
+   الحالات: لم يبدأ (بدون كلاس) · قيد التعبئة (is-active) · تم التعبئة (is-done) */
+.mco-csteps { display: flex; align-items: center; gap: var(--space-12); margin: 0; padding: 0; list-style: none; overflow-x: auto; scrollbar-width: none; }
+.mco-csteps::-webkit-scrollbar { display: none; }
+.mco-nav__steps { min-height: 68px; padding: 0 var(--space-32); background: color-mix(in srgb, var(--color-bg-surface) 60%, transparent); }
+.mco-cstep { display: flex; align-items: center; gap: var(--space-12); flex: none; padding: var(--space-4); }
+.mco-cstep__dot { display: inline-flex; align-items: center; justify-content: center; flex: none; box-sizing: border-box; width: 36px; height: 36px; border: 1.5px solid var(--color-border-strong); border-radius: 50%; background: var(--color-bg-surface); font-size: 16px; line-height: 20px; font-weight: 700; color: var(--color-text-tertiary); }
+.mco-cstep__dot .mco-icon { width: 20px; height: 20px; }
+.mco-cstep__text { display: flex; flex-direction: column; min-width: 0; }
+.mco-cstep__caption { font-size: 12px; line-height: 18px; color: var(--color-text-tertiary); white-space: nowrap; }
+.mco-cstep__title { font-size: 16px; line-height: 22px; font-weight: 700; color: var(--color-text-primary); white-space: nowrap; }
+.mco-cstep.is-active .mco-cstep__dot { border: 0; background: var(--color-action-active); box-shadow: 0 0 0 4px var(--color-border-brand-subtle); font-weight: 800; color: var(--color-text-on-brand); }
+.mco-cstep.is-active .mco-cstep__title { color: var(--color-action-active); }
+.mco-cstep.is-done .mco-cstep__dot { border: 0; background: var(--color-action-primary-default); color: var(--color-text-on-brand); }
+.mco-csteps__line { flex: none; width: 96px; height: 2px; border-radius: 1px; background: var(--color-border-strong); }
+@media (max-width: 720px) { .mco-csteps__line { width: 32px; } .mco-cstep:not(.is-active) .mco-cstep__text { display: none; } }
+
+/* 11.3 بطاقة السجل — «#TableField /)» 673:7244: حد متدرّج، وأنواع زيارة واستقبال */
+.mco-record { border: 1.5px solid transparent; background: linear-gradient(var(--color-bg-surface), var(--color-bg-surface)) padding-box, linear-gradient(to top left, var(--color-border-brand-subtle), var(--color-bg-brand-muted) 45%, var(--color-border-focus)) border-box; }
+.mco-record__label { color: var(--color-text-tertiary); }
+.mco-record__value { color: var(--color-text-brand); }
+.mco-record__body { display: flex; flex-direction: column; gap: var(--space-24); padding-inline: var(--space-16); }
+.mco-record__body > .mco-record__fields { padding-inline: 0; }
+.mco-record__purpose { display: flex; flex-direction: column; align-items: flex-start; gap: var(--space-8); }
+.mco-record__purpose-text { margin: 0; font-size: 16px; line-height: 24px; color: var(--color-text-primary); }
+.mco-record__purpose.is-clamped .mco-record__purpose-text { display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+.mco-record__more { display: inline-flex; align-items: center; gap: var(--space-4); padding: 0; border: 0; background: none; font: inherit; font-size: 14px; line-height: 20px; font-weight: 700; color: var(--color-text-link); cursor: pointer; }
+.mco-record__more .mco-icon { width: 16px; height: 16px; }
+.mco-record__actions { justify-content: space-between; border-top-color: var(--color-border-brand-subtle); }
+.mco-record__tools { display: flex; gap: var(--space-8); margin-inline-start: auto; }
+.mco-record__actions .btn-tertiary.btn-destructive { color: var(--color-status-danger-text); }
+
+/* 11.4 حقل المعلومة — «#Info Field» 656:7158: نص، أو دولة بعلم، أو تصنيف كرقاقة */
+.mco-ifield { display: flex; flex-direction: column; justify-content: flex-end; gap: var(--space-8); min-width: 0; }
+.mco-ifield__label { font-size: 16px; line-height: 24px; color: var(--color-text-tertiary); }
+.mco-ifield__value { display: inline-flex; align-items: center; gap: var(--space-8); font-size: 20px; line-height: 32px; font-weight: 700; color: var(--color-text-brand); overflow-wrap: anywhere; }
+.mco-ifield__flag { flex: none; width: 30px; height: 20px; border: 1px solid var(--color-border-default); border-radius: 3px; object-fit: cover; }
+.mco-ifield__chip { align-self: flex-start; display: inline-flex; align-items: center; padding: var(--space-4) var(--space-12); border: 1px solid var(--color-border-brand-subtle); border-radius: var(--radius-sm); background: var(--color-bg-brand-soft); font-size: 14px; line-height: 20px; font-weight: 700; color: var(--color-text-primary); }
+
+/* 11.5 شريط الإضافة بزرّين — «Add Goal Banner» 755:7538 (tow actions) */
+.mco-addbanner__actions { display: flex; flex-wrap: wrap; gap: var(--space-8); }
+.mco-addbanner .mco-addbanner__actions .btn { height: 36px; min-height: 36px; padding: var(--space-8); font-size: 16px; line-height: 24px; box-shadow: none; border-radius: 7px; background: transparent; border-color: var(--color-border-focus); color: var(--color-text-link); }
+.mco-addbanner .mco-addbanner__actions .btn.btn-primary { border-radius: var(--radius-md); background: var(--color-action-primary-default); border-color: var(--color-border-brand); color: var(--color-text-on-brand); }
+@media (max-width: 720px) { .mco-addbanner .mco-addbanner__actions .btn { width: auto; flex: 1; } }
+
+/* 11.6 الصورة الرمزية — «Avatar» 664:7171: صورة، أو أيقونة شخص، أو إضافة */
+.mco-avatar { display: inline-flex; align-items: center; justify-content: center; flex: none; box-sizing: border-box; width: 42px; height: 42px; padding: 0; border: 0; border-radius: 50%; overflow: hidden; background: var(--color-bg-brand-soft); color: var(--color-text-brand); }
+.mco-avatar .mco-icon { width: 16px; height: 16px; }
+.mco-avatar--image { border: 1px solid var(--color-border-default); background: var(--color-bg-surface); }
+.mco-avatar--image img { width: 100%; height: 100%; object-fit: cover; }
+button.mco-avatar { cursor: pointer; } button.mco-avatar:hover { background: var(--color-bg-brand-hover); }
+
+/* 11.7 مربع التاريخ — «Date tile» 718:7416 */
+.mco-datetile { display: flex; flex-direction: column; align-items: center; flex: none; box-sizing: border-box; width: 64px; height: 64px; padding-bottom: var(--space-4); overflow: hidden; border: 1px solid var(--color-border-brand-subtle); border-radius: 10px; background: var(--color-bg-brand-subtle); text-align: center; }
+.mco-datetile__month { align-self: stretch; height: 16px; display: flex; align-items: center; justify-content: center; background: var(--color-icon-brand-strong); font-size: 11px; line-height: 12px; font-weight: 700; color: var(--color-text-on-brand); }
+.mco-datetile__day { font-size: 22px; line-height: 30px; font-weight: 800; color: var(--color-text-brand); }
+.mco-datetile__year { font-size: 11px; line-height: 12px; color: var(--color-text-secondary); }
+
+/* 11.8 عنصر الحقيقة — «Fact item» 718:7473: أيقونة في دائرة مع عنوان وقيمة */
+.mco-fact { display: flex; align-items: center; gap: var(--space-12); min-width: 0; padding: var(--space-16) var(--space-24); }
+.mco-fact__icon { display: inline-flex; align-items: center; justify-content: center; flex: none; width: 40px; height: 40px; border-radius: 50%; background: var(--color-bg-brand-subtle); color: var(--color-text-brand); }
+.mco-fact__icon .mco-icon { width: 20px; height: 20px; }
+.mco-fact--success .mco-fact__icon { background: var(--color-status-success-icon-bg); color: var(--color-status-success-icon); }
+.mco-fact__text { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
+.mco-fact__label { font-size: 13px; line-height: 18px; color: var(--color-text-secondary); }
+.mco-fact__value { font-size: 15px; line-height: 20px; font-weight: 700; color: var(--color-text-primary); }
+.mco-fact__text .mco-status { align-self: flex-start; }
+
+/* 11.9 رأس البطاقة — «Card header» 718:8456: شريط عمودي وعنوان وعدّاد */
+.mco-cardhead { display: flex; align-items: center; gap: var(--space-12); min-height: 32px; }
+.mco-cardhead::before { content: ""; flex: none; width: 4px; height: 24px; border-radius: 2px; background: var(--color-icon-brand-strong); }
+.mco-cardhead__title { margin: 0; font-size: 20px; line-height: 32px; font-weight: 700; color: var(--color-text-brand); }
+.mco-cardhead__count { display: inline-flex; align-items: center; padding: 2px 10px; border-radius: 1000px; background: var(--color-bg-brand-soft); font-size: 13px; line-height: 15px; font-weight: 700; color: var(--color-text-brand); }
+
+/* 11.10 بطاقة النشاط — «Activity card» 719:7630 */
+.mco-activity { display: flex; flex-direction: column; gap: 14px; padding: 18px 20px; border: 1px solid var(--color-border-default); border-radius: 10px; background: var(--color-bg-surface); }
+.mco-activity__top { display: flex; align-items: center; gap: 14px; }
+.mco-activity__divider { height: 1px; background: var(--color-border-default); }
+.mco-activity__fields { display: flex; flex-direction: column; gap: var(--space-12); }
+.mco-activity__kv { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
+.mco-activity__label { font-size: 12px; line-height: 20px; color: var(--color-text-secondary); }
+.mco-activity__value { font-size: 15px; line-height: 20px; font-weight: 700; color: var(--color-text-primary); }
+
+/* 11.11 الحالة الفارغة كبطاقة — «Empty state» 719:7652 (Style = card في MCO_EmptyState) */
+.mco-empty--card { gap: var(--space-12); padding: 56px var(--space-32); border: 1px solid var(--color-border-default); border-radius: var(--radius-md); background: var(--color-bg-surface); box-shadow: 0 1px 3px #00000033; }
+.mco-empty--card .mco-empty__top { gap: var(--space-12); }
+.mco-empty--card .mco-empty__icon { width: 72px; height: 72px; padding: 0; border-radius: 50%; background: var(--color-bg-brand-subtle); color: var(--color-text-brand); }
+.mco-empty--card .mco-empty__icon .mco-icon { width: 32px; height: 32px; }
+.mco-empty--card .mco-empty__text { color: var(--color-text-primary); }
+.mco-empty__desc { margin: 0; font-size: 15px; line-height: 22px; color: var(--color-text-secondary); text-wrap: balance; }
+
+/* 11.12 عنصر الملف — «File item» 719:7695: نوع الملف واسمه وتاريخه، وأزرار عرض وتحميل، وملاحظات */
+.mco-file { overflow: hidden; border: 1px solid var(--color-border-default); border-radius: var(--radius-md); background: var(--color-bg-surface); }
+.mco-file__row { display: flex; align-items: center; gap: var(--space-16); padding: var(--space-16) var(--space-24); }
+.mco-file__meta { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: var(--space-4); }
+.mco-file__name { font-size: 16px; line-height: 24px; font-weight: 700; color: var(--color-text-primary); overflow-wrap: anywhere; }
+.mco-file__sub { font-size: 13px; line-height: 18px; color: var(--color-text-secondary); }
+.mco-file__actions { display: flex; align-items: center; gap: var(--space-8); flex: none; }
+.mco-file__actions .btn { height: 32px; min-height: 32px; padding: var(--space-8); border-radius: var(--radius-button-sm); font-size: 14px; line-height: 20px; }
+.mco-file__actions .btn:not(.btn-primary):not(.btn-tertiary) { background: transparent; border-color: var(--color-border-focus); color: var(--color-text-link); }
+.mco-file__actions .btn-tertiary { color: var(--color-text-link); }
+.mco-file__notes { display: flex; flex-wrap: wrap; gap: var(--space-8); padding: 14px var(--space-24); border-top: 1px solid var(--color-border-default); font-size: 14px; line-height: 20px; color: var(--color-text-primary); }
+.mco-file__notes b { color: var(--color-text-secondary); }
+@media (max-width: 600px) { .mco-file__row { flex-wrap: wrap; } .mco-file__actions { width: 100%; } }
+/* أيقونة نوع الملف مرسومة بالـ CSS (تقريب لـ «File Types» 2:20032): ورقة بزاوية مطوية وشريط بلون النوع فيه الامتداد */
+.mco-filetype { position: relative; flex: none; box-sizing: border-box; width: 31px; height: 40px; margin-inline: 4.5px; border: 1px solid var(--color-border-default); border-radius: 2px; background: #fff; clip-path: polygon(0 0, 72% 0, 100% 22%, 100% 100%, 0 100%); --mco-ft: var(--color-text-disabled); }
+.mco-filetype::before { content: ""; position: absolute; top: -1px; right: -1px; width: 28%; height: 22%; background: var(--color-text-disabled); clip-path: polygon(0 0, 100% 100%, 0 100%); }
+.mco-filetype__ext { position: absolute; inset-inline: -1px; bottom: -1px; height: 12px; display: flex; align-items: center; justify-content: center; background: var(--mco-ft); font-size: 8px; line-height: 1; font-weight: 700; letter-spacing: .3px; text-transform: uppercase; color: #fff; direction: ltr; }
+.mco-filetype--pdf { --mco-ft: var(--color-status-danger-icon); }
+.mco-filetype--doc { --mco-ft: var(--color-action-primary-default); }
+.mco-filetype--png, .mco-filetype--jpg { --mco-ft: var(--color-status-success-icon); }
+.mco-filetype--zip { --mco-ft: var(--color-icon-secondary); }
+
+/* 11.13 رأس صفحة التفاصيل — «Detail header» 719:7763: هوية السجل وزر تعديل، وصف حقائق تحته */
+.mco-dhead { overflow: hidden; border: 1px solid var(--color-border-default); border-radius: 12px; background: var(--color-bg-surface); }
+.mco-dhead__top { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: var(--space-16); padding: var(--space-24); }
+.mco-dhead__id { display: flex; align-items: center; gap: var(--space-16); min-width: 0; }
+.mco-dhead__flag { flex: none; width: 60px; height: 40px; border: 1px solid var(--color-border-default); border-radius: 2px; object-fit: cover; }
+.mco-dhead__text { display: flex; flex-direction: column; gap: 6px; min-width: 0; }
+.mco-dhead__titlerow { display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-12); }
+.mco-dhead__title { margin: 0; font-size: 24px; line-height: 32px; font-weight: 800; color: var(--color-text-brand); }
+.mco-dhead__desc { margin: 0; font-size: 16px; line-height: 24px; color: var(--color-text-secondary); }
+.mco-dhead__top > .btn { flex: none; margin-inline-start: auto; }
+.mco-dhead__facts { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); border-top: 1px solid var(--color-border-default); background: var(--color-bg-subtle); }
+.mco-dhead__facts > .mco-fact + .mco-fact { border-inline-start: 1px solid var(--color-border-default); }
+@media (max-width: 600px) { .mco-dhead__facts > .mco-fact + .mco-fact { border-inline-start: 0; border-top: 1px solid var(--color-border-default); } }
+
+/* ===========================================================================
+   10. دعم الإنجليزي (LTR)
+   القاعدة: العربي يضيف OutSystems كلاس is-rtl على body، والإنجليزي بدونه.
+   - المكوّنات تتبع اتجاه الصفحة (كانت مثبّتة على rtl في bundle.css).
+   - المسافات والمحاذاة كُتبت منطقية (inline-start/end) فتنقلب تلقائياً.
+   - ما لا يمكن كتابته منطقياً (أسهم مؤشر الخطوات، اتجاه التدرّجات، أيقونات الاتجاه)
+     له نسخة LTR تحت body:not(.is-rtl) أو أي حاوية dir="ltr".
+   =========================================================================== */
+.mco-btn, .mco-field, .mco-choice, .mco-card-choice, .mco-status, .mco-alert, .mco-toast, .mco-tabs, .mco-stepper, .mco-pagination, .mco-popup,
+.mco-dropdown, .mco-chips, .mco-addmore, .mco-wizard, .mco-pfooter, .mco-actionsbar, .mco-subheader, .mco-filterbar, .mco-table, .mco-mcard, .mco-side, .mco-nav,
+.mco-dialog, .mco-formpopup, .mco-timeline, .mco-xcard, .mco-info, .mco-segtabs, .mco-points, .mco-quarters, .mco-ctag, .mco-shell { direction: inherit; }
+
+/* 10.1 محاذاة ومسافات منطقية بدل الفيزيائية */
+.mco-field__control, .mco-tabs--list .mco-tab__label, .mco-dropdown__head, .mco-table__th, .mco-table__td, .mco-side__item { text-align: start; }
+.mco-pfooter__size select { padding: 0; padding-inline: var(--space-12) 40px; }
+.mco-pfooter__size .mco-icon { left: auto; inset-inline-end: var(--space-12); }
+.mco-side__item.is-active:not(.mco-side__item--sub)::before, .app-menu-links a.active::before { border-radius: 0; border-start-end-radius: var(--radius-sm); border-end-end-radius: var(--radius-sm); }
+.mco-stat { padding: 16px 0 8px; padding-inline: 19px var(--space-16); }
+.mco-summary { padding: var(--space-32) 0; padding-inline: 53px var(--space-24); }
+.mco-addbanner { padding: var(--space-16) 0; padding-inline: 29px 44px; }
+.mco-step { padding: var(--space-8) 0; padding-inline: var(--space-16) 32px; }
+.mco-step--final, .mco-step:last-child:not(:first-child) { padding-inline-end: var(--space-16); }
+
+/* 10.2 اتجاه التدرّجات: من بداية السطر إلى نهايته */
+:root { --mco-ga: 270deg; --mco-ex: 100%; }
+.is-rtl { --mco-ga: 90deg; --mco-ex: 0%; }
+[dir="ltr"] { --mco-ga: 270deg; --mco-ex: 100%; } [dir="rtl"] { --mco-ga: 90deg; --mco-ex: 0%; }
+.mco-tabs-main .osui-tabs__header-item.osui-tabs--is-active { background: linear-gradient(var(--mco-ga), var(--color-action-selected), var(--color-action-primary-default)); }
+.mco-summary { background: linear-gradient(var(--mco-ga), var(--color-bg-brand-subtle), var(--color-bg-brand-hover)); }
+
+/* 10.3 مؤشر الخطوات في LTR: رأس السهم يمين والتجويف يسار */
+:is(body:not(.is-rtl):not(.mco-guide), [dir="ltr"]) .mco-step { clip-path: polygon(0 0, calc(100% - 18px) 0, 100% 50%, calc(100% - 18px) 100%, 0 100%, 18px 50%); }
+:is(body:not(.is-rtl):not(.mco-guide), [dir="ltr"]) .mco-step::before { clip-path: polygon(0 0, calc(100% - 17.5px) 0, calc(100% - 0.3px) 50%, calc(100% - 17.5px) 100%, 0 100%, 17.3px 50%) !important; }
+:is(body:not(.is-rtl):not(.mco-guide), [dir="ltr"]) .mco-step--initial, :is(body:not(.is-rtl):not(.mco-guide), [dir="ltr"]) .mco-step:first-child { clip-path: polygon(0 0, calc(100% - 18px) 0, 100% 50%, calc(100% - 18px) 100%, 0 100%); }
+:is(body:not(.is-rtl):not(.mco-guide), [dir="ltr"]) .mco-step--initial::before, :is(body:not(.is-rtl):not(.mco-guide), [dir="ltr"]) .mco-step:first-child::before { clip-path: polygon(0 0, calc(100% - 17.5px) 0, calc(100% - 0.3px) 50%, calc(100% - 17.5px) 100%, 0 100%) !important; }
+:is(body:not(.is-rtl):not(.mco-guide), [dir="ltr"]) .mco-step--final, :is(body:not(.is-rtl):not(.mco-guide), [dir="ltr"]) .mco-step:last-child:not(:first-child) { clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%, 18px 50%); }
+:is(body:not(.is-rtl):not(.mco-guide), [dir="ltr"]) .mco-step--final::before, :is(body:not(.is-rtl):not(.mco-guide), [dir="ltr"]) .mco-step:last-child:not(:first-child)::before { clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%, 17.3px 50%) !important; }
+
+/* 10.4 أيقونات الاتجاه: في النظام arrow-left = «التالي»، فتنعكس في LTR */
+:is(body:not(.is-rtl):not(.mco-guide), [dir="ltr"]) :is(.mco-i-arrow-left, .mco-i-arrow-right, .mco-i-expand-menu, .mco-i-collapse-menu, .mco-i-sidebar-left, .mco-i-sidebar-right, .mco-i-backward-item, .mco-i-logout) { transform: scaleX(-1); }
+:is(body:not(.is-rtl):not(.mco-guide), [dir="ltr"]) :is(.mco-i-arrow-left, .mco-i-arrow-right).mco-flip { transform: none; }
+
+/* 10.5 المفتاح (Switch) في LTR */
+:is(body:not(.is-rtl):not(.mco-guide), [dir="ltr"]) .mco-choice--switch .mco-choice__input:checked + .mco-choice__mark::after { transform: translateX(22px); }
+

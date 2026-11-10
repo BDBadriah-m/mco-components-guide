@@ -1,0 +1,427 @@
+<title>دليل مكونات MCO</title>
+<script>document.documentElement.setAttribute('data-theme', 'light'); document.documentElement.style.colorScheme = 'light';</script>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Almarai:wght@300;400;700;800&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* ===== OutSystems UI 2.30 (مترجم من المصدر) ===== */
+/*OSUI*/
+/* ===== MCO_OutSystems_Theme.css ===== */
+/*THEME*/
+/* ===== صفحة الدليل =====
+   التخطيط: رأس قصير، فهرس بقسمين، قواعد مشتركة، ثم بطاقة لكل مكوّن (معاينة ← شجرة الودجات + الخصائص).
+   الصفحة فاتحة افتراضياً، وزر «الوضع الداكن» يضيف data-theme="dark" على <html> كما في ملف التوكنز. */
+:root {
+  --gd-ground: #f3f5f8;
+  --gd-ink: var(--font-primary);
+  --gd-quiet: var(--font-secondary-dark);
+  --gd-line: #dfe4ea;
+  --gd-card: #ffffff;
+  --gd-os: #1668a4;
+  --gd-block: #a85a0a;
+  --gd-mono: "IBM Plex Mono", ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace;
+  color-scheme: light;
+}
+html[data-theme="dark"] { color-scheme: dark; }
+html[data-theme="dark"] { --gd-ground: var(--color-gray-950); --gd-line: var(--color-gray-800); --gd-card: var(--color-gray-925); --gd-os: var(--color-blue-300); --gd-block: #e0a15c; }
+[data-theme="dark"] .tree, [data-theme="dark"] .notes, [data-theme="dark"] .conv-card { background: var(--color-gray-900) !important; color: var(--color-text-primary); }
+html { scroll-behavior: smooth; overflow: auto !important; overflow-x: hidden !important; height: auto !important; }
+body { height: auto !important; min-height: 100%; }
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } * { animation: none !important; transition: none !important; } }
+body { background: var(--gd-ground); color: var(--gd-ink); font-family: var(--font-sans); font-size: 16px; line-height: 1.6; direction: rtl; }
+.gd { max-width: 1200px; margin: 0 auto; padding-block: 32px 80px; padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); display: flex; flex-direction: column; gap: 40px; }
+.gd code { font-family: var(--gd-mono); font-size: .86em; background: #eef2f6; border-radius: 4px; padding: 1px 5px; color: var(--brand-primary); unicode-bidi: isolate; }
+.gd h2:not(.pv *), .gd h3:not(.pv *), .gd h4:not(.pv *) { color: var(--brand-primary); text-wrap: balance; margin: 0; }
+
+/* الرأس */
+.gd-top { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 24px 40px; align-items: end; padding-bottom: 28px; border-bottom: 2px solid var(--brand-primary); }
+.gd-top .eyebrow { color: var(--gd-quiet); }
+.gd-top h1 { margin: 6px 0 10px; font-size: 40px; line-height: 1.2; color: var(--brand-primary); text-wrap: balance; }
+.gd-top p { margin: 0; max-width: 62ch; color: var(--gd-ink); font-size: 17px; }
+.stats { display: flex; gap: 28px; margin: 0; }
+.stats div { display: flex; flex-direction: column; gap: 2px; }
+.stats dt { font-size: 13px; color: var(--gd-quiet); }
+.stats dd { margin: 0; font-size: 32px; line-height: 1; font-weight: 800; color: var(--brand-primary); font-variant-numeric: tabular-nums; }
+.stats .s-os dd { color: var(--gd-os); } .stats .s-blk dd { color: var(--gd-block); }
+.links { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 12px; margin-top: 16px; }
+.links .upd { font-size: 13px; color: var(--gd-quiet); }
+.links a.btn { text-decoration: none; }
+.theme-text { width: 100%; height: 160px; margin-top: 8px; font: 12px/1.5 var(--gd-mono); direction: ltr; border: 1px solid var(--gd-line); border-radius: 6px; padding: 8px; }
+.eyebrow { font-size: 13px; font-weight: 700; letter-spacing: .02em; color: var(--gd-quiet); }
+
+/* الفهرس */
+.toc { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; }
+.ts { background: var(--gd-card); border: 1px solid var(--gd-line); border-radius: 10px; padding: 20px 24px; display: flex; flex-direction: column; gap: 14px; }
+.tsh { text-decoration: none; color: var(--brand-primary); font-size: 20px; display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px 10px; }
+.tsh b { font-weight: 800; } .tsh em { font-style: normal; font-size: 14px; color: var(--gd-quiet); }
+.tg { display: flex; flex-wrap: wrap; align-items: baseline; gap: 6px 14px; font-size: 15px; }
+.tg span { flex-basis: 100%; font-size: 13px; font-weight: 700; color: var(--gd-quiet); }
+.tg a { color: var(--gd-ink); text-decoration: none; border-bottom: 1px solid var(--gd-line); }
+.tg a:hover { color: var(--brand-secondary); border-bottom-color: var(--brand-secondary); }
+
+/* القواعد المشتركة */
+.sh { display: flex; flex-direction: column; gap: 6px; }
+.sh h2 { font-size: 32px; line-height: 1.25; }
+.sh p { margin: 0; max-width: 70ch; }
+.sh.small h2 { font-size: 26px; }
+.conv { display: flex; flex-direction: column; gap: 20px; }
+.conv-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; }
+.conv-card { background: var(--gd-card); border: 1px solid var(--gd-line); border-radius: 10px; padding: 20px 24px; display: flex; flex-direction: column; gap: 12px; min-width: 0; }
+.conv-card h3 { font-size: 18px; } .conv-card .mt { margin-top: 8px; }
+.cm { margin: 0; font-size: 15px; }
+.structs { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 6px; font-size: 14px; text-align: left; }
+.rules { display: flex; flex-direction: column; gap: 6px; font-size: 15px; } .rules p { margin: 0; }
+.legend { display: flex; flex-wrap: wrap; gap: 8px; }
+
+/* الأقسام */
+.sec { display: flex; flex-direction: column; gap: 28px; scroll-margin-top: 16px; }
+.sec > .sh { padding-top: 12px; border-top: 2px solid var(--brand-primary); }
+.grp { display: flex; flex-direction: column; gap: 20px; }
+.gt { font-size: 15px !important; color: var(--gd-quiet) !important; font-weight: 700; padding-bottom: 6px; border-bottom: 1px solid var(--gd-line); }
+
+/* بطاقة المكوّن */
+.comp { background: var(--gd-card); border: 1px solid var(--gd-line); border-radius: 12px; overflow: hidden; scroll-margin-top: 16px; }
+.ch { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 8px 16px; padding: 18px 24px 0; }
+.ct { display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px 12px; }
+.ct .num { font-family: var(--gd-mono); font-size: 13px; color: var(--gd-quiet); }
+.ct h3 { font-size: 22px; line-height: 1.3; }
+.ct .mco { background: none; padding: 0; color: var(--gd-quiet); font-size: 14px; }
+.kind { font-size: 13px; font-weight: 700; padding: 3px 10px; border-radius: 999px; border: 1.5px solid; white-space: nowrap; }
+.kind-os { color: var(--gd-os); border-color: var(--gd-os); }
+.kind-block { color: var(--gd-block); border-color: var(--gd-block); border-style: dashed; }
+.kind-mix { color: var(--brand-primary); border-color: var(--gd-line); background: linear-gradient(90deg, #eaf3f9 50%, #fbf1e6 50%); }
+.sum { margin: 6px 24px 16px; max-width: 75ch; }
+.pv { position: relative; margin: 0 24px; padding: 24px; border: 1px solid var(--gd-line); border-radius: 8px; background: var(--bg-main); overflow-x: auto; }
+.build { display: grid; grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr); gap: 24px; padding: 24px; }
+.build h4 { font-size: 15px; margin-bottom: 10px; }
+.spec-col { display: flex; flex-direction: column; gap: 18px; min-width: 0; }
+.spec-col > h4 { margin-bottom: -8px; }
+.tree-col { min-width: 0; }
+.build.os { grid-template-columns: minmax(0, 1fr); }
+.build.os .spec td:first-child { white-space: nowrap; }
+.notes { margin: 0 24px 22px; padding: 14px 18px 14px 18px; padding-inline-start: 36px; background: #f7f9fb; border-radius: 8px; font-size: 15px; display: flex; flex-direction: column; gap: 6px; }
+
+/* شجرة الودجات */
+.tree { font-family: var(--gd-mono); font-size: 12.5px; line-height: 1.5; background: #f7f9fb; border: 1px solid var(--gd-line); border-radius: 8px; padding: 12px 14px; overflow-x: auto; text-align: left; }
+.tr { display: flex; align-items: flex-start; gap: 8px; min-height: 26px; white-space: nowrap; }
+.tr .g { position: relative; flex: none; width: 16px; align-self: stretch; margin-inline-end: -8px; }
+.tr .g.v::before, .tr .g.t::before, .tr .g.l::before { content: ""; position: absolute; left: 7px; top: 0; border-left: 1px solid #b9c3cd; }
+.tr .g.v::before, .tr .g.t::before { bottom: 0; }
+.tr .g.l::before { height: 13px; }
+.tr .g.t::after, .tr .g.l::after { content: ""; position: absolute; left: 7px; top: 13px; width: 7px; border-top: 1px solid #b9c3cd; }
+.tr .g + .w { margin-inline-start: 8px; }
+.w { flex: none; font-weight: 500; padding: 1px 7px; border-radius: 4px; border: 1px solid transparent; }
+.tr code { white-space: normal; word-break: break-word; background: #fff; border: 1px solid var(--gd-line); padding: 1px 6px; font-size: 12px; min-width: 0; }
+.tr .n { font-family: var(--font-sans); font-size: 13px; color: var(--gd-quiet); white-space: normal; min-width: 0; padding-top: 1px; }
+.k-box { background: #e9edf1; color: #33414f; }
+.k-expr { background: #e5f4ea; color: #1d6b3a; }
+.k-act { background: #e3eef8; color: #12558e; }
+.k-list { background: #e0f2f0; color: #0b5e57; }
+.k-if { background: #efe9fb; color: #5b33b0; }
+.k-ph { background: #fff; color: #8a4a08; border: 1px dashed #c98a3c; }
+.k-block { background: #fbf1e6; color: #8a4a08; font-weight: 600; }
+.k-html { background: #eceff3; color: #3b4652; font-style: italic; }
+.k-os { background: #dceafa; color: #0b4a80; }
+
+/* جداول المواصفات */
+.tw { overflow-x: auto; position: relative; }
+.spec { width: 100%; border-collapse: collapse; font-size: 14px; }
+.spec th { text-align: start; font-weight: 700; color: var(--gd-quiet); font-size: 13px; padding: 6px 10px; border-bottom: 1.5px solid var(--gd-line); white-space: nowrap; }
+.spec td { padding: 8px 10px; border-bottom: 1px solid #edf0f3; vertical-align: top; }
+.spec td code { white-space: nowrap; }
+.spec td:first-child code { font-weight: 600; }
+
+/* المعاينات */
+.pv-row { display: flex; flex-wrap: wrap; align-items: center; gap: 16px; }
+.pv-row.pv-top { align-items: flex-start; }
+.pv-stack { display: flex; flex-direction: column; gap: 16px; }
+.pv-grid3 { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 24px; }
+.pv-grid3 .mco-field { max-width: none; }
+.pv-k { flex-basis: 100%; font-size: 12px; font-weight: 700; color: var(--gd-quiet); }
+.pv-stack > .pv-k { margin-bottom: -8px; }
+.pv-tabs { display: flex !important; flex-direction: row; flex-wrap: wrap; width: auto; gap: 0; }
+.mco-tabs-filled .pv-tabs { gap: 8px; }
+.pv-tabs .osui-tabs__header-item { flex: none; width: auto; }
+.pv-tabs.pv-vert { flex-direction: column !important; width: 303px; max-width: 100%; }
+.pv-tabs .osui-tabs__header-item { cursor: pointer; background: transparent; border: 0; }
+.mco-tabs-filled .pv-tabs .osui-tabs__header-item { border: 1px solid var(--font-primary); }
+.mco-tabs-filled .pv-tabs .osui-tabs__header-item.osui-tabs--is-active { border-color: var(--brand-secondary); }
+.pagination-container { display: flex; gap: 8px; }
+.pagination-button { margin: 0; }
+.pv-static { position: static; transform: none; animation: none; left: auto; }
+.feedback-message .mco-icon { flex: none; }
+.pv-scroll { overflow-x: auto; position: relative; }
+.pv-table { width: 100%; min-width: 640px; }
+.pv-popup { margin: 0 auto; }
+.pv-shell { border: 1px solid var(--grey-soft); border-radius: 8px; overflow: hidden; }
+.pv-shell .layout, .pv-shell .mco-shell { min-height: 0; }
+.pv-shell .mco-side { min-height: 460px; }
+.pv-w100 { width: 100%; }
+.pv-acts { display: flex; gap: 8px; justify-content: flex-end; }
+.pv-wide { min-width: 900px; }
+.pv-ph { display: flex; align-items: center; justify-content: center; color: var(--brand-shade-50); background: linear-gradient(135deg, var(--brand-shade-20), var(--brand-shade-40)); }
+.new { font-size: 12px; font-weight: 700; color: #fff; background: var(--gd-block); border-radius: 4px; padding: 1px 8px; align-self: center; }
+.tnew { font-style: normal; font-size: 11px; font-weight: 700; color: var(--gd-block); }
+.fig { font-size: 13px; color: var(--brand-default); align-self: center; }
+.pv-dd { width: 360px; max-width: 100%; }
+.pv-dd .vscomp-ele { max-width: none; width: 100%; }
+#dropdown, #chips, #dropdown .pv, #chips .pv { overflow: visible; }
+.pv-lang { display: inline-flex; padding: 2px; border: 1px solid var(--gd-line); border-radius: 999px; background: var(--gd-card); cursor: pointer; font: 700 12px/1 var(--font-sans); }
+.pv-lang span { padding: 5px 10px; border-radius: 999px; color: var(--gd-quiet); }
+.pv-lang span.on { background: var(--color-action-primary-default); color: var(--color-text-on-brand); }
+.ch-tools { display: inline-flex; align-items: center; gap: 8px; }
+.pv-icons .mco-icon { transform: none !important; } /* فهرس الأيقونات يعرض الأيقونة كما هي في الاتجاهين */
+.pv-sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+.pv-isearch { display: block; max-width: 420px; margin-bottom: 16px; }
+.pv-icat { margin-bottom: 20px; } .pv-icat[hidden] { display: none; }
+.pv-icat__t { margin: 0 0 8px; font-size: 14px; font-weight: 700; color: var(--gd-ink, inherit); } .pv-icat__t em { font-style: normal; font-weight: 400; color: var(--gd-quiet); }
+.pv-icons { display: grid; grid-template-columns: repeat(auto-fill, minmax(104px, 1fr)); gap: 8px; }
+.pv-icon { display: flex; flex-direction: column; align-items: center; gap: 6px; padding: 12px 4px 8px; border: 1px solid transparent; border-radius: 6px; background: transparent; color: var(--font-primary); cursor: pointer; font: 500 11.5px var(--gd-mono); direction: ltr; }
+.pv-icon:hover { background: var(--brand-shade-20); border-color: var(--brand-shade-40); }
+.pv-icon:focus-visible { outline: 2px solid var(--brand-primary); outline-offset: 2px; }
+.pv-hint { margin: 12px 0 0; font-size: 13px; color: var(--gd-quiet); }
+.pv-dl { padding: 0; border: 0; background: none; font: inherit; color: var(--color-text-link); text-decoration: underline; cursor: pointer; }
+/* أساس المنصة لعناصر الاختيار (من CSS المنصة، ليس من الثيم) */
+[data-checkbox], [data-switch], .radio-button { appearance: none; -webkit-appearance: none; position: relative; margin: 0; cursor: pointer; flex: none; }
+[data-checkbox]::before, [data-checkbox]::after, [data-switch]::before, [data-switch]::after { content: ""; position: absolute; display: block; }
+[data-checkbox]:not(:checked)::after { display: none; }
+[data-checkbox]:checked::after { transform: rotate(-45deg); }
+[data-checkbox]::before { top: 0; left: 0; }
+[data-switch]::before { top: 0; right: 0; }
+[data-checkbox][disabled], [data-switch][disabled], .radio-button:disabled { cursor: not-allowed; }
+[data-checkbox].not-valid::before { border-color: var(--danger); }
+.mco-choice-row label { cursor: pointer; }
+.pv .mco-nav__tool, .pv .mco-side__item { font-family: var(--font-sans); }
+
+@media (max-width: 960px) {
+  .build { grid-template-columns: minmax(0, 1fr); }
+  .conv-grid, .toc { grid-template-columns: minmax(0, 1fr); }
+  .pv-grid3 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@media (max-width: 640px) {
+  .gd-top { grid-template-columns: minmax(0, 1fr); }
+  .gd-top h1 { font-size: 30px; }
+  .pv-grid3 { grid-template-columns: minmax(0, 1fr); }
+  .ch { padding: 16px 16px 0; } .sum { margin: 6px 16px 14px; }
+  .pv { margin: 0 16px; padding: 16px; }
+  .build { padding: 20px 16px; } .notes { margin: 0 16px 18px; }
+  .sh h2 { font-size: 26px; }
+}
+</style>
+
+<div class="gd" dir="rtl">
+  <header class="gd-top">
+    <div>
+      <span class="eyebrow">منصة تواصل الوزراء · OutSystems 11 Reactive</span>
+      <h1>دليل مكونات MCO</h1>
+      <p>كل مكوّن في نظام التصميم مع طريقة بنائه في Service Studio: الودجت أو الـ Block المستخدم، وشجرة الودجات بكلاساتها، والخصائص. المعاينات مرسومة بـ CSS ‏OutSystems UI 2.30 وثيم MCO نفسه.</p>
+      <div class="links">
+        <button type="button" class="btn btn-small" id="copy-theme">نسخ ملف الثيم</button>
+        <button type="button" class="btn btn-small" id="theme-toggle" aria-pressed="false"><span class="mco-icon mco-i-moon mco-size-20" aria-hidden="true"></span><span>الوضع الداكن</span></button>
+        <a class="btn btn-small btn-tertiary" href="https://claude.ai/code/artifact/99a47f33-8cb6-40f0-97a0-7e2d5cd8f308" target="_blank" rel="noopener">الدليل المكتوب</a>
+        <a class="btn btn-small btn-tertiary" id="lang-switch" href="index.html" lang="en" hreflang="en">English</a>
+        <span class="upd">آخر تحديث: {UPDATED}</span>
+      </div>
+      <p class="pv-hint" id="theme-msg" role="status"></p>
+      <textarea id="theme-text" class="theme-text" readonly hidden aria-label="محتوى ملف الثيم"></textarea>
+    </div>
+    <dl class="stats">
+      <div><dt>مكوّن</dt><dd>{N_ALL}</dd></div>
+      <div class="s-os"><dt>نمط OutSystems UI</dt><dd>{N_OS}</dd></div>
+      <div class="s-blk"><dt>Block مخصّص</dt><dd>{N_BLK}</dd></div>
+    </dl>
+  </header>
+
+  <nav class="toc" aria-label="فهرس الدليل"><!--TOC--></nav>
+
+  <!--CONV-->
+
+  <!--SECTIONS-->
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/virtual-select-plugin@1.0.49/dist/virtual-select.min.js"></script>
+<script>
+(function () {
+  // البحث في فهرس الأيقونات بالاسم
+  var isq = document.querySelector('[data-isearch]');
+  if (isq) isq.addEventListener('input', function () {
+    var q = isq.value.trim().toLowerCase();
+    document.querySelectorAll('[data-icat]').forEach(function (sec) {
+      var n = 0;
+      sec.querySelectorAll('[data-copy]').forEach(function (b) { var ok = !q || b.getAttribute('data-copy').indexOf(q) !== -1; b.hidden = !ok; if (ok) n++; });
+      sec.hidden = n === 0;
+    });
+  });
+  // نسخ الأيقونة كرابط SVG (data:image/svg+xml) من متغير --mco-icon في الثيم، مع رابط تنزيل ملف name.svg
+  var msg = document.getElementById('copy-msg');
+  function svgUrl(el) {
+    var v = getComputedStyle(el).getPropertyValue('--mco-icon').trim();
+    var m = v.match(/^url\(["']?(data:image\/svg\+xml[^"')]*)["']?\)$/);
+    if (!m) return '';
+    // مقاس 24×24 صريح، عشان الملف يفتح بحجمه الصحيح خارج الثيم
+    var svg = decodeURIComponent(m[1].slice(m[1].indexOf(',') + 1));
+    if (!/<svg[^>]*\swidth=/.test(svg)) svg = svg.replace('<svg', '<svg width="24" height="24"');
+    return 'data:image/svg+xml,' + encodeURIComponent(svg);
+  }
+  function report(name, url, copied) {
+    if (!msg) return;
+    msg.textContent = '';
+    msg.appendChild(document.createTextNode(copied ? 'تم نسخ رابط SVG للأيقونة «' + name + '». ' : 'رابط SVG للأيقونة «' + name + '»: '));
+    // داخل Claude: التنزيل عبر قدرة downloads (يسأل المشاهد)؛ خارجه: رابط تنزيل عادي
+    var label = 'تنزيل ' + name + '.svg';
+    if (dl) {
+      var bt = document.createElement('button'); bt.type = 'button'; bt.className = 'pv-dl'; bt.textContent = label;
+      bt.addEventListener('click', function () {
+        var svg = decodeURIComponent(url.slice(url.indexOf(',') + 1));
+        dl.save({ filename: name + '.svg', data: new Blob([svg], { type: 'image/svg+xml' }) }).catch(function () {});
+      });
+      msg.appendChild(bt);
+    } else if (!window.claude) {
+      var a = document.createElement('a'); a.href = url; a.download = name + '.svg'; a.textContent = label;
+      msg.appendChild(a);
+    }
+  }
+  var dl = null;
+  if (window.claude && window.claude.use) window.claude.use('downloads').then(function (n) { dl = n; }, function () {});
+  document.querySelectorAll('[data-copy]').forEach(function (b) {
+    b.addEventListener('click', function () {
+      var name = b.getAttribute('data-copy'), ic = b.querySelector('.mco-icon'), url = ic ? svgUrl(ic) : '';
+      if (!url) { if (msg) msg.textContent = 'الاسم: ' + name; return; }
+      try { navigator.clipboard.writeText(url).then(function () { report(name, url, true); }, function () { report(name, url, false); }); }
+      catch (e) { report(name, url, false); }
+    });
+  });
+  // نسخ ملف الثيم (منشور مع الصفحة)
+  var ct = document.getElementById('copy-theme'), tm = document.getElementById('theme-msg'), tt = document.getElementById('theme-text');
+  if (ct) ct.addEventListener('click', function () {
+    tm.textContent = 'جارٍ التحميل…';
+    fetch('MCO_OutSystems_Theme.css').then(function (r) { if (!r.ok) throw 0; return r.text(); }).then(function (css) {
+      var show = function () { tt.value = css; tt.hidden = false; tt.focus(); tt.select(); tm.textContent = 'انسخ المحتوى من المربع (Ctrl+C).'; };
+      try { navigator.clipboard.writeText(css).then(function () { tm.textContent = 'تم نسخ ملف الثيم كاملاً، الصقه في Style Sheet الخاص بالـ Theme.'; }, show); } catch (e) { show(); }
+    }).catch(function () {
+      // الصفحة مفتوحة من ملف محلي (file://) والمتصفح يمنع القراءة: رابط مباشر للملف اللي في نفس المجلد
+      tm.textContent = 'تعذّر تحميل ملف الثيم من هنا. افتحه مباشرة: ';
+      var a = document.createElement('a'); a.href = 'MCO_OutSystems_Theme.css'; a.target = '_blank'; a.textContent = 'MCO_OutSystems_Theme.css'; tm.appendChild(a);
+    });
+  });
+  // معاينات المكوّنات الجديدة: النص القابل للتوسيع، البطاقة المنسدلة، معرض الصور
+  document.querySelectorAll('[data-xtoggle]').forEach(function (b) {
+    b.addEventListener('click', function () {
+      var box = b.closest('[data-xtext]'), open = box.classList.toggle('is-clamped') === false;
+      b.setAttribute('aria-expanded', open); b.querySelector('span:last-child').textContent = open ? 'عرض أقل' : 'عرض المزيد';
+      b.querySelector('.mco-icon').classList.toggle('mco-rot', open);
+    });
+  });
+  // الغرض في بطاقة السجل: سطران ثم «عرض المزيد»
+  document.querySelectorAll('[data-rpurpose] .mco-record__more').forEach(function (b) {
+    b.addEventListener('click', function () {
+      var box = b.closest('[data-rpurpose]'), open = box.classList.toggle('is-clamped') === false;
+      b.setAttribute('aria-expanded', open); b.querySelector('span').textContent = open ? 'عرض أقل' : 'عرض المزيد';
+      var ic = b.querySelector('.mco-icon'); if (ic) ic.classList.toggle('mco-rot', open);
+    });
+  });
+  document.querySelectorAll('.mco-slide__toggle').forEach(function (b) {
+    b.addEventListener('click', function () {
+      var card = b.closest('.mco-slide'), open = !card.classList.contains('is-open'), body = card.querySelector('.mco-slide__body');
+      card.classList.toggle('is-open', open); b.setAttribute('aria-expanded', open); b.setAttribute('aria-label', open ? 'طي' : 'توسيع');
+      b.querySelector('.mco-icon').classList.toggle('mco-rot', open);
+      if (body) body.hidden = !open;
+      else if (open) { var d = document.createElement('div'); d.className = 'mco-slide__body'; d.innerHTML = '<section class="mco-dcard"><h3 class="mco-dcard__title">أبرز عوامل النجاح</h3><div class="mco-dcard__body"><p class="mco-xtext__text">تحقيق التكامل بين الجهات المشاركة، ووضوح الرسائل الرئيسية، والالتزام بالجدول الزمني المعتمد للأنشطة.</p></div></section>'; card.appendChild(d); }
+    });
+  });
+  document.querySelectorAll('[data-gal]').forEach(function (b) {
+    b.addEventListener('click', function () { var t = b.parentElement.querySelector('.mco-gallery__track'); t.scrollBy({ left: 300 * Number(b.getAttribute('data-gal')) * (getComputedStyle(t).direction === 'rtl' ? 1 : -1), behavior: 'smooth' }); });
+  });
+  // تبديل التبويبات في المعاينة
+  document.querySelectorAll('.pv-tabs').forEach(function (t) {
+    t.addEventListener('click', function (e) {
+      var b = e.target.closest('.osui-tabs__header-item'); if (!b) return;
+      t.querySelectorAll('.osui-tabs__header-item').forEach(function (x) { x.classList.remove('osui-tabs--is-active'); x.setAttribute('aria-selected', 'false'); });
+      b.classList.add('osui-tabs--is-active'); b.setAttribute('aria-selected', 'true');
+    });
+  });
+
+
+
+  // ترجمة نصوص المعاينة للإنجليزي من guide/i18n_en.json، والرجوع للعربي من النسخة المحفوظة
+  var I18N = /*I18N*/;
+  var ATTRS = ['placeholder', 'aria-label', 'title', 'alt'];
+  function en(t) {
+    var k = t.trim(); if (!k) return null;
+    if (I18N.strings[k]) return t.replace(k, I18N.strings[k]);
+    for (var p in I18N.prefix) if (k.indexOf(p) === 0) return I18N.prefix[p];
+    return null;
+  }
+  function translate(pv, toEn) {
+    var w = document.createTreeWalker(pv, NodeFilter.SHOW_TEXT), n;
+    while ((n = w.nextNode())) {
+      if (toEn) { var v = en(n.nodeValue); if (v !== null) { n.__ar = n.nodeValue; n.nodeValue = v; } }
+      else if (n.__ar !== undefined) { n.nodeValue = n.__ar; delete n.__ar; }
+    }
+    pv.querySelectorAll('[placeholder],[aria-label],[title],[alt]').forEach(function (e) {
+      ATTRS.forEach(function (a) {
+        var key = '__ar_' + a;
+        if (toEn) { var v = e.getAttribute(a); var t = v && en(v); if (t !== null && t) { e[key] = v; e.setAttribute(a, t); } }
+        else if (e[key] !== undefined) { e.setAttribute(a, e[key]); delete e[key]; }
+      });
+    });
+  }
+  // عربي / English لكل مكوّن. كل معاينة تحمل اتجاهها بنفسها (is-rtl + dir) مثل body في تطبيق OutSystems،
+  // و mco-guide على body يعطّل قاعدة body:not(.is-rtl) داخل صفحة الدليل.
+  document.body.classList.add('mco-guide');
+  document.querySelectorAll('.pv').forEach(function (p) { p.classList.add('is-rtl'); p.setAttribute('dir', 'rtl'); p.setAttribute('lang', 'ar'); });
+  document.addEventListener('click', function (e) {
+    var b = e.target.closest('[data-pv-lang]'); if (!b) return;
+    var comp = b.closest('.comp'), pv = comp && comp.querySelector('.pv'); if (!pv) return;
+    var ltr = pv.getAttribute('dir') !== 'ltr';
+    pv.classList.toggle('is-rtl', !ltr); pv.setAttribute('dir', ltr ? 'ltr' : 'rtl'); pv.setAttribute('lang', ltr ? 'en' : 'ar');
+    // Dropdown Search: في OutSystems يُهيّأ اتجاهه حسب اللغة؛ هنا نبدّل كلاسه يدوياً
+    pv.querySelectorAll('.vscomp-wrapper').forEach(function (w) { w.classList.toggle('text-direction-rtl', !ltr); });
+    translate(pv, ltr);
+    b.setAttribute('aria-pressed', ltr ? 'true' : 'false');
+    b.querySelectorAll('span').forEach(function (s) { s.classList.toggle('on', s.dataset.l === (ltr ? 'en' : 'ar')); });
+  });
+  // تبديل الوضع الداكن: data-theme على <html> كما في ملف التوكنز
+  (function () {
+    var b = document.getElementById('theme-toggle'), root = document.documentElement;
+    // الافتراضي فاتح دائماً: لا يتبع إعداد الجهاز ولا ثيم الصفحة المستضيفة، والداكن فقط من الزر
+    var want = 'light';
+    root.setAttribute('data-theme', want);
+    new MutationObserver(function () { if (root.getAttribute('data-theme') !== want) root.setAttribute('data-theme', want); })
+      .observe(root, { attributes: true, attributeFilter: ['data-theme'] });
+    if (!b) return;
+    b.addEventListener('click', function () {
+      var dark = want !== 'dark';
+      want = dark ? 'dark' : 'light';
+      root.setAttribute('data-theme', want);
+      root.style.colorScheme = want;
+      b.setAttribute('aria-pressed', dark ? 'true' : 'false');
+      b.lastElementChild.textContent = dark ? 'الوضع الفاتح' : 'الوضع الداكن';
+      var ic = b.firstElementChild; ic.classList.toggle('mco-i-moon', !dark); ic.classList.toggle('mco-i-sun', dark);
+    });
+  })();
+  // فتح وطي القائمة الجانبية في المعاينة (في OutSystems: OnCollapse ← IsCollapsed = not IsCollapsed)
+  document.addEventListener('click', function (e) {
+    var b = e.target.closest('[data-pv-collapse]'); if (!b) return;
+    var nav = b.closest('.mco-side'); var c = nav.classList.toggle('is-collapsed');
+    b.setAttribute('aria-expanded', c ? 'false' : 'true'); b.setAttribute('aria-label', c ? 'فتح القائمة' : 'طي القائمة');
+    var ic = b.querySelector('.mco-icon'); if (ic) { ic.classList.toggle('mco-i-expand-menu', !c); ic.classList.toggle('mco-i-collapse-menu', c); }
+  });
+  // القوائم المنسدلة بنفس مكتبة OutSystems UI (VirtualSelect)
+  if (window.VirtualSelect) {
+    var opts = [
+      { label: 'وزارة الخارجية', value: 'mofa' }, { label: 'وزارة المالية', value: 'mof' }, { label: 'وزارة الصحة', value: 'moh' },
+      { label: 'وزارة الإعلام', value: 'moi' }, { label: 'وزارة الثقافة', value: 'moc' }, { label: 'وزارة التعليم', value: 'moe' }
+    ];
+    var base = { options: opts, search: true, searchNormalize: true, textDirection: 'rtl', placeholder: 'اختر', searchPlaceholderText: 'بحث',
+      noOptionsText: 'لا توجد خيارات', noSearchResultsText: 'لا توجد نتائج', hideClearButton: false, disableValidation: true, showDropboxAsPopup: true, popupDropboxBreakpoint: '576px' };
+    try {
+      VirtualSelect.init(Object.assign({}, base, { ele: '#vs-one', selectedValue: 'mof' }));
+      VirtualSelect.init(Object.assign({}, base, { ele: '#vs-multi', multiple: true, selectedValue: ['mofa', 'moh'] }));
+      VirtualSelect.init(Object.assign({}, base, { ele: '#vs-tags', multiple: true, showValueAsTags: true, selectedValue: ['mofa', 'mof', 'moh'] }));
+    } catch (e) {}
+  }
+  // النسخة الإنجليزية من الدليل (index.html، الافتراضية): كل المعاينات تبدأ بالإنجليزي LTR، وزر «عربي / EN» يرجّع أي مكوّن للعربي
+  var gd = document.querySelector('.gd'); if (gd && gd.getAttribute('lang') === 'en') document.querySelectorAll('[data-pv-lang]').forEach(function (b) { b.click(); });
+})();
+</script>

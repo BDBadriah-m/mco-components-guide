@@ -1,0 +1,55 @@
+<section class="conv" id="start" aria-labelledby="start-h">
+  <header class="sh small"><span class="eyebrow">قبل البدء</span><h2 id="start-h">قواعد البناء المشتركة</h2>
+  <p>الثيم <code dir="ltr">MCO_OutSystems_Theme.css</code> مركّب في وحدة MCO_Theme، والـ Blocks تُبنى في وحدة MCO_Components. كل التنسيق في الثيم، فما يحتاج أي Block CSS خاص فيه.</p></header>
+
+  <div class="conv-grid">
+    <div class="conv-card">
+      <h3>من التصميم إلى الودجت</h3>
+      <div class="tw"><table class="spec">
+        <thead><tr><th>في التصميم</th><th>في Service Studio</th></tr></thead>
+        <tbody>
+          <tr><td>حاوية أو صندوق</td><td><b>Container</b>، والكلاس في Style Classes</td></tr>
+          <tr><td>نص متغيّر</td><td><b>Expression</b> (يطلع <code dir="ltr">span</code>)، والكلاس في Style Classes</td></tr>
+          <tr><td>عناصر متكررة</td><td><b>List</b>، وStyle Classes حقها هو كلاس الحاوية بدل Container إضافي</td></tr>
+          <tr><td>زر أو عنصر يُضغط</td><td><b>Button</b>؛ إذا له كلاس <code dir="ltr">mco-*</code> خاص احذف <code dir="ltr">btn</code> من Style Classes</td></tr>
+          <tr><td>عنوان، header، nav، main، footer، label</td><td><b>HTML Element</b> بنفس الوسم</td></tr>
+          <tr><td>أيقونة</td><td><b>MCO_Icon</b></td></tr>
+          <tr><td>جزء يعبّيه مستخدم الـ Block</td><td><b>Placeholder</b></td></tr>
+          <tr><td>عنصر يظهر بشرط</td><td><b>If</b></td></tr>
+        </tbody></table></div>
+    </div>
+
+    <div class="conv-card">
+      <h3>Static Entity: MCO_Status</h3>
+      <p class="cm">كل Block فيه حالة يستقبلها كـ <code dir="ltr">MCO_Status Identifier</code>، والكلاس يتكوّن من الـ Id مباشرة (<code dir="ltr">mco-alert--success</code>).</p>
+      <div class="tw"><table class="spec">
+        <thead><tr><th>Id</th><th>Label</th><th>Icon</th><th>DialogIcon</th></tr></thead>
+        <tbody>
+          <tr><td><code dir="ltr">default</code></td><td>محايد</td><td><code dir="ltr">info-circle</code></td><td><code dir="ltr">info-circle</code></td></tr>
+          <tr><td><code dir="ltr">success</code></td><td>نجاح</td><td><code dir="ltr">verify</code></td><td><code dir="ltr">tick-circle</code></td></tr>
+          <tr><td><code dir="ltr">info</code></td><td>معلومة</td><td><code dir="ltr">info-circle</code></td><td><code dir="ltr">info-circle</code></td></tr>
+          <tr><td><code dir="ltr">warning</code></td><td>تحذير</td><td><code dir="ltr">danger</code></td><td><code dir="ltr">danger</code></td></tr>
+          <tr><td><code dir="ltr">danger</code></td><td>خطأ</td><td><code dir="ltr">information</code></td><td><code dir="ltr">close</code></td></tr>
+        </tbody></table></div>
+      <h3 class="mt">Structures</h3>
+      <ul class="structs" dir="ltr">
+        <li><code>MCO_KeyValue</code> Label · Value</li>
+        <li><code>MCO_TabItem</code> Value · Label</li>
+        <li><code>MCO_MenuItem</code> Value · Label · Icon · ParentValue</li>
+        <li><code>MCO_Breadcrumb</code> Label · URL</li>
+        <li><code>MCO_Stage</code> Name · State · StatusLabel · Date</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="rules">
+    <p><b>ExtraClass:</b> كل Block فيه Input Parameter باسم <code dir="ltr">ExtraClass</code> (Text) يُضاف لكلاس الجذر، للتعديلات الخاصة بشاشة معيّنة.</p>
+    <p><b>الألوان والمسافات:</b> لا تُكتب قيم ثابتة في Style Properties. استخدم كلاسات الثيم أو المتغيرات الدلالية مثل <code dir="ltr">var(--color-text-brand)</code> وأخواتها.</p>
+    <p><b>الاتجاه (عربي وإنجليزي):</b> المكوّنات تتبع اتجاه الصفحة. العربي: OutSystems يضيف <code dir="ltr">is-rtl</code> على <code dir="ltr">body</code> فتصير RTL. الإنجليزي: بدون الكلاس تصير LTR وتنقلب المسافات والأسهم ومؤشر الخطوات تلقائياً. لا يُضاف <code dir="ltr">dir</code> على عناصر داخلية. النصوص الثابتة داخل الـ Blocks («عرض التفاصيل»، «طي القائمة»…) تُترجم من Multilingual في OutSystems أو تصير Input Parameters. جرّب أي مكوّن بزر «عربي / EN» بجانب عنوانه.</p>
+    <p><b>الوضع الداكن:</b> <code dir="ltr">data-theme="dark"</code> على <code dir="ltr">&lt;html&gt;</code> نفسه. بدونها الواجهة فاتحة دائماً (الوضع الافتراضي)، وإعداد الجهاز الداكن لا يغيّرها.</p>
+  </div>
+
+  <div class="legend" aria-label="مفتاح ألوان شجرة الودجات" dir="ltr">
+    <span class="w k-box">Container</span><span class="w k-expr">Expression / Text</span><span class="w k-act">Button / Link</span><span class="w k-list">List</span><span class="w k-if">If / Else</span><span class="w k-ph">Placeholder</span><span class="w k-block">MCO_ Block</span><span class="w k-html">HTML Element</span><span class="w k-os">ودجت المنصة</span>
+  </div>
+</section>

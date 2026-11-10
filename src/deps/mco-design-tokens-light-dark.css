@@ -1,0 +1,538 @@
+/* ==========================================================================
+   MCO Design System — Design Tokens
+   Exported from Figma: "MCO Design system"
+   Layers: 1. Primitives → 2. Typography / 3. Spacing / 4. Colors (light & dark)
+   Base: 1rem = 16px · Arabic RTL: use logical properties (padding-inline-start…)
+   Themes: light (default) · <html data-theme="dark">.
+   Light is always the default; the OS dark setting does not switch themes.
+   ========================================================================== */
+
+/* 1. Primitives — raw values. Do not use directly in components. */
+:root {
+
+  /* amber */
+  --color-amber-25: #FFFCF4;
+  --color-amber-50: #FFF9E9;
+  --color-amber-100: #FFF0CB;
+  --color-amber-200: #FEE8AE;
+  --color-amber-300: #FEDF90;
+  --color-amber-400: #FDBF21;
+  --color-amber-500: #FFB700;
+  --color-amber-600: #E2A200;
+  --color-amber-700: #BF8900;
+  --color-amber-800: #8A6200;
+  --color-amber-900: #4C3701;
+  --color-amber-950: #2A2107;
+
+  /* base */
+  --color-base-white: #FFFFFF;
+
+  /* blue */
+  --color-blue-25: #F5F9FC;
+  --color-blue-50: #EAF3F9;
+  --color-blue-100: #D6E7F4;
+  --color-blue-200: #97C3E3;
+  --color-blue-300: #7DB6E0;
+  --color-blue-400: #5AA2D8;
+  --color-blue-500: #3088C8;
+  --color-blue-600: #2682C5;
+  --color-blue-700: #1F75B5;
+  --color-blue-800: #1668A4;
+  --color-blue-900: #0A5083;
+  --color-blue-950: #073F68;
+
+  /* gray */
+  --color-gray-25: #FAFAFA;
+  --color-gray-50: #E9E9E9;
+  --color-gray-100: #CACACA;
+  --color-gray-200: #B4BAC1;
+  --color-gray-300: #8395A2;
+  --color-gray-400: #697582;
+  --color-gray-500: #5B6472;
+  --color-gray-600: #444C59;
+  --color-gray-700: #384254;
+  --color-gray-800: #2A2F37;
+  --color-gray-900: #1C2026;
+  --color-gray-925: #14171C;
+  --color-gray-950: #0D0F12;
+
+  /* green */
+  --color-green-25: #F9FDF9;
+  --color-green-50: #F3FBF4;
+  --color-green-100: #E8F7E9;
+  --color-green-200: #B9E7BE;
+  --color-green-300: #8BD793;
+  --color-green-400: #5CCB67;
+  --color-green-500: #2CBE3B;
+  --color-green-600: #16AE26;
+  --color-green-700: #249E31;
+  --color-green-800: #1E8729;
+  --color-green-900: #16521C;
+  --color-green-950: #0F2E14;
+
+  /* info */
+  --color-info-25: #F5F9FE;
+  --color-info-50: #EAF3FD;
+  --color-info-100: #CEE3FA;
+  --color-info-200: #B3D3F7;
+  --color-info-300: #97C3F4;
+  --color-info-400: #3091FF;
+  --color-info-500: #3087E9;
+  --color-info-600: #277AD9;
+  --color-info-700: #2062AD;
+  --color-info-800: #123965;
+  --color-info-900: #0F2948;
+  --color-info-950: #0B1A2A;
+
+  /* red */
+  --color-red-25: #FDF2F3;
+  --color-red-50: #FBE5E8;
+  --color-red-100: #F6C3C9;
+  --color-red-200: #F0A2A9;
+  --color-red-300: #EB808A;
+  --color-red-400: #FF3B4E;
+  --color-red-500: #DB2B3C;
+  --color-red-600: #BA2735;
+  --color-red-700: #D70015;
+  --color-red-800: #721821;
+  --color-red-900: #4F131A;
+  --color-red-950: #2B0F14;
+
+  /* font/family */
+  --font-family-primary: "Almarai", "Segoe UI", Tahoma, system-ui, sans-serif;
+
+  /* font/letter-spacing */
+  --font-letter-spacing-none: 0;
+
+  /* font/line-height */
+  --font-line-height-16: 1rem; /* 16px */
+  --font-line-height-20: 1.25rem; /* 20px */
+  --font-line-height-24: 1.5rem; /* 24px */
+  --font-line-height-28: 1.75rem; /* 28px */
+  --font-line-height-32: 2rem; /* 32px */
+  --font-line-height-36: 2.25rem; /* 36px */
+  --font-line-height-40: 2.5rem; /* 40px */
+  --font-line-height-44: 2.75rem; /* 44px */
+  --font-line-height-48: 3rem; /* 48px */
+  --font-line-height-56: 3.5rem; /* 56px */
+  --font-line-height-64: 4rem; /* 64px */
+
+  /* font/size */
+  --font-size-12: 0.75rem; /* 12px */
+  --font-size-14: 0.875rem; /* 14px */
+  --font-size-16: 1rem; /* 16px */
+  --font-size-18: 1.125rem; /* 18px */
+  --font-size-20: 1.25rem; /* 20px */
+  --font-size-24: 1.5rem; /* 24px */
+  --font-size-28: 1.75rem; /* 28px */
+  --font-size-32: 2rem; /* 32px */
+  --font-size-40: 2.5rem; /* 40px */
+
+  /* font/weight */
+  --font-weight-light: 300; /* Light */
+  --font-weight-regular: 400; /* Regular */
+  --font-weight-bold: 700; /* Bold */
+  --font-weight-extrabold: 800; /* ExtraBold */
+
+  /* radius */
+  --radius-2: 2px;
+  --radius-4: 4px;
+  --radius-8: 8px;
+  --radius-12: 12px;
+  --radius-16: 16px;
+  --radius-999: 9999px;
+
+  /* space */
+  --space-0: 0;
+  --space-4: 0.25rem; /* 4px */
+  --space-8: 0.5rem; /* 8px */
+  --space-12: 0.75rem; /* 12px */
+  --space-16: 1rem; /* 16px */
+  --space-20: 1.25rem; /* 20px */
+  --space-24: 1.5rem; /* 24px */
+  --space-32: 2rem; /* 32px */
+  --space-40: 2.5rem; /* 40px */
+  --space-48: 3rem; /* 48px */
+  --space-64: 4rem; /* 64px */
+  --space-80: 5rem; /* 80px */
+}
+
+/* 2. Typography — semantic tokens */
+:root {
+
+  /* family */
+  --font-family: var(--font-family-primary);
+
+  /* letter-spacing */
+  --font-letter-spacing: var(--font-letter-spacing-none);
+
+  /* display */
+  --font-size-display: var(--font-size-40);
+  --line-height-display: var(--font-line-height-56);
+  --font-weight-display: var(--font-weight-bold);
+
+  /* heading/h1 */
+  --font-size-heading-h1: var(--font-size-32);
+  --line-height-heading-h1: var(--font-line-height-44);
+  --font-weight-heading-h1: var(--font-weight-bold);
+
+  /* heading/h2 */
+  --font-size-heading-h2: var(--font-size-28);
+  --line-height-heading-h2: var(--font-line-height-40);
+  --font-weight-heading-h2: var(--font-weight-bold);
+
+  /* heading/h3 */
+  --font-size-heading-h3: var(--font-size-24);
+  --line-height-heading-h3: var(--font-line-height-36);
+  --font-weight-heading-h3: var(--font-weight-bold);
+
+  /* heading/h4 */
+  --font-size-heading-h4: var(--font-size-20);
+  --line-height-heading-h4: var(--font-line-height-32);
+  --font-weight-heading-h4: var(--font-weight-bold);
+
+  /* body/xl */
+  --font-size-body-xl: var(--font-size-20);
+  --line-height-body-xl: var(--font-line-height-32);
+  --font-weight-body-xl: var(--font-weight-regular);
+
+  /* body/lg */
+  --font-size-body-lg: var(--font-size-18);
+  --line-height-body-lg: var(--font-line-height-28);
+  --font-weight-body-lg: var(--font-weight-regular);
+
+  /* body/md */
+  --font-size-body-md: var(--font-size-16);
+  --line-height-body-md: var(--font-line-height-24);
+  --font-weight-body-md: var(--font-weight-regular);
+
+  /* body/sm */
+  --font-size-body-sm: var(--font-size-14);
+  --line-height-body-sm: var(--font-line-height-20);
+  --font-weight-body-sm: var(--font-weight-regular);
+
+  /* label/lg */
+  --font-size-label-lg: var(--font-size-16);
+  --line-height-label-lg: var(--font-line-height-24);
+  --font-weight-label-lg: var(--font-weight-bold);
+
+  /* label/md */
+  --font-size-label-md: var(--font-size-14);
+  --line-height-label-md: var(--font-line-height-20);
+  --font-weight-label-md: var(--font-weight-bold);
+
+  /* label/sm */
+  --font-size-label-sm: var(--font-size-12);
+  --line-height-label-sm: var(--font-line-height-20);
+  --font-weight-label-sm: var(--font-weight-bold);
+
+  /* caption */
+  --font-size-caption: var(--font-size-12);
+  --line-height-caption: var(--font-line-height-20);
+  --font-weight-caption: var(--font-weight-regular);
+}
+
+/* 3. Spacing & radius — semantic tokens */
+:root {
+
+  /* inset — padding inside components */
+  --space-inset-xs: var(--space-4);
+  --space-inset-sm: var(--space-8);
+  --space-inset-md: var(--space-12);
+  --space-inset-lg: var(--space-16);
+  --space-inset-xl: var(--space-24);
+  --space-inset-2xl: var(--space-32);
+
+  /* gap — space between items */
+  --space-gap-xs: var(--space-4);
+  --space-gap-sm: var(--space-8);
+  --space-gap-md: var(--space-12);
+  --space-gap-lg: var(--space-16);
+  --space-gap-xl: var(--space-24);
+  --space-gap-2xl: var(--space-32);
+
+  /* layout */
+  --space-layout-gutter: var(--space-24);
+  --space-layout-page-margin: var(--space-80);
+  --space-layout-section: var(--space-64);
+
+  /* radius */
+  --radius-xs: var(--radius-2);
+  --radius-sm: var(--radius-4);
+  --radius-md: var(--radius-8);
+  --radius-lg: var(--radius-12);
+  --radius-xl: var(--radius-16);
+  --radius-full: var(--radius-999);
+
+  /* component/alert */
+  --space-component-alert-gap: var(--space-gap-sm);
+  --space-component-alert-padding-x: var(--space-inset-lg);
+  --space-component-alert-padding-y: var(--space-inset-lg);
+
+  /* component/panel */
+  --space-component-panel-padding: var(--space-inset-2xl);
+}
+
+/* 4. Colors — Light (default) */
+:root,
+[data-theme="light"] {
+  color-scheme: light;
+
+  /* bg */
+  --color-bg-page: var(--color-base-white);
+  --color-bg-surface: var(--color-base-white);
+  --color-bg-sidebar: var(--color-base-white);
+  --color-bg-subtle: var(--color-gray-25);
+  --color-bg-muted: var(--color-gray-25);
+  --color-bg-strong: var(--color-gray-100);
+  --color-bg-brand-subtle: var(--color-blue-25);
+  --color-bg-brand-soft: var(--color-blue-50);
+  --color-bg-brand-hover: var(--color-blue-100);
+  --color-bg-brand-muted: var(--color-blue-200);
+  --color-bg-navbar: var(--color-blue-950);
+  --color-bg-stat: var(--color-base-white);
+  --color-bg-loader-start: var(--color-blue-950);
+  --color-bg-loader-end: var(--color-blue-500);
+
+  /* text */
+  --color-text-primary: var(--color-gray-600);
+  --color-text-secondary: var(--color-gray-500);
+  --color-text-tertiary: var(--color-gray-400);
+  --color-text-disabled: var(--color-gray-200);
+  --color-text-brand: var(--color-blue-900);
+  --color-text-link: var(--color-blue-800);
+  --color-text-on-brand: var(--color-base-white);
+  --color-text-on-warning: var(--color-gray-900);
+
+  /* icon */
+  --color-icon-default: var(--color-gray-600);
+  --color-icon-secondary: var(--color-gray-500);
+  --color-icon-tertiary: var(--color-gray-400);
+  --color-icon-disabled: var(--color-gray-200);
+  --color-icon-brand: var(--color-blue-800);
+  --color-icon-brand-strong: var(--color-blue-900);
+  --color-icon-brand-subtle: var(--color-blue-50);
+  --color-icon-on-brand: var(--color-base-white);
+  --color-icon-on-warning: var(--color-gray-900);
+  --color-icon-on-navbar: var(--color-base-white);
+
+  /* border */
+  --color-border-default: var(--color-gray-50);
+  --color-border-strong: var(--color-gray-100);
+  --color-border-brand: var(--color-blue-800);
+  --color-border-brand-subtle: var(--color-blue-100);
+  --color-border-focus: var(--color-blue-500);
+
+  /* action/primary */
+  --color-action-primary-default: var(--color-blue-800);
+  --color-action-primary-hover: var(--color-blue-900);
+  --color-action-primary-pressed: var(--color-blue-950);
+  --color-action-primary-disabled: var(--color-gray-100);
+
+  /* action/secondary */
+  --color-action-secondary-default: var(--color-blue-700);
+  --color-action-secondary-hover: var(--color-blue-800);
+  --color-action-secondary-pressed: var(--color-blue-900);
+  --color-action-secondary-disabled: var(--color-gray-100);
+
+  /* action — states */
+  --color-action-selected: var(--color-blue-950);
+  --color-action-active: var(--color-blue-900);
+
+  /* action/danger */
+  --color-action-danger-default: var(--color-red-700);
+  --color-action-danger-hover: var(--color-red-800);
+
+  /* action/success */
+  --color-action-success-default: var(--color-green-800);
+  --color-action-success-hover: var(--color-green-900);
+
+  /* action/warning */
+  --color-action-warning-default: var(--color-amber-600);
+  --color-action-warning-hover: var(--color-amber-700);
+
+  /* action/info */
+  --color-action-info-default: var(--color-info-700);
+  --color-action-info-hover: var(--color-info-800);
+
+  /* status/danger */
+  --color-status-danger-text: var(--color-red-700);
+  --color-status-danger-bg: var(--color-red-25);
+  --color-status-danger-border: var(--color-red-300);
+  --color-status-danger-icon: var(--color-red-700);
+  --color-status-danger-icon-bg: var(--color-red-50);
+
+  /* status/info */
+  --color-status-info-text: var(--color-info-700);
+  --color-status-info-bg: var(--color-info-25);
+  --color-status-info-border: var(--color-info-300);
+  --color-status-info-icon: var(--color-info-500);
+  --color-status-info-icon-bg: var(--color-info-50);
+
+  /* status/success */
+  --color-status-success-text: var(--color-green-900);
+  --color-status-success-bg: var(--color-green-50);
+  --color-status-success-border: var(--color-green-300);
+  --color-status-success-icon: var(--color-green-600);
+  --color-status-success-icon-bg: var(--color-green-100);
+
+  /* status/warning */
+  --color-status-warning-text: var(--color-amber-800);
+  --color-status-warning-bg: var(--color-amber-25);
+  --color-status-warning-border: var(--color-amber-300);
+  --color-status-warning-icon: var(--color-amber-400);
+  --color-status-warning-icon-bg: var(--color-amber-50);
+}
+
+/* 4. Colors — Dark
+   Applied only with <html data-theme="dark"> (light is the default). */
+[data-theme="dark"] {
+  color-scheme: dark;
+
+  /* bg */
+  --color-bg-page: var(--color-gray-950);
+  --color-bg-surface: var(--color-gray-900);
+  --color-bg-sidebar: var(--color-gray-900);
+  --color-bg-subtle: var(--color-gray-800);
+  --color-bg-muted: var(--color-gray-900);
+  --color-bg-strong: var(--color-gray-500);
+  --color-bg-brand-subtle: var(--color-gray-800);
+  --color-bg-brand-soft: var(--color-gray-800);
+  --color-bg-brand-hover: var(--color-gray-600);
+  --color-bg-brand-muted: var(--color-gray-500);
+  --color-bg-navbar: var(--color-blue-300);
+  --color-bg-stat: var(--color-gray-700);
+  --color-bg-loader-start: var(--color-blue-800);
+  --color-bg-loader-end: var(--color-blue-300);
+
+  /* text */
+  --color-text-primary: var(--color-base-white);
+  --color-text-secondary: var(--color-gray-50);
+  --color-text-tertiary: var(--color-gray-100);
+  --color-text-disabled: var(--color-gray-500);
+  --color-text-brand: var(--color-blue-100);
+  --color-text-link: var(--color-blue-200);
+  --color-text-on-brand: var(--color-gray-950);
+  --color-text-on-warning: var(--color-gray-900);
+
+  /* icon */
+  --color-icon-default: var(--color-base-white);
+  --color-icon-secondary: var(--color-gray-50);
+  --color-icon-tertiary: var(--color-gray-100);
+  --color-icon-disabled: var(--color-gray-500);
+  --color-icon-brand: var(--color-blue-400);
+  --color-icon-brand-strong: var(--color-blue-300);
+  --color-icon-brand-subtle: var(--color-gray-600);
+  --color-icon-on-brand: var(--color-gray-950);
+  --color-icon-on-warning: var(--color-gray-900);
+  --color-icon-on-navbar: var(--color-icon-on-brand);
+
+  /* border */
+  --color-border-default: var(--color-gray-800);
+  --color-border-strong: var(--color-gray-500);
+  --color-border-brand: var(--color-blue-400);
+  --color-border-brand-subtle: var(--color-gray-500);
+  --color-border-focus: var(--color-blue-300);
+
+  /* action/primary */
+  --color-action-primary-default: var(--color-blue-400);
+  --color-action-primary-hover: var(--color-blue-300);
+  --color-action-primary-pressed: var(--color-blue-200);
+  --color-action-primary-disabled: var(--color-gray-700);
+
+  /* action/secondary */
+  --color-action-secondary-default: var(--color-blue-300);
+  --color-action-secondary-hover: var(--color-blue-200);
+  --color-action-secondary-pressed: var(--color-blue-400);
+  --color-action-secondary-disabled: var(--color-gray-700);
+
+  /* action — states */
+  --color-action-selected: var(--color-blue-400);
+  --color-action-active: var(--color-blue-300);
+
+  /* action/danger */
+  --color-action-danger-default: var(--color-red-400);
+  --color-action-danger-hover: var(--color-red-300);
+
+  /* action/success */
+  --color-action-success-default: var(--color-green-500);
+  --color-action-success-hover: var(--color-green-300);
+
+  /* action/warning */
+  --color-action-warning-default: var(--color-amber-500);
+  --color-action-warning-hover: var(--color-amber-300);
+
+  /* action/info */
+  --color-action-info-default: var(--color-info-400);
+  --color-action-info-hover: var(--color-info-300);
+
+  /* status/danger */
+  --color-status-danger-text: var(--color-red-200);
+  --color-status-danger-bg: var(--color-red-950);
+  --color-status-danger-border: var(--color-red-500);
+  --color-status-danger-icon: var(--color-red-400);
+  --color-status-danger-icon-bg: var(--color-red-600);
+
+  /* status/info */
+  --color-status-info-text: var(--color-info-200);
+  --color-status-info-bg: var(--color-info-900);
+  --color-status-info-border: var(--color-info-600);
+  --color-status-info-icon: var(--color-info-400);
+  --color-status-info-icon-bg: var(--color-info-700);
+
+  /* status/success */
+  --color-status-success-text: var(--color-green-200);
+  --color-status-success-bg: var(--color-green-950);
+  --color-status-success-border: var(--color-green-700);
+  --color-status-success-icon: var(--color-green-500);
+  --color-status-success-icon-bg: var(--color-green-800);
+
+  /* status/warning */
+  --color-status-warning-text: var(--color-amber-300);
+  --color-status-warning-bg: var(--color-amber-950);
+  --color-status-warning-border: var(--color-amber-600);
+  --color-status-warning-icon: var(--color-amber-500);
+  --color-status-warning-icon-bg: var(--color-amber-700);
+}
+
+
+/* Elevation — shadow styles */
+:root {
+  --shadow-xs: 0px 1px 3px 0px rgba(0, 0, 0, 0.2); /* Hairline lift for inputs and small chips */
+  --shadow-sm: 0px 2px 4px 0px rgba(0, 0, 0, 0.08), 0px 0px 6px 0px rgba(0, 0, 0, 0.02); /* Cards and list items */
+  --shadow-md: 0px 4px 8px 0px rgba(0, 0, 0, 0.06), 0px 0px 4px 0px rgba(0, 0, 0, 0.04); /* Dropdowns, popovers, hovered cards */
+  --shadow-lg: 0px 4px 10px 0px rgba(5, 59, 92, 0.2); /* Dialogs and side panels */
+  --shadow-xl: 0px 8px 18px 0px rgba(8, 64, 105, 0.3); /* Modals and prominent overlays */
+}
+
+/* Text styles — mirror the Figma text styles */
+.text-display,
+.text-heading-h1,
+.text-heading-h2,
+.text-heading-h3,
+.text-heading-h4,
+.text-body-xl,
+.text-body-lg,
+.text-body-md,
+.text-body-sm,
+.text-label-lg,
+.text-label-md,
+.text-label-sm,
+.text-caption {
+  font-family: var(--font-family);
+  letter-spacing: var(--font-letter-spacing);
+}
+
+.text-display    { font-size: var(--font-size-display);    line-height: var(--line-height-display);    font-weight: var(--font-weight-display); }
+.text-heading-h1 { font-size: var(--font-size-heading-h1); line-height: var(--line-height-heading-h1); font-weight: var(--font-weight-heading-h1); }
+.text-heading-h2 { font-size: var(--font-size-heading-h2); line-height: var(--line-height-heading-h2); font-weight: var(--font-weight-heading-h2); }
+.text-heading-h3 { font-size: var(--font-size-heading-h3); line-height: var(--line-height-heading-h3); font-weight: var(--font-weight-heading-h3); }
+.text-heading-h4 { font-size: var(--font-size-heading-h4); line-height: var(--line-height-heading-h4); font-weight: var(--font-weight-heading-h4); }
+.text-body-xl    { font-size: var(--font-size-body-xl);    line-height: var(--line-height-body-xl);    font-weight: var(--font-weight-body-xl); }
+.text-body-lg    { font-size: var(--font-size-body-lg);    line-height: var(--line-height-body-lg);    font-weight: var(--font-weight-body-lg); }
+.text-body-md    { font-size: var(--font-size-body-md);    line-height: var(--line-height-body-md);    font-weight: var(--font-weight-body-md); }
+.text-body-sm    { font-size: var(--font-size-body-sm);    line-height: var(--line-height-body-sm);    font-weight: var(--font-weight-body-sm); }
+.text-label-lg   { font-size: var(--font-size-label-lg);   line-height: var(--line-height-label-lg);   font-weight: var(--font-weight-label-lg); }
+.text-label-md   { font-size: var(--font-size-label-md);   line-height: var(--line-height-label-md);   font-weight: var(--font-weight-label-md); }
+.text-label-sm   { font-size: var(--font-size-label-sm);   line-height: var(--line-height-label-sm);   font-weight: var(--font-weight-label-sm); }
+.text-caption    { font-size: var(--font-size-caption);    line-height: var(--line-height-caption);    font-weight: var(--font-weight-caption); }

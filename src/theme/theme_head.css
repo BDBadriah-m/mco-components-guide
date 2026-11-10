@@ -1,0 +1,645 @@
+/* =============================================================================
+   MCO Theme — OutSystems 11 Reactive (OutSystems UI 2.x)
+   نظام تصميم منصة تواصل الوزراء · عربي RTL · فاتح وداكن
+
+   المصدر: «MCO Design System» (tokens.json + bundle.css) — المزامنة 2026-10-05
+   الاستخدام: الصق الملف كاملاً في Style Sheet الخاص بـ Theme module
+   (Base Theme = OutSystemsUI). يُحمَّل بعد OutSystemsUI.css فيتغلّب عليه.
+
+   الأقسام:
+     1. الخط
+     2. توكنز MCO: ملف «mco-design-tokens-light-dark.css» (فاتح + داكن)
+        الداكن: أضف data-theme="dark" على <html> (مثلاً من زر القمر في شريط التنقل)،
+        والفاتح هو الافتراضي دائماً — إعداد الجهاز الداكن لا يغيّر الثيم.
+        مهم: الخاصية على <html> نفسه، مو على body أو حاوية داخلية.
+     3. ربط متغيرات OutSystems UI بتوكنز MCO
+     4. الأساسيات (الخط، العناوين، الروابط، التركيز)
+     5. تعديل ودجات وأنماط OutSystems UI
+     6. كلاسات إضافية لأنماط OS UI (Extended Class)
+     7. كلاسات الـ Blocks المخصّصة (.mco-*)
+   ============================================================================= */
+
+/* ---------------------------------------------------------------------------
+   1. الخط — Almarai من Google Fonts
+   إذا كانت البيئة لا تصل للإنترنت: ارفع ملفات الخط في Resources واستبدل
+   هذا السطر بـ @font-face يشير إليها.
+   --------------------------------------------------------------------------- */
+@import url("https://fonts.googleapis.com/css2?family=Almarai:wght@300;400;700;800&display=swap");
+
+/*@TOKENS@*/
+
+/* ---------------------------------------------------------------------------
+   3. ربط متغيرات OutSystems UI بتوكنز MCO
+   كل نمط من OutSystems UI يقرأ هذه المتغيرات، فيأخذ ألوان MCO بدون تعديل إضافي.
+   --------------------------------------------------------------------------- */
+:root {
+  /* الهوية */
+  --color-primary: var(--brand-default);
+  --color-primary-hover: var(--brand-light);
+  --color-primary-selected: var(--brand-shade-30);
+  --color-secondary: var(--brand-primary);
+
+  /* الرمادي: سلّم OS UI (0 فاتح → 10 داكن) */
+  --color-neutral-0: var(--bg-main);
+  --color-neutral-1: var(--bg-soft);
+  --color-neutral-2: var(--bg-light-grey);
+  --color-neutral-3: var(--grey-soft);
+  --color-neutral-4: var(--grey-dark);
+  --color-neutral-5: var(--font-tertiary);
+  --color-neutral-6: var(--font-secondary);
+  --color-neutral-7: var(--font-secondary-dark);
+  --color-neutral-8: var(--font-primary);
+  --color-neutral-9: var(--font-primary);   /* لون نص OS UI الافتراضي */
+  --color-neutral-10: var(--font-primary);  /* النظام فيه لون نص أساسي واحد */
+
+  /* الحالات */
+  --color-error: var(--danger);
+  --color-error-light: var(--danger-bg);
+  --color-success: var(--success);
+  --color-success-light: var(--success-bg);
+  --color-warning: var(--warning);           /* للأيقونات فقط — 1.7:1 كنص */
+  --color-warning-light: var(--warning-bg);
+  --color-info: var(--info);
+  --color-info-light: var(--info-bg);
+
+  /* التركيز (Accessibility) */
+  --color-focus-outer: var(--brand-shade-40);
+  --color-focus-inner: var(--brand-primary);
+
+  /* الخلفيات */
+  --color-background-body: var(--bg-main);
+  --color-background-login: var(--bg-main);
+  --header-color: var(--bg-main);
+  --overlay-background: rgba(67, 83, 99, 0.5); /* font-primary بشفافية 50% */
+
+  /* الخطوط — أحجام MCO */
+  --font-size-display: 56px;
+  --font-size-h1: 56px;
+  --font-size-h2: 48px;
+  --font-size-h3: 40px;
+  --font-size-h4: 32px;
+  --font-size-h5: 24px;
+  --font-size-h6: 20px;
+  --font-size-base: 16px;
+  --font-size-s: 14px;
+  --font-size-xs: 12px;
+  --font-size-label: 12px;
+
+  /* الأوزان — Almarai ليس فيه 600، فـ semi-bold = 700 */
+  --font-light: 300;
+  --font-regular: 400;
+  --font-semi-bold: 700;
+  --font-bold: 700;
+
+  /* الزوايا */
+  --border-radius-none: 0;
+  --border-radius-soft: var(--radius-sm);
+  --border-radius-rounded: var(--radius-full);
+
+  /* المسافات: سلّم OS UI (4/8/16/24/32/40/48) يطابق MCO، و12 تُستخدم من --space-12 */
+}
+
+/* ---------------------------------------------------------------------------
+   4. الأساسيات
+   --------------------------------------------------------------------------- */
+html, body, .layout, input, select, textarea, button {
+  font-family: var(--font-sans);
+}
+
+/* OS UI يضبط body على ltr؛ المنصة تضيف is-rtl عند اللغة العربية */
+body.is-rtl, .is-rtl .layout { direction: rtl; }
+
+body {
+  color: var(--font-primary);
+  background-color: var(--bg-main);
+  font-size: 16px;
+  line-height: 22.4px;
+}
+
+h1, h2, h3, h4, h5, h6 { font-weight: 700; color: var(--brand-primary); }
+h1 { font-size: 56px; line-height: 61.6px; }
+h2 { font-size: 48px; line-height: 52.8px; }
+h3 { font-size: 40px; line-height: 44px; }
+h4 { font-size: 32px; line-height: 35.2px; }
+h5 { font-size: 24px; line-height: 40px; }
+h6 { font-size: 20px; line-height: 22px; }
+
+a, a:visited { color: var(--brand-light); }
+a:hover { color: var(--brand-secondary); }
+
+/* التركيز: إطار 2px بلون brand-primary بإزاحة 2px */
+:where(a, button, .btn, input, select, textarea, [tabindex]):focus-visible {
+  outline: 2px solid var(--brand-primary);
+  outline-offset: 2px;
+}
+
+/* كلاسات نصوص MCO (تستخدم في Style Classes) */
+.mco-text-body-lg   { font-size: 20px; line-height: 32px; font-weight: 400; }
+.mco-text-body-md   { font-size: 18px; line-height: 25.2px; font-weight: 400; }
+.mco-text-body-md-bold { font-size: 18px; line-height: 25.2px; font-weight: 700; }
+.mco-text-label     { font-size: 18px; line-height: 22px; font-weight: 700; }
+.mco-text-body      { font-size: 16px; line-height: 22.4px; font-weight: 400; }
+.mco-text-body-bold { font-size: 16px; line-height: 22.4px; font-weight: 700; }
+.mco-text-body-sm   { font-size: 14px; line-height: 19.6px; font-weight: 400; }
+.mco-text-caption   { font-size: 12px; line-height: 18px; font-weight: 700; }
+.mco-text-h5-sub    { font-size: 24px; line-height: 44px; font-weight: 400; }
+.mco-text-primary   { color: var(--font-primary); }
+.mco-text-secondary-dark { color: var(--font-secondary-dark); }
+.mco-text-brand     { color: var(--brand-primary); }
+
+/* ---------------------------------------------------------------------------
+   5. تعديل ودجات وأنماط OutSystems UI
+   --------------------------------------------------------------------------- */
+
+/* 5.1 Button — «Button CTA»
+   .btn = Secondary · .btn-primary = Primary · .btn-cancel = Cancel
+   .btn-error = Primary خطِر · .btn-small = 32px · (.btn-mobile و.btn-tertiary و.btn-link في القسم 6) */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-12);
+  height: 44px;
+  min-height: 44px;
+  padding: var(--space-12);
+  border: 1px solid var(--brand-light);
+  border-radius: var(--radius-md);
+  background-color: transparent;
+  color: var(--brand-light);
+  font-family: var(--font-sans);
+  font-size: 18px;
+  line-height: 20px;
+  font-weight: 700;
+  box-shadow: none;
+  white-space: nowrap;
+  transition: background-color .15s, color .15s, border-color .15s;
+}
+.btn:hover { background-color: var(--brand-shade-20); color: var(--brand-light); }
+.btn:hover:active { background-color: var(--brand-shade-30); }
+
+.btn.btn-primary {
+  background-color: var(--brand-default);
+  border-color: var(--brand-default);
+  color: var(--bg-main);
+}
+.btn.btn-primary:hover { background-color: var(--brand-light); border-color: var(--brand-light); color: var(--bg-main); }
+.btn.btn-primary:hover:active { background-color: var(--brand-secondary); border-color: var(--brand-secondary); }
+
+.btn.btn-cancel {
+  background-color: transparent;
+  border-color: var(--grey-soft);
+  color: var(--font-primary);
+}
+.btn.btn-cancel:hover { background-color: var(--bg-light-grey); color: var(--font-primary); }
+
+.btn.btn-error {
+  background-color: var(--danger);
+  border-color: var(--danger);
+  color: var(--bg-main);
+}
+.btn.btn-error:hover { filter: brightness(0.92); color: var(--bg-main); }
+
+.btn.btn-small {
+  height: 32px;
+  min-height: 32px;
+  padding: var(--space-8);
+  gap: var(--space-8);
+  font-size: 14.4px;
+  border-radius: var(--radius-button-sm);
+}
+
+.btn[disabled], .btn:disabled {
+  opacity: 1;
+  cursor: not-allowed;
+  pointer-events: none;
+  background-color: transparent;
+  border-color: var(--grey-dark);
+  color: var(--font-tertiary);
+}
+.btn.btn-primary[disabled], .btn.btn-primary:disabled,
+.btn.btn-error[disabled], .btn.btn-error:disabled {
+  background-color: var(--grey-soft);
+  border-color: var(--grey-dark);
+  color: var(--font-tertiary);
+}
+
+/* أيقونات داخل الزر 20px */
+.btn .icon, .btn [class*="fa-"] { font-size: 20px; }
+
+/* 5.2 Input / TextArea — «input form» */
+.form-control {
+  min-height: 46px;
+  height: auto;
+  padding: var(--space-12) var(--space-16);
+  background-color: var(--bg-element);
+  border: 1px solid var(--font-tertiary);
+  border-radius: var(--radius-sm);
+  color: var(--font-primary);
+  font-family: var(--font-sans);
+  font-size: 18px;
+  line-height: 20px;
+  box-shadow: none;
+  transition: border-color .15s, box-shadow .15s;
+}
+.form-control:hover { border-color: var(--font-secondary); }
+.form-control:focus {
+  border-color: var(--font-primary);
+  box-shadow: var(--shadow-m);
+  outline: 0;
+}
+.form-control::placeholder { color: var(--font-tertiary); opacity: 1; }
+textarea.form-control { min-height: 125px; resize: vertical; }
+
+.form-control[disabled], .form-control:disabled {
+  background-color: var(--bg-light-grey);
+  border-color: var(--grey-soft);
+  color: var(--font-tertiary);
+  cursor: not-allowed;
+}
+
+/* حالة الخطأ (Built-in Validations) */
+.form-control.not-valid { border-color: var(--danger); }
+span.validation-message {
+  color: var(--danger);
+  font-size: 16px;
+  line-height: 22.4px;
+  margin-top: var(--space-12);
+}
+
+/* تسمية الحقل (Label widget) داخل Form */
+.form label, .mco-label {
+  color: var(--font-primary);
+  font-size: 18px;
+  line-height: 22px;
+  font-weight: 700;
+}
+
+/* 5.3 Dropdown (الودجت الأساسي) */
+.dropdown-container {
+  min-height: 46px;
+  border: 1px solid var(--font-tertiary);
+  border-radius: var(--radius-sm);
+  background-color: var(--bg-element);
+  color: var(--font-primary);
+  font-size: 18px;
+}
+.dropdown-container:hover { border-color: var(--font-secondary); }
+.dropdown-container.dropdown-expanded { border-color: var(--font-primary); box-shadow: var(--shadow-m); }
+.dropdown-popup-row.dropdown-selected,
+.dropdown-popup-row.dropdown-selected:hover { background-color: var(--brand-shade-30); color: var(--brand-secondary); }
+
+/* 5.4 Dropdown Search / Tags (OS UI Virtual Select) */
+.osui-dropdown-serverside__selected-values-wrapper,
+.vscomp-toggle-button {
+  min-height: 46px;
+  border: 1px solid var(--font-tertiary) !important;
+  border-radius: var(--radius-sm) !important;
+  background-color: var(--bg-element);
+  font-size: 18px;
+}
+.vscomp-wrapper.focused .vscomp-toggle-button,
+.vscomp-wrapper:focus .vscomp-toggle-button { border-color: var(--font-primary) !important; box-shadow: var(--shadow-m); }
+.vscomp-dropbox,
+.osui-dropdown-serverside__balloon-content {
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-m);
+  border: 1px solid var(--grey-soft);
+}
+.vscomp-search-container,
+.osui-dropdown-serverside__balloon-search-wrapper {
+  background-color: var(--bg-light-grey);
+  border-radius: var(--radius-sm);
+  margin: var(--space-12) var(--space-16) 0;
+}
+.vscomp-option { border-bottom: 1px solid var(--status-default); font-size: 16px; color: var(--font-primary); }
+.vscomp-option:last-child { border-bottom: 0; }
+.vscomp-option.selected { background-color: transparent; }
+.vscomp-option.focused { background-color: var(--brand-shade-20); }
+.vscomp-value-tag {
+  height: 28px;
+  padding: var(--space-4) var(--space-8);
+  background-color: var(--bg-light-grey);
+  border: 0;
+  border-radius: var(--radius-sm);
+  font-size: 14px;
+  color: var(--font-primary);
+}
+
+/* 5.5 Checkbox — 26px بزاوية 6px */
+[data-checkbox] { width: 26px; height: 26px; }
+[data-checkbox]:before {
+  width: 26px;
+  height: 26px;
+  border: 1px solid var(--grey-dark);
+  border-radius: var(--radius-button-sm);
+  background: var(--bg-element);
+  box-sizing: border-box;
+}
+[data-checkbox]:hover:before { border-color: var(--font-secondary); }
+[data-checkbox]:checked:before { background: var(--brand-primary); border-color: var(--brand-primary); }
+[data-checkbox]:checked:after { left: 7px; top: 8px; border-color: var(--bg-main); }
+[data-checkbox][disabled]:before,
+[data-checkbox][disabled]:checked:before { background-color: var(--grey-soft); border-color: var(--grey-dark); }
+[data-checkbox].not-valid:before { border-color: var(--danger); }
+
+/* 5.6 Radio Button — دائرة 26px، المحدد نقطة 18px */
+.radio-button { width: 26px; height: 26px; }
+.radio-button:before { border: 1px solid var(--grey-dark); background-color: var(--bg-element); }
+.radio-button:hover:before { border-color: var(--font-secondary); }
+.radio-button:checked:before {
+  border: 1px solid var(--brand-primary);
+  background: radial-gradient(circle, var(--brand-primary) 0 8.5px, var(--bg-element) 9.5px);
+}
+.radio-button:checked:hover:before { filter: none; }
+.radio-button:disabled:before,
+.radio-button:disabled:checked:before { background: var(--grey-soft); border: 1px solid var(--grey-dark); }
+
+/* 5.7 Switch — مسار 48×26 ومقبض 22px */
+[data-switch] { width: 48px; height: 26px; }
+[data-switch]:empty:before {
+  width: 48px;
+  height: 26px;
+  background-color: var(--bg-element);
+  border: 1px solid var(--grey-dark);
+  border-radius: var(--radius-full);
+  box-sizing: border-box;
+}
+[data-switch]:empty:after {
+  width: 22px;
+  height: 22px;
+  top: 2px;
+  background-color: var(--grey-dark);
+  border-radius: var(--radius-full);
+  transform: translateX(2px) translateZ(0);
+}
+[data-switch]:hover:before { background-color: var(--bg-element); border-color: var(--font-secondary); }
+[data-switch]:checked:before { background-color: var(--brand-primary); border-color: var(--brand-primary); }
+[data-switch]:checked:after { background-color: var(--bg-main); transform: translateX(24px) translateZ(0); }
+/* في الواجهة العربية: المقبض يميناً عند الإيقاف ويساراً عند التشغيل */
+.is-rtl [data-switch]:empty:after { left: auto; right: 0; transform: translateX(-2px) translateZ(0); }
+.is-rtl [data-switch]:checked:after { transform: translateX(-24px) translateZ(0); }
+.is-rtl [data-switch]:empty:before { left: auto; right: 0; }
+[data-switch][disabled]:empty:before { background-color: var(--grey-soft); border-color: var(--grey-dark); }
+[data-switch][disabled]:empty:after { background-color: var(--grey-dark); }
+
+/* 5.8 Feedback Message (Toast) */
+.feedback-message {
+  max-width: 542px;
+  min-width: 360px;
+  gap: var(--space-12);
+  padding: var(--space-12);
+  border: 1px solid;
+  border-radius: var(--radius-sm);
+  box-shadow: var(--shadow-s);
+  color: var(--font-primary);
+  font-size: 16px;
+  line-height: 22.4px;
+}
+.feedback-message-text { padding-inline-start: var(--space-12); padding-left: 0; }
+div.feedback-message-success { background-color: var(--success-bg); border-color: var(--success-stroke); }
+div.feedback-message-info    { background-color: var(--info-bg);    border-color: var(--info-stroke); }
+div.feedback-message-warning { background-color: var(--warning-bg); border-color: var(--warning-stroke); color: var(--font-primary); }
+div.feedback-message-error   { background-color: var(--danger-bg);  border-color: var(--danger-stroke); }
+div.feedback-message-success i { color: var(--success); }
+div.feedback-message-info i    { color: var(--info); }
+div.feedback-message-warning i { color: var(--warning); }
+div.feedback-message-error i   { color: var(--danger); }
+
+/* 5.9 Popup — «Master popup» */
+.popup-backdrop { background-color: var(--overlay-background); }
+.popup-dialog {
+  padding: var(--space-32);
+  background-color: var(--bg-element);
+  border: 1px solid var(--grey-soft);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-m);
+  color: var(--font-primary);
+}
+
+/* 5.10 Alert (نمط OS UI) — «Alerts تنبيهات» */
+.alert {
+  gap: var(--space-24);
+  padding: var(--space-12) var(--space-16);
+  border: 1px solid;
+  border-radius: var(--radius-sm);
+  box-shadow: var(--shadow-s);
+  color: var(--font-primary);
+  font-size: 16px;
+  line-height: 22.4px;
+}
+.alert.alert-success { background-color: var(--success-bg); border-color: var(--success-stroke); color: var(--font-primary); }
+.alert.alert-info    { background-color: var(--info-bg);    border-color: var(--info-stroke);    color: var(--font-primary); }
+.alert.alert-warning { background-color: var(--warning-bg); border-color: var(--warning-stroke); color: var(--font-primary); }
+.alert.alert-error   { background-color: var(--danger-bg);  border-color: var(--danger-stroke);  color: var(--font-primary); }
+.alert.alert-success .alert-icon { color: var(--success); }
+.alert.alert-info .alert-icon    { color: var(--info); }
+.alert.alert-warning .alert-icon { color: var(--warning); }
+.alert.alert-error .alert-icon   { color: var(--danger); }
+
+/* 5.11 Tag / Badge — أقرب نمط لشارة الحالة. للشارة الكاملة استخدم Block MCO_StatusBadge */
+.tag {
+  height: 36px;
+  padding: var(--space-8) var(--space-12);
+  border-radius: var(--radius-sm);
+  font-size: 14px;
+  line-height: 19.6px;
+  font-weight: 400;
+  color: var(--font-primary);
+}
+.tag.tag-small { height: 26px; font-size: 11px; }
+
+/* 5.12 Table (الودجت الأساسي) — رأس bg-light-grey بارتفاع 56px */
+.table { border: 0; border-collapse: separate; border-spacing: 0; background: transparent; } /* الصفوف متلاصقة بدون مسافات بينها، كما في Figma «Table» 2:20849 */
+.table-header th {
+  height: 56px;
+  padding: var(--space-8) var(--space-16);
+  background-color: var(--bg-light-grey);
+  border: 0;
+  color: var(--font-primary);
+  font-size: 18px;
+  line-height: 20px;
+  font-weight: 700;
+  text-align: start;
+}
+.table-header th:first-child { border-start-start-radius: var(--radius-sm); border-end-start-radius: var(--radius-sm); }
+.table-header th:last-child  { border-start-end-radius: var(--radius-sm);   border-end-end-radius: var(--radius-sm); }
+.table-row td {
+  height: 78px;
+  padding: var(--space-16);
+  background-color: var(--bg-element);
+  border-top: 1px solid var(--grey-soft);
+  border-bottom: 1px solid var(--grey-soft);
+  color: var(--font-primary);
+  font-size: 18px;
+  line-height: 20px;
+}
+.table-row + .table-row td { border-top: 0; }
+.table-row td:first-child { border-inline-start: 1px solid var(--grey-soft); }
+.table-row td:last-child  { border-inline-end: 1px solid var(--grey-soft); }
+.table-row:first-child td:first-child { border-start-start-radius: var(--radius-sm); }
+.table-row:first-child td:last-child  { border-start-end-radius: var(--radius-sm); }
+.table-row:last-child td:first-child  { border-end-start-radius: var(--radius-sm); }
+.table-row:last-child td:last-child   { border-end-end-radius: var(--radius-sm); }
+.table-row:hover td { background-color: var(--brand-shade-20); }
+
+/* 5.13 Pagination — أزرار 36px بظل shadow-s */
+.pagination-button {
+  min-width: 36px;
+  width: auto;
+  height: 36px;
+  padding: 0 var(--space-8);
+  border: 0;
+  border-radius: var(--radius-sm);
+  background-color: var(--bg-element);
+  box-shadow: var(--shadow-s);
+  color: var(--brand-primary);
+  font-size: 16px;
+  font-weight: 700;
+}
+.pagination-button.is--active { background-color: var(--brand-primary); color: var(--bg-main); border: 0; }
+.pagination-button[disabled] { opacity: 1; background-color: var(--grey-soft); color: var(--font-tertiary); }
+.pagination-button.is--ellipsis { box-shadow: none; color: var(--font-primary); }
+.pagination-counter { color: var(--font-primary); font-size: 16px; }
+
+/* 5.14 Tabs (نمط OS UI) — الافتراضي = «Tabs style 2» (خط سفلي) */
+.osui-tabs__header { border-bottom: 1px solid var(--grey-soft); }
+.osui-tabs__header-item {
+  padding: var(--space-12) var(--space-16) var(--space-16);
+  color: var(--font-primary);
+  font-family: var(--font-sans);
+  font-size: 18px;
+  line-height: 20px;
+  font-weight: 400;
+  white-space: nowrap;
+}
+.osui-tabs__header-item:hover { color: var(--brand-secondary); }
+.osui-tabs__header-item.osui-tabs--is-active { color: var(--brand-secondary); font-weight: 700; }
+.osui-tabs__header__indicator { background-color: var(--brand-secondary); height: 2px; }
+
+/* 5.15 Wizard (نمط OS UI) — ألوان فقط. للشكل السهمي استخدم Block MCO_Stepper */
+.osui-wizard-item .osui-wizard-item-icon {
+  background-color: var(--bg-soft);
+  border: 1px solid var(--font-tertiary);
+  color: var(--font-primary);
+}
+.osui-wizard-item.is-active .osui-wizard-item-icon { background-color: var(--brand-secondary); border-color: var(--brand-secondary); color: var(--bg-main); }
+.osui-wizard-item.is-active .osui-wizard-item-label { color: var(--brand-secondary); font-weight: 700; }
+.osui-wizard-item.is-past .osui-wizard-item-icon { background-color: var(--brand-default); border-color: var(--brand-default); color: var(--bg-main); }
+.osui-wizard-item-label { color: var(--font-primary); font-size: 16px; }
+
+/* 5.16 Breadcrumbs */
+.breadcrumbs, .breadcrumbs-item, .breadcrumbs-item a { color: var(--brand-primary); font-size: 12px; line-height: 20px; }
+
+/* 5.17 Progress Bar */
+.osui-progress { --progress-color: var(--brand-primary); --trail-color: var(--brand-shade-20); }
+
+/* 5.18 Layout — الهيدر والقائمة الجانبية (Layout Side) */
+.layout .header {
+  background-color: var(--bg-main);
+  box-shadow: var(--shadow-nav);
+  border-bottom: 0;
+}
+.layout-side .aside-navigation,
+.layout-side .app-menu-content {
+  background-color: var(--bg-element);
+  box-shadow: var(--shadow-nav);
+  border: 0;
+}
+.app-menu-links a {
+  min-height: 42px;
+  margin-bottom: var(--space-8);
+  padding: 9px 14px;
+  border-radius: var(--radius-sm);
+  color: var(--font-primary);
+  font-size: 16px;
+  font-weight: 700;
+  position: relative;
+}
+.app-menu-links a:hover,
+.app-menu-links a.active {
+  background-color: var(--brand-shade-20);
+  color: var(--brand-secondary);
+  border: 0;
+}
+.app-menu-links a.active::before {
+  content: "";
+  position: absolute;
+  inset-block: 0;
+  inset-inline-start: 0;
+  width: 5px;
+  border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+  background: var(--brand-default);
+}
+
+/* ---------------------------------------------------------------------------
+   6. كلاسات إضافية لأنماط OS UI — تُكتب في Style Classes / ExtendedClass
+   --------------------------------------------------------------------------- */
+
+/* أزرار إضافية: أضفها مع btn */
+.btn.btn-tertiary { border-color: transparent; background: transparent; color: var(--brand-light); }
+.btn.btn-tertiary:hover { background: transparent; color: var(--brand-secondary); }
+.btn.btn-link {
+  height: auto; min-height: 0; padding-inline: 0;
+  border-color: transparent; background: transparent;
+  color: var(--brand-light); font-weight: 400;
+  text-decoration: underline; text-underline-offset: 4px;
+}
+.btn.btn-link:hover { background: transparent; color: var(--brand-secondary); }
+.btn.btn-mobile { height: 36px; min-height: 36px; padding: var(--space-8); gap: var(--space-8); font-size: 16.2px; }
+.btn.btn-destructive { border-color: var(--danger); color: var(--danger); }                       /* Secondary خطِر */
+.btn.btn-tertiary.btn-destructive { border-color: transparent; color: var(--danger); }             /* Tertiary خطِر */
+.btn.mco-btn-loading { background-color: var(--brand-light); border-color: var(--brand-light); color: var(--bg-main); cursor: progress; min-width: 120px; }
+.mco-mobile .btn, .phone .btn:not(.btn-small) { font-size: 16px; }
+.phone .form-control { font-size: 16px; }
+
+/* Tabs style 1 «filled»: ExtendedClass = mco-tabs-filled */
+.mco-tabs-filled .osui-tabs__header { border-bottom: 0; gap: var(--space-8); }
+.mco-tabs-filled .osui-tabs__header__indicator { display: none; }
+.mco-tabs-filled .osui-tabs__header-item {
+  padding: var(--space-12) var(--space-16);
+  border: 1px solid var(--font-primary);
+  border-radius: var(--radius-sm);
+}
+.mco-tabs-filled .osui-tabs__header-item:hover:not(.osui-tabs--is-active) {
+  background-color: var(--brand-shade-40);
+  border-color: var(--brand-shade-40);
+  color: var(--brand-secondary);
+}
+.mco-tabs-filled .osui-tabs__header-item.osui-tabs--is-active {
+  background-color: var(--brand-secondary);
+  border-color: var(--brand-secondary);
+  color: var(--bg-main);
+}
+
+/* Tabs style 3 «list» (عمودي): ExtendedClass = mco-tabs-list مع Orientation = Vertical */
+.mco-tabs-list .osui-tabs__header { width: 303px; border: 0; }
+.mco-tabs-list .osui-tabs__header__indicator { display: none; }
+.mco-tabs-list .osui-tabs__header-item { justify-content: space-between; background: var(--bg-element); border-radius: var(--radius-sm); }
+.mco-tabs-list .osui-tabs__header-item:hover:not(.osui-tabs--is-active) { color: var(--brand-primary); }
+.mco-tabs-list .osui-tabs__header-item.osui-tabs--is-active { background-color: var(--brand-default); color: var(--bg-main); }
+
+/* Popup بأحجام MCO: ExtendedClass على Popup */
+.mco-popup-default .popup-dialog { width: 514px; max-width: calc(100vw - 32px); }
+.mco-popup-large .popup-dialog   { width: 720px; max-width: calc(100vw - 32px); }
+.mco-popup-form .popup-dialog    { width: 1000px; max-width: calc(100vw - 32px); }
+
+/* فاصل «line seperate» */
+.mco-divider { height: 0; border: 0; border-top: 1px solid var(--grey-soft); margin: 0; }
+
+/* أدوات مسافات بقيم MCO (12px غير موجودة في OS UI) */
+.mco-gap-4  { gap: var(--space-4); }
+.mco-gap-8  { gap: var(--space-8); }
+.mco-gap-12 { gap: var(--space-12); }
+.mco-gap-16 { gap: var(--space-16); }
+.mco-gap-24 { gap: var(--space-24); }
+.mco-gap-32 { gap: var(--space-32); }
+.mco-p-12 { padding: var(--space-12); }
+.mco-p-16 { padding: var(--space-16); }
+.mco-p-24 { padding: var(--space-24); }
+.mco-p-32 { padding: var(--space-32); }
+
+/* ---------------------------------------------------------------------------
+   7. كلاسات الـ Blocks المخصّصة (.mco-*)
+   منقولة من bundle.css في نظام التصميم كما هي. كل Block في MCO_Components
+   يرسم هذا الهيكل (التفاصيل في مواصفات الـ Blocks).
+   --------------------------------------------------------------------------- */
