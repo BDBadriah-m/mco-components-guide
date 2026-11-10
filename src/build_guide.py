@@ -397,7 +397,6 @@ def page_for(rp, op):
     if LANG == 'en' and MISSING:
         print('EN MISSING', len(MISSING))
         json.dump(sorted(MISSING), open(os.path.join(HERE, '..', 'en_missing.json'), 'w', encoding='utf-8'), ensure_ascii=False, indent=0)
-    page = svg_imgs_to_png(page)
     os.makedirs(os.path.dirname(out), exist_ok=True)
     open(out, 'w', encoding='utf-8').write(page)
     print('written', LANG, len(page), 'os', n_os, 'blocks', n_blk)
