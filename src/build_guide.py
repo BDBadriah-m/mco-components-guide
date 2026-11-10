@@ -318,6 +318,26 @@ def comp_html(key, num, prev):
     parts.append('</article>')
     return ''.join(parts)
 
+
+_PNG_CACHE = {}
+def svg_imgs_to_png(page):
+    """صور <img> بصيغة SVG (أعلام وصور توضيحية في المعاينات) تتحوّل PNG، لأن المشاركة العامة في Claude ما تقبل صور SVG."""
+    import base64
+    uris = sorted(set(re.findall(r'<img[^>]*?src="(data:image/svg\+xml[^"]*)"', page)))
+    todo = [u for u in uris if u not in _PNG_CACHE]
+    if todo:
+        with sync_playwright() as p:
+            b = p.chromium.launch(); pg = b.new_page(device_scale_factor=3)
+            for u in todo:
+                pg.set_content('<html><body style="margin:0;background:transparent"><img id="i" src="%s" style="display:block;width:120px"></body></html>' % html.escape(u, quote=True))
+                pg.wait_for_timeout(50)
+                png = pg.locator('#i').screenshot(omit_background=True)
+                _PNG_CACHE[u] = 'data:image/png;base64,' + base64.b64encode(png).decode()
+            b.close()
+    for u in uris:
+        page = page.replace('src="%s"' % u, 'src="%s"' % _PNG_CACHE[u])
+    return page
+
 def build():
     global LANG
     rp = {k: to_os(v) for k, v in render_react().items()}
@@ -377,6 +397,7 @@ def page_for(rp, op):
     if LANG == 'en' and MISSING:
         print('EN MISSING', len(MISSING))
         json.dump(sorted(MISSING), open(os.path.join(HERE, '..', 'en_missing.json'), 'w', encoding='utf-8'), ensure_ascii=False, indent=0)
+    page = svg_imgs_to_png(page)
     os.makedirs(os.path.dirname(out), exist_ok=True)
     open(out, 'w', encoding='utf-8').write(page)
     print('written', LANG, len(page), 'os', n_os, 'blocks', n_blk)
