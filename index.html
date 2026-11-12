@@ -22043,9 +22043,9 @@ body { background: var(--gd-ground); color: var(--gd-ink); font-family: var(--fo
   // نسخ ملف الثيم (منشور مع الصفحة). الملف كبير (~260KB) فما نعرضه في مربع نص لأنه يجمّد الصفحة.
   // يُحمَّل مسبقاً، والنسخ يتم داخل ضغطة الزر نفسها (ClipboardItem بوعد) عشان المتصفح ما يرفضه.
   // إذا رُفض النسخ (مثل داخل Claude) نعرض زر تنزيل الملف ورابط فتحه بدل المربع.
-  var ct = document.getElementById('copy-theme'), tm = document.getElementById('theme-msg'), cssP = null;
+  var ct = document.getElementById('copy-theme'), tm = document.getElementById('theme-msg'), cssP = null, cssText = null;
   function getCss() {
-    if (!cssP) cssP = fetch('MCO_OutSystems_Theme.css').then(function (r) { if (!r.ok) throw 0; return r.text(); });
+    if (!cssP) cssP = fetch('MCO_OutSystems_Theme.css', { cache: 'no-cache' }).then(function (r) { if (!r.ok) throw 0; return r.text(); }).then(function (t) { cssText = t; return t; });
     cssP.catch(function () { cssP = null; });
     return cssP;
   }
@@ -22074,7 +22074,10 @@ body { background: var(--gd-ground); color: var(--gd-ink); font-family: var(--fo
         });
       };
       try {
-        if (window.ClipboardItem && navigator.clipboard && navigator.clipboard.write) {
+        // الملف محمّل مسبقاً: نسخ مباشر بدون أي انتظار (أضمن في كل المتصفحات)
+        if (cssText !== null && navigator.clipboard && navigator.clipboard.writeText) {
+          navigator.clipboard.writeText(cssText).then(ok, fail);
+        } else if (window.ClipboardItem && navigator.clipboard && navigator.clipboard.write) {
           navigator.clipboard.write([new ClipboardItem({ 'text/plain': getCss().then(function (t) { return new Blob([t], { type: 'text/plain' }); }) })]).then(ok, fail);
         } else if (navigator.clipboard && navigator.clipboard.writeText) {
           getCss().then(function (t) { return navigator.clipboard.writeText(t); }).then(ok, fail);
