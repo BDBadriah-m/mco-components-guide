@@ -244,4 +244,19 @@ def build(I):
                   '<p class="mco-dhead__desc">زيارة رسمية · وزارة الخارجية</p></div></div><button type="button" class="btn btn-cancel btn-mobile">تعديل</button></div>'
                   '<div class="mco-dhead__facts">%s%s%s%s</div></section>') % (FLAG_DK, fact('calendar', 'فترة الزيارة', '22 – 25 مايو 2026'), fact('calendar-2', 'مدة الزيارة', '4 أيام'),
                                                                               fact('tick-circle', 'تأكيد التاريخ', 'مؤكد', ' mco-fact--success'), fact('task-square', 'عدد الأنشطة', '3 أنشطة'))
+    # 11.14–11.17 صفحة الخدمة (Sprint-1)
+    P['SVCHERO'] = ('<section class="mco-svchero"><div class="mco-svchero__content"><span class="mco-svchero__tag">%s<span>خدمات التواصل الخارجي</span></span>'
+                    '<div class="mco-svchero__text"><h3 class="mco-svchero__title">رفع خطة التواصل الخارجي السنوية</h3><p class="mco-svchero__desc">تمكّنك هذه الخدمة من رفع خطة التواصل الخارجي للوزارة، وتتضمن أهداف التواصل الاستراتيجية وأنشطة التواصل المختلفة، مثل الزيارات والاستقبالات والأنشطة الأخرى.</p></div></div>'
+                    '<div class="mco-svchero__cta"><h4 class="mco-svchero__cta-title">جاهز للبدء ؟</h4><button type="button" class="btn btn-primary"><span>بدء الخدمة</span>%s</button></div></section>') % (I('global', 24), I('arrow-left', 20))
+    phase = lambda ic, label, title, steps, start, actor: ('<article class="mco-phase"><div class="mco-phase__head"><span class="mco-phase__icon">%s</span><div class="mco-phase__heading"><span class="mco-phase__label">%s</span><h4 class="mco-phase__title">%s</h4></div></div>'
+                    '<ol class="mco-phase__steps">%s</ol><div class="mco-phase__actor">%s<span>%s</span></div></article>') % (
+        I(ic, 24), label, title, ''.join('<li class="mco-phase__step"><span class="mco-phase__num">%d</span><span>%s</span></li>' % (start + i, t) for i, t in enumerate(steps)), I('user', 16), actor)
+    p1 = phase('edit', 'المرحلة 1 · الخطوات 1–3', 'إعداد الخطة', ['تحديد عام الخطة', 'إدخال أهداف التواصل الاستراتيجية', 'إدخال بيانات الزيارات والاستقبالات والأنشطة الأخرى'], 1, 'القائم بالأعمال في الوزارة')
+    p2 = phase('verify', 'المرحلة 2 · الخطوات 4–5', 'المراجعة والاعتماد', ['موافقة صاحب الصلاحية في الوزارة', 'مراجعة الطلب واعتماده من مكتب تواصل الوزراء'], 4, 'صاحب الصلاحية في الوزارة ومكتب تواصل الوزراء')
+    P['PHASE'] = '<div class="pv-row" style="align-items:stretch">%s</div>' % p1
+    P['SVCSTEPS'] = '<section class="mco-svcsteps"><div class="mco-svcsteps__head"><h3 class="mco-svcsteps__title">خطوات الخدمة</h3><span class="mco-svcsteps__count">مرحلتان</span></div><div class="mco-svcsteps__grid">%s%s</div></section>' % (p1, p2)
+    notice = ('<div class="mco-dialog mco-dialog--warning mco-dialog--left mco-dialog--small" role="alertdialog" aria-label="ملاحظة"><div class="mco-dialog__main"><span class="mco-dialog__icon">%s</span>'
+              '<div class="mco-dialog__text"><span class="mco-dialog__title">ملاحظة</span><div class="mco-dialog__body">يرجى تحديث أولويات الدول قبل إنشاء الخطة السنوية، ويمكنك إدارتها بالضغط على «أولويات الدول».</div></div></div>'
+              '<div class="mco-dialog__actions"><button type="button" class="btn mco-dialog__cta">أولويات الدول</button></div></div>') % I('danger', 20)
+    P['SVCPAGE'] = '<div class="mco-svcpage">%s%s%s</div>' % (notice, P['SVCHERO'], P['SVCSTEPS'])
     return P

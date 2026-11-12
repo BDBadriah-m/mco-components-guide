@@ -17,6 +17,7 @@ SECTIONS = [
   {'title': 'الرسائل والنوافذ', 'items': ['toast', 'popup', 'formpopup', 'dialog', 'loader']},
   {'title': 'عرض البيانات', 'items': ['table', 'filterbar', 'pfooter', 'mcard', 'info', 'points', 'quarters', 'timeline', 'addmore']},
   {'title': 'عرض التفاصيل للقراءة فقط', 'items': ['dhead', 'summary', 'cardhead', 'record', 'activity', 'file', 'slide', 'dcard', 'xtext', 'gallery', 'person', 'addbanner']},
+  {'title': 'صفحة الخدمة', 'items': ['svchero', 'svcsteps', 'phase', 'svcpage']},
  ]},
 ]
 
@@ -393,7 +394,7 @@ C['dialog'] = dict(name='الحوار المضمّن', mco='MCO_InlineDialog', k
  summary='رسالة داخل الصفحة تطلب قراراً: خمسة أنواع، وحجمان، والأزرار تحت أو بجانب النص.',
  inputs=[('Status', 'MCO_Status Identifier', 'danger · warning · info · success · default'), ('Size', 'Text = "large"', 'large · small'),
          ('Layout', 'Text = "under"', 'under (الأزرار تحت فاصل) · left (الأزرار في الطرف الأيسر)'), ('Title', 'Text', '')],
- placeholders=[('Message', 'النص'), ('Actions', 'أزرار btn (اختياري)')],
+ placeholders=[('Message', 'النص'), ('Actions', 'أزرار btn (اختياري)، أو "btn mco-dialog__cta" في الصغير بزر جانبي')],
  tree='''MCO_InlineDialog :: — :: Block
   Container :: "mco-dialog mco-dialog--" + Status + " mco-dialog--" + Layout + If(Size = "small", " mco-dialog--small", "") + " " + ExtraClass :: role = If(Status = "danger" or Status = "warning", "alertdialog", "region")
     Container :: mco-dialog__main
@@ -406,7 +407,8 @@ C['dialog'] = dict(name='الحوار المضمّن', mco='MCO_InlineDialog', k
           Placeholder :: — :: Message
     Container :: mco-dialog__actions
       Placeholder :: — :: Actions''',
- notes=['الألوان مربوطة بتوكنز الحالات بدل لوحة «Dialouge colors» المستقلة في Figma.'],
+ notes=['الألوان مربوطة بتوكنز الحالات بدل لوحة «Dialouge colors» المستقلة في Figma.',
+        'الصغير بزر جانبي (Size = "small" · Layout = "left"، Figma 1021:8123): شريط لوني 4px في بداية السطر وعنوان بلون الحالة. زر الإجراء فيه Button بكلاس "btn mco-dialog__cta" فيتعبّأ بلون الحالة تلقائياً، ويكون في نهاية السطر (يسار في العربي). مثاله في «قالب صفحة الخدمة».'],
  preview_js=r"""h('div',{className:'pv-stack'},
  h(M.InlineDialog,{type:'error',title:'إجراء لا يمكن عكسه',actions:[h(M.Button,{key:1,destructive:true},'حذف الحساب'),h(M.Button,{key:2,variant:'cancel'},'إلغاء')]},'أنت على وشك حذف حسابك بشكل دائم.'),
  h(M.InlineDialog,{type:'information',layout:'left',title:'للعلم فقط',actions:[h(M.Button,{key:1},'متابعة الجلسة'),h(M.Button,{key:2,variant:'secondary'},'تسجيل الخروج')]},'لقد كنت غير نشط لفترة. لأمانك، سيتم تسجيل خروجك قريباً.'),
@@ -667,7 +669,94 @@ C['record'] = dict(name='بطاقة السجل', mco='MCO_RecordCard', kind=BLOC
         'الحقول تتوزع بالتساوي، وتلتف لسطر ثاني على الشاشات الصغيرة.'],
  preview='RECORD')
 
-NEW = {'csteps', 'avatar', 'ifield', 'datetile', 'fact', 'cardhead', 'activity', 'file', 'dhead', 'loader', 'footer', 'fsection', 'empty', 'record', 'stat', 'maintabs', 'usercard', 'summary', 'slide', 'dcard', 'xtext', 'gallery', 'person', 'addbanner'}
+# ───────────────────────── صفحة الخدمة (Sprint-1) ─────────────────────────
+
+C['svchero'] = dict(name='صدر صفحة الخدمة', mco='MCO_ServiceHero', kind=BLOCK, figma='1021:7753',
+ summary='أول ما يظهر في صفحة الخدمة: كبسولة تصنيف الخدمة، واسم الخدمة 32px، ووصفها، وبطاقة «جاهز للبدء؟» بزر بدء الخدمة في نهاية السطر (يسار في العربي). الخلفية متدرّجة مع حلقات خفيفة في جهة البطاقة.',
+ inputs=[('Category', 'Text', 'مثل: خدمات التواصل الخارجي'), ('CategoryIcon', 'Text = "global"', 'اسم أيقونة التصنيف'), ('Title', 'Text', 'اسم الخدمة'), ('Description', 'Text', 'وصف الخدمة في سطرين أو ثلاثة'),
+         ('CtaTitle', 'Text = "جاهز للبدء ؟"', ''), ('CtaLabel', 'Text = "بدء الخدمة"', '')],
+ events=[('OnStart', '—')],
+ tree="""MCO_ServiceHero :: — :: Block
+  HTML Element (section) :: "mco-svchero " + ExtraClass :: aria-labelledby = Id الخاص بالعنوان
+    Container :: mco-svchero__content
+      Container :: mco-svchero__tag
+        MCO_Icon :: — :: Name = CategoryIcon · Size = 24
+        Expression :: — :: Value = Category
+      Container :: mco-svchero__text
+        HTML Element (h1) :: mco-svchero__title
+          Expression :: — :: Value = Title
+        HTML Element (p) :: mco-svchero__desc
+          Expression :: — :: Value = Description
+    Container :: mco-svchero__cta
+      HTML Element (h2) :: mco-svchero__cta-title
+        Expression :: — :: Value = CtaTitle
+      Button :: btn btn-primary :: OnClick → OnStart
+        Expression :: — :: Value = CtaLabel
+        MCO_Icon :: — :: Name = "arrow-left" · Size = 20""",
+ notes=['ترتيب العناصر في الشجرة هو ترتيب القراءة: المحتوى أولاً ثم البطاقة، فتظهر البطاقة في نهاية السطر (يسار في العربي ويمين في الإنجليزي) بدون أي dir.',
+        'الحلقات والخلفية المتدرّجة مرسومة من الثيم (::before)، فما تحتاج صورة.',
+        'تحت 900px تنزل البطاقة تحت النص ويأخذ الزر العرض كاملاً.'],
+ preview='SVCHERO')
+
+C['svcsteps'] = dict(name='خطوات الخدمة', mco='MCO_ServiceSteps', kind=BLOCK, figma='1021:7791',
+ summary='قسم «خطوات الخدمة»: عنوان 24px مع كبسولة عدد المراحل وخط يتلاشى حتى نهاية السطر، وتحته شبكة بطاقات المراحل (عمودان على سطح المكتب وعمود على الجوال).',
+ inputs=[('Title', 'Text = "خطوات الخدمة"', ''), ('CountLabel', 'Text', 'مثل: مرحلتان · ثلاث مراحل')],
+ placeholders=[('Phases', 'بطاقات MCO_ServicePhase')],
+ tree="""MCO_ServiceSteps :: — :: Block
+  HTML Element (section) :: "mco-svcsteps " + ExtraClass
+    Container :: mco-svcsteps__head
+      HTML Element (h2) :: mco-svcsteps__title
+        Expression :: — :: Value = Title
+      If :: — :: CountLabel <> ""
+        Expression :: mco-svcsteps__count :: Value = CountLabel
+    Container :: mco-svcsteps__grid
+      Placeholder :: — :: Phases""",
+ notes=['الخط المتلاشي مرسوم من الثيم (::after على الرأس)، فما يحتاج عنصر.'],
+ preview='SVCSTEPS')
+
+C['phase'] = dict(name='بطاقة المرحلة', mco='MCO_ServicePhase', kind=BLOCK, figma='1021:7796',
+ summary='بطاقة مرحلة من مراحل الخدمة: أيقونة في مربع متدرّج، وسطر «المرحلة 1 · الخطوات 1–3»، واسم المرحلة، ثم الخطوات مرقّمة في دوائر يصل بينها خط، والجهة المسؤولة في أسفل البطاقة.',
+ inputs=[('Icon', 'Text', 'مثل: edit للإعداد، verify للاعتماد'), ('PhaseLabel', 'Text', 'مثل: المرحلة 1 · الخطوات 1–3'), ('Title', 'Text', 'اسم المرحلة'),
+         ('Steps', 'List of Text', 'نصوص الخطوات بالترتيب'), ('StartNumber', 'Integer = 1', 'رقم أول خطوة (4 في المرحلة الثانية مثلاً)'), ('Actor', 'Text', 'الجهة المسؤولة عن المرحلة')],
+ tree="""MCO_ServicePhase :: — :: Block
+  HTML Element (article) :: "mco-phase " + ExtraClass
+    Container :: mco-phase__head
+      Container :: mco-phase__icon
+        MCO_Icon :: — :: Name = Icon · Size = 24
+      Container :: mco-phase__heading
+        Expression :: mco-phase__label :: Value = PhaseLabel
+        HTML Element (h3) :: mco-phase__title
+          Expression :: — :: Value = Title
+    List :: mco-phase__steps :: Source = Steps · Tag = ol
+      Container :: mco-phase__step :: Tag = li
+        Expression :: mco-phase__num :: Value = StartNumber + Steps.CurrentRowNumber
+        Expression :: — :: Value = Steps.Current
+    If :: — :: Actor <> ""
+      Container :: mco-phase__actor
+        MCO_Icon :: — :: Name = "user" · Size = 16
+        Expression :: — :: Value = Actor""",
+ notes=['الخط الواصل بين الدوائر مرسوم من الثيم، فلا تضيف عنصراً بينها.',
+        'البطاقة تمدّ ارتفاعها لتساوي جارتها في الشبكة، والجهة المسؤولة تبقى ملتصقة بالأسفل (margin-top: auto).'],
+ preview='PHASE')
+
+C['svcpage'] = dict(name='قالب صفحة الخدمة', mco='Screen: ServiceLanding', kind=MIX, figma='1021:7833',
+ summary='قالب جاهز لصفحة بداية أي خدمة: شريط التنقل باسم الطلب، ثم تنبيه اختياري، ثم صدر الخدمة، ثم خطوات الخدمة بمراحلها. «بدء الخدمة» ينقل لأول خطوة في المعالج.',
+ tree="""ServiceLanding :: — :: Screen · Layout = MCO_LayoutBase
+  MCO_Navbar :: — :: Title = "خطة سنوية جديدة" · Breadcrumbs = أعمال التواصل الخارجي › خطة التواصل السنوية · ShowBack = True
+  Container :: mco-svcpage :: داخل Placeholder المحتوى في الـ Layout
+    If :: — :: يوجد شرط قبل البدء (مثل أولويات الدول غير محدّثة)
+      MCO_InlineDialog :: — :: Status = Entities.MCO_Status.warning · Size = "small" · Layout = "left" · Title = "ملاحظة"
+        Text :: — :: Message: "يرجى تحديث أولويات الدول قبل إنشاء الخطة السنوية…"
+        Button :: btn mco-dialog__cta :: Actions: "أولويات الدول" → شاشة الأولويات
+    MCO_ServiceHero :: — :: Category = "خدمات التواصل الخارجي" · Title = "رفع خطة التواصل الخارجي السنوية" · OnStart → أول خطوة في المعالج
+    MCO_ServiceSteps :: — :: CountLabel = "مرحلتان"
+      MCO_ServicePhase :: — :: Phases: Icon = "edit" · PhaseLabel = "المرحلة 1 · الخطوات 1–3" · Title = "إعداد الخطة" · Actor = "القائم بالأعمال في الوزارة"
+      MCO_ServicePhase :: — :: Phases: Icon = "verify" · PhaseLabel = "المرحلة 2 · الخطوات 4–5" · Title = "المراجعة والاعتماد" · StartNumber = 4""",
+ notes=['هذا قالب شاشة وليس Block: انسخه كبداية لأي خدمة جديدة وغيّر النصوص والمراحل.',
+        'بين أقسام المحتوى 24px، والمحتوى بعرض أقصى 1304px في منتصف الصفحة.'],
+ preview='SVCPAGE')
+
+NEW = {'svchero', 'svcsteps', 'phase', 'svcpage', 'dialog', 'csteps', 'avatar', 'ifield', 'datetile', 'fact', 'cardhead', 'activity', 'file', 'dhead', 'loader', 'footer', 'fsection', 'empty', 'record', 'stat', 'maintabs', 'usercard', 'summary', 'slide', 'dcard', 'xtext', 'gallery', 'person', 'addbanner'}
 
 C['stat'] = dict(name='بطاقة الرقم', mco='MCO_StatTile', kind=BLOCK, figma='467:12414',
  summary='رقم أو تاريخ بارز مع عنوانه وأيقونة في مربع متدرّج، داخل بطاقة الملخص أو أي لوحة أرقام.',
