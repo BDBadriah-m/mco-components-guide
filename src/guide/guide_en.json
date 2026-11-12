@@ -437,7 +437,9 @@
   "مثل: مرحلتان · ثلاث مراحل": "e.g. 2 phases · 3 phases",
   "نصوص الخطوات بالترتيب": "Step texts in order",
   "هذا قالب شاشة وليس Block: انسخه كبداية لأي خدمة جديدة وغيّر النصوص والمراحل.": "This is a screen template, not a Block: copy it as the starting point for any new service and change the texts and phases.",
-  "وصف الخدمة في سطرين أو ثلاثة": "Service description in two or three lines"
+  "وصف الخدمة في سطرين أو ثلاثة": "Service description in two or three lines",
+  "قالب جاهز لصفحة بداية أي خدمة: شريط التنقل باسم الطلب، ثم صدر الخدمة، ثم خطوات الخدمة بمراحلها. «بدء الخدمة» ينقل لأول خطوة في المعالج.": "A ready-made landing screen for any service: the navbar with the request name, the service hero, then the service steps by phase. “Start service” goes to the first wizard step.",
+  "الصغير بزر جانبي (Size = \"small\" · Layout = \"left\"، Figma 1021:8123): شريط لوني 4px في بداية السطر وعنوان بلون الحالة. زر الإجراء فيه Button بكلاس \"btn mco-dialog__cta\" فيتعبّأ بلون الحالة تلقائياً، ويكون في نهاية السطر (يسار في العربي).": "Small with a side button (Size = \"small\" · Layout = \"left\", Figma 1021:8123): a 4px colour bar at the start of the line and a status-coloured title. Its action is a Button with class \"btn mco-dialog__cta\", filled with the status colour automatically, at the end of the line (left in Arabic)."
  },
  "tree": {
   "Expression :: \"mco-icon mco-i-\" + Name + \" mco-size-\" + Size + If(IsFlipped, \" mco-flip\", \"\") + \" \" + ExtraClass :: Value = \"\" · aria-hidden = If(AriaLabel = \"\", \"true\", \"false\") · role = \"img\" و aria-label = AriaLabel عند وجوده": "Expression :: \"mco-icon mco-i-\" + Name + \" mco-size-\" + Size + If(IsFlipped, \" mco-flip\", \"\") + \" \" + ExtraClass :: Value = \"\" · aria-hidden = If(AriaLabel = \"\", \"true\", \"false\") · role = \"img\" and aria-label = AriaLabel when set",

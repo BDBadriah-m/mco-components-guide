@@ -408,7 +408,7 @@ C['dialog'] = dict(name='الحوار المضمّن', mco='MCO_InlineDialog', k
     Container :: mco-dialog__actions
       Placeholder :: — :: Actions''',
  notes=['الألوان مربوطة بتوكنز الحالات بدل لوحة «Dialouge colors» المستقلة في Figma.',
-        'الصغير بزر جانبي (Size = "small" · Layout = "left"، Figma 1021:8123): شريط لوني 4px في بداية السطر وعنوان بلون الحالة. زر الإجراء فيه Button بكلاس "btn mco-dialog__cta" فيتعبّأ بلون الحالة تلقائياً، ويكون في نهاية السطر (يسار في العربي). مثاله في «قالب صفحة الخدمة».'],
+        'الصغير بزر جانبي (Size = "small" · Layout = "left"، Figma 1021:8123): شريط لوني 4px في بداية السطر وعنوان بلون الحالة. زر الإجراء فيه Button بكلاس "btn mco-dialog__cta" فيتعبّأ بلون الحالة تلقائياً، ويكون في نهاية السطر (يسار في العربي).'],
  preview_js=r"""h('div',{className:'pv-stack'},
  h(M.InlineDialog,{type:'error',title:'إجراء لا يمكن عكسه',actions:[h(M.Button,{key:1,destructive:true},'حذف الحساب'),h(M.Button,{key:2,variant:'cancel'},'إلغاء')]},'أنت على وشك حذف حسابك بشكل دائم.'),
  h(M.InlineDialog,{type:'information',layout:'left',title:'للعلم فقط',actions:[h(M.Button,{key:1},'متابعة الجلسة'),h(M.Button,{key:2,variant:'secondary'},'تسجيل الخروج')]},'لقد كنت غير نشط لفترة. لأمانك، سيتم تسجيل خروجك قريباً.'),
@@ -740,14 +740,10 @@ C['phase'] = dict(name='بطاقة المرحلة', mco='MCO_ServicePhase', kind
  preview='PHASE')
 
 C['svcpage'] = dict(name='قالب صفحة الخدمة', mco='Screen: ServiceLanding', kind=MIX, figma='1021:7833',
- summary='قالب جاهز لصفحة بداية أي خدمة: شريط التنقل باسم الطلب، ثم تنبيه اختياري، ثم صدر الخدمة، ثم خطوات الخدمة بمراحلها. «بدء الخدمة» ينقل لأول خطوة في المعالج.',
+ summary='قالب جاهز لصفحة بداية أي خدمة: شريط التنقل باسم الطلب، ثم صدر الخدمة، ثم خطوات الخدمة بمراحلها. «بدء الخدمة» ينقل لأول خطوة في المعالج.',
  tree="""ServiceLanding :: — :: Screen · Layout = MCO_LayoutBase
   MCO_Navbar :: — :: Title = "خطة سنوية جديدة" · Breadcrumbs = أعمال التواصل الخارجي › خطة التواصل السنوية · ShowBack = True
   Container :: mco-svcpage :: داخل Placeholder المحتوى في الـ Layout
-    If :: — :: يوجد شرط قبل البدء (مثل أولويات الدول غير محدّثة)
-      MCO_InlineDialog :: — :: Status = Entities.MCO_Status.warning · Size = "small" · Layout = "left" · Title = "ملاحظة"
-        Text :: — :: Message: "يرجى تحديث أولويات الدول قبل إنشاء الخطة السنوية…"
-        Button :: btn mco-dialog__cta :: Actions: "أولويات الدول" → شاشة الأولويات
     MCO_ServiceHero :: — :: Category = "خدمات التواصل الخارجي" · Title = "رفع خطة التواصل الخارجي السنوية" · OnStart → أول خطوة في المعالج
     MCO_ServiceSteps :: — :: CountLabel = "مرحلتان"
       MCO_ServicePhase :: — :: Phases: Icon = "edit" · PhaseLabel = "المرحلة 1 · الخطوات 1–3" · Title = "إعداد الخطة" · Actor = "القائم بالأعمال في الوزارة"

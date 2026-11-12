@@ -2254,7 +2254,8 @@ button.mco-avatar { cursor: pointer; } button.mco-avatar:hover { background: var
 .mco-svchero { position: relative; isolation: isolate; overflow: hidden; display: flex; align-items: center; justify-content: space-between; gap: 48px; padding: 36px 42px; border-radius: 16px;
   background: linear-gradient(var(--mco-ga), var(--color-bg-surface) 0%, var(--color-bg-brand-subtle) 38%, var(--color-bg-brand-soft) 70%, var(--color-bg-brand-hover) 100%); }
 .mco-svchero::before { content: ""; position: absolute; inset: 0; z-index: -1; pointer-events: none; opacity: .17; background: var(--color-border-brand);
-  -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='420' height='320' fill='none' stroke='%23000' stroke-width='1.5'%3E%3Cellipse cx='150' cy='160' rx='61.5' ry='47.5'/%3E%3Cellipse cx='150' cy='160' rx='105.5' ry='81.5'/%3E%3Cellipse cx='150' cy='160' rx='149' ry='115'/%3E%3Cellipse cx='150' cy='160' rx='193' ry='149'/%3E%3Cpath d='M150 160h105.5M150 160l-52 81'/%3E%3C/svg%3E") no-repeat 0 50% / 420px 320px; mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='420' height='320' fill='none' stroke='%23000' stroke-width='1.5'%3E%3Cellipse cx='150' cy='160' rx='61.5' ry='47.5'/%3E%3Cellipse cx='150' cy='160' rx='105.5' ry='81.5'/%3E%3Cellipse cx='150' cy='160' rx='149' ry='115'/%3E%3Cellipse cx='150' cy='160' rx='193' ry='149'/%3E%3Cpath d='M150 160h105.5M150 160l-52 81'/%3E%3C/svg%3E") no-repeat 0 50% / 420px 320px; }
+  /* مركز الحلقات في الزاوية العلوية من جهة نهاية السطر (يسار في العربي)، ويتبع اتجاه أقرب حاوية عبر --mco-ex و --mco-dir */
+  -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='440' height='440' fill='none' stroke='%23000' stroke-width='1.5'%3E%3Cellipse cx='220' cy='220' rx='61.5' ry='47.5'/%3E%3Cellipse cx='220' cy='220' rx='105.5' ry='81.5'/%3E%3Cellipse cx='220' cy='220' rx='149' ry='115'/%3E%3Cellipse cx='220' cy='220' rx='193' ry='149'/%3E%3Cpath d='M220 220h105.5M220 220l-52 81'/%3E%3C/svg%3E") no-repeat calc(var(--mco-ex) + var(--mco-dir) * 150px) -210px / 440px 440px; mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='440' height='440' fill='none' stroke='%23000' stroke-width='1.5'%3E%3Cellipse cx='220' cy='220' rx='61.5' ry='47.5'/%3E%3Cellipse cx='220' cy='220' rx='105.5' ry='81.5'/%3E%3Cellipse cx='220' cy='220' rx='149' ry='115'/%3E%3Cellipse cx='220' cy='220' rx='193' ry='149'/%3E%3Cpath d='M220 220h105.5M220 220l-52 81'/%3E%3C/svg%3E") no-repeat calc(var(--mco-ex) + var(--mco-dir) * 150px) -210px / 440px 440px; }
 .mco-svchero__content { flex: 1 1 auto; max-width: 760px; display: flex; flex-direction: column; align-items: flex-start; gap: var(--space-24); min-width: 0; }
 .mco-svchero__tag { display: inline-flex; align-items: center; gap: var(--space-12); padding: 8px 16px; padding-inline-end: 24px; border: 1px solid var(--color-border-default); border-radius: 999px; background: var(--color-bg-surface); font-size: 16px; line-height: 24px; color: var(--color-text-brand); }
 .mco-svchero__tag .mco-icon { color: var(--color-icon-brand); }
@@ -2341,14 +2342,11 @@ button.mco-avatar { cursor: pointer; } button.mco-avatar:hover { background: var
 .mco-step--final, .mco-step:last-child:not(:first-child) { padding-inline-end: var(--space-16); }
 
 /* 10.2 اتجاه التدرّجات: من بداية السطر إلى نهايته */
-:root { --mco-ga: 270deg; --mco-ex: 100%; }
-.is-rtl { --mco-ga: 90deg; --mco-ex: 0%; }
-[dir="ltr"] { --mco-ga: 270deg; --mco-ex: 100%; } [dir="rtl"] { --mco-ga: 90deg; --mco-ex: 0%; }
+:root { --mco-ga: 270deg; --mco-ex: 100%; --mco-dir: 1; }
+.is-rtl { --mco-ga: 90deg; --mco-ex: 0%; --mco-dir: -1; }
+[dir="ltr"] { --mco-ga: 270deg; --mco-ex: 100%; --mco-dir: 1; } [dir="rtl"] { --mco-ga: 90deg; --mco-ex: 0%; --mco-dir: -1; }
 .mco-tabs-main .osui-tabs__header-item.osui-tabs--is-active { background: linear-gradient(var(--mco-ga), var(--color-action-selected), var(--color-action-primary-default)); }
 .mco-summary { background: linear-gradient(var(--mco-ga), var(--color-bg-brand-subtle), var(--color-bg-brand-hover)); }
-
-/* حلقات صدر صفحة الخدمة تكون في نهاية السطر */
-:is(body:not(.is-rtl):not(.mco-guide), [dir="ltr"]) .mco-svchero::before { transform: scaleX(-1); }
 
 /* 10.3 مؤشر الخطوات في LTR: رأس السهم يمين والتجويف يسار */
 :is(body:not(.is-rtl):not(.mco-guide), [dir="ltr"]) .mco-step { clip-path: polygon(0 0, calc(100% - 18px) 0, 100% 50%, calc(100% - 18px) 100%, 0 100%, 18px 50%); }
@@ -2360,6 +2358,8 @@ button.mco-avatar { cursor: pointer; } button.mco-avatar:hover { background: var
 
 /* 10.4 أيقونات الاتجاه: في النظام arrow-left = «التالي»، فتنعكس في LTR */
 :is(body:not(.is-rtl):not(.mco-guide), [dir="ltr"]) :is(.mco-i-arrow-left, .mco-i-arrow-right, .mco-i-expand-menu, .mco-i-collapse-menu, .mco-i-sidebar-left, .mco-i-sidebar-right, .mco-i-backward-item, .mco-i-logout) { transform: scaleX(-1); }
+/* حاوية عربية داخل صفحة إنجليزية (مثل زر «عربي» في الدليل): أقرب اتجاه هو اللي يحكم، فترجع الأيقونات لأصلها */
+:is(body:not(.is-rtl):not(.mco-guide), [dir="ltr"]) :is(.is-rtl, [dir="rtl"]) :is(.mco-i-arrow-left, .mco-i-arrow-right, .mco-i-expand-menu, .mco-i-collapse-menu, .mco-i-sidebar-left, .mco-i-sidebar-right, .mco-i-backward-item, .mco-i-logout) { transform: none; }
 :is(body:not(.is-rtl):not(.mco-guide), [dir="ltr"]) :is(.mco-i-arrow-left, .mco-i-arrow-right).mco-flip { transform: none; }
 
 /* 10.5 المفتاح (Switch) في LTR */

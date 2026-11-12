@@ -350,6 +350,9 @@ def build():
     # نوع stepper الجديد في شريط التنقل (Figma navbar 2:20663) بعد الأنواع الثلاثة من bundle.js
     if 'NAVBAR' in rp and rp['NAVBAR'].endswith('</div>'):
         rp['NAVBAR'] = rp['NAVBAR'][:-len('</div>')] + op['NAVSTEPPER'] + '</div>'
+    # الحوار المضمّن الصغير بزر جانبي (Figma 1021:8123) تحت أمثلة MCO_InlineDialog
+    if 'dialog' in rp and rp['dialog'].endswith('</div>'):
+        rp['dialog'] = rp['dialog'][:-len('</div>')] + op['DLGSMALL'] + '</div>'
     for LANG in ('ar', 'en'):
         page_for(rp, op)
 

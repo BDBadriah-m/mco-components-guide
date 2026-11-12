@@ -255,8 +255,11 @@ def build(I):
     p2 = phase('verify', 'المرحلة 2 · الخطوات 4–5', 'المراجعة والاعتماد', ['موافقة صاحب الصلاحية في الوزارة', 'مراجعة الطلب واعتماده من مكتب تواصل الوزراء'], 4, 'صاحب الصلاحية في الوزارة ومكتب تواصل الوزراء')
     P['PHASE'] = '<div class="pv-row" style="align-items:stretch">%s</div>' % p1
     P['SVCSTEPS'] = '<section class="mco-svcsteps"><div class="mco-svcsteps__head"><h3 class="mco-svcsteps__title">خطوات الخدمة</h3><span class="mco-svcsteps__count">مرحلتان</span></div><div class="mco-svcsteps__grid">%s%s</div></section>' % (p1, p2)
-    notice = ('<div class="mco-dialog mco-dialog--warning mco-dialog--left mco-dialog--small" role="alertdialog" aria-label="ملاحظة"><div class="mco-dialog__main"><span class="mco-dialog__icon">%s</span>'
-              '<div class="mco-dialog__text"><span class="mco-dialog__title">ملاحظة</span><div class="mco-dialog__body">يرجى تحديث أولويات الدول قبل إنشاء الخطة السنوية، ويمكنك إدارتها بالضغط على «أولويات الدول».</div></div></div>'
-              '<div class="mco-dialog__actions"><button type="button" class="btn mco-dialog__cta">أولويات الدول</button></div></div>') % I('danger', 20)
-    P['SVCPAGE'] = '<div class="mco-svcpage">%s%s%s</div>' % (notice, P['SVCHERO'], P['SVCSTEPS'])
+    dlg_small = lambda st, ic, title, msg, act: ('<div class="mco-dialog mco-dialog--%s mco-dialog--left mco-dialog--small" role="%s" aria-label="%s"><div class="mco-dialog__main"><span class="mco-dialog__icon">%s</span>'
+              '<div class="mco-dialog__text"><span class="mco-dialog__title">%s</span><div class="mco-dialog__body">%s</div></div></div>'
+              '<div class="mco-dialog__actions"><button type="button" class="btn mco-dialog__cta">%s</button></div></div>') % (st, 'alertdialog' if st in ('warning', 'danger') else 'region', title, I(ic, 20), title, msg, act)
+    P['SVCPAGE'] = '<div class="mco-svcpage">%s%s</div>' % (P['SVCHERO'], P['SVCSTEPS'])
+    P['DLGSMALL'] = '<div class="pv-stack" style="margin-top:24px"><span class="pv-k">صغير بزر جانبي (Size = small · Layout = left)</span>%s%s</div>' % (
+        dlg_small('warning', 'danger', 'ملاحظة', 'يرجى تحديث أولويات الدول قبل إنشاء الخطة السنوية، ويمكنك إدارتها بالضغط على «أولويات الدول».', 'أولويات الدول'),
+        dlg_small('info', 'info-circle', 'للعلم', 'تم تحديث نموذج الخطة لهذا العام، راجع التعليمات قبل البدء.', 'عرض التعليمات'))
     return P
