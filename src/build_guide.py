@@ -43,6 +43,7 @@ SHELL_EN = [
  ('<p>كل مكوّن في نظام التصميم مع طريقة بنائه في Service Studio: الودجت أو الـ Block المستخدم، وشجرة الودجات بكلاساتها، والخصائص. المعاينات مرسومة بـ CSS ‏OutSystems UI 2.30 وثيم MCO نفسه.</p>',
   '<p>Every design system component with how to build it in Service Studio: the widget or Block to use, the widget tree with its classes, and the properties. Previews are drawn with the OutSystems UI 2.30 CSS and the MCO theme itself. This English version shows the previews in English (LTR); the “عربي / EN” button on each component switches it back to Arabic.</p>'),
  ('id="copy-theme">نسخ ملف الثيم</button>', 'id="copy-theme">Copy theme file</button>'),
+ ('<span>تنزيل ملف الثيم</span>', '<span>Download theme file</span>'), ('>تنزيل ملف الأيقونات الكامل</a>', '>Download full icons file</a>'),
  ('<span>الوضع الداكن</span>', '<span>Dark mode</span>'),
  ('rel="noopener">الدليل المكتوب</a>', 'rel="noopener">Written guide (Arabic)</a>'),
  ('href="index.html" lang="en" hreflang="en">English</a>', 'href="ar.html" lang="ar" hreflang="ar">عربي</a>'),

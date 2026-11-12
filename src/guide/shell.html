@@ -217,6 +217,8 @@ body { background: var(--gd-ground); color: var(--gd-ink); font-family: var(--fo
       <p>كل مكوّن في نظام التصميم مع طريقة بنائه في Service Studio: الودجت أو الـ Block المستخدم، وشجرة الودجات بكلاساتها، والخصائص. المعاينات مرسومة بـ CSS ‏OutSystems UI 2.30 وثيم MCO نفسه.</p>
       <div class="links">
         <button type="button" class="btn btn-small" id="copy-theme">نسخ ملف الثيم</button>
+        <a class="btn btn-small" id="dl-theme" href="MCO_OutSystems_Theme.css" download="MCO_OutSystems_Theme.css"><span class="mco-icon mco-i-document-download mco-size-20" aria-hidden="true"></span><span>تنزيل ملف الثيم</span></a>
+        <a class="btn btn-small btn-tertiary" id="dl-icons" href="MCO_Icons_All.css" download="MCO_Icons_All.css">تنزيل ملف الأيقونات الكامل</a>
         <button type="button" class="btn btn-small" id="theme-toggle" aria-pressed="false"><span class="mco-icon mco-i-moon mco-size-20" aria-hidden="true"></span><span>الوضع الداكن</span></button>
         <a class="btn btn-small btn-tertiary" href="https://claude.ai/code/artifact/99a47f33-8cb6-40f0-97a0-7e2d5cd8f308" target="_blank" rel="noopener">الدليل المكتوب</a>
         <a class="btn btn-small btn-tertiary" id="lang-switch" href="index.html" lang="en" hreflang="en">English</a>
@@ -335,6 +337,19 @@ body { background: var(--gd-ground); color: var(--gd-ink); font-family: var(--fo
       } catch (e) { fail(); }
     });
   }
+  // تنزيل الملفات: رابط download عادي في المتصفح، وداخل Claude عبر قدرة downloads (يسأل المشاهد)
+  ['dl-theme', 'dl-icons'].forEach(function (id) {
+    var a = document.getElementById(id); if (!a) return;
+    a.addEventListener('click', function (e) {
+      if (!window.claude) return; // المتصفح العادي: الرابط ينزّل الملف مباشرة
+      e.preventDefault();
+      var name = a.getAttribute('download');
+      fetch(a.getAttribute('href')).then(function (r) { if (!r.ok) throw 0; return r.blob(); }).then(function (b) {
+        if (dl) return dl.save({ filename: name, data: new Blob([b], { type: 'text/css' }) });
+        window.open(a.href, '_blank', 'noopener');
+      }).catch(function () { window.open(a.href, '_blank', 'noopener'); });
+    });
+  });
   // معاينات المكوّنات الجديدة: النص القابل للتوسيع، البطاقة المنسدلة، معرض الصور
   document.querySelectorAll('[data-xtoggle]').forEach(function (b) {
     b.addEventListener('click', function () {

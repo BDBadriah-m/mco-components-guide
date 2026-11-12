@@ -21912,6 +21912,8 @@ body { background: var(--gd-ground); color: var(--gd-ink); font-family: var(--fo
       <p>Every design system component with how to build it in Service Studio: the widget or Block to use, the widget tree with its classes, and the properties. Previews are drawn with the OutSystems UI 2.30 CSS and the MCO theme itself. This English version shows the previews in English (LTR); the “عربي / EN” button on each component switches it back to Arabic.</p>
       <div class="links">
         <button type="button" class="btn btn-small" id="copy-theme">Copy theme file</button>
+        <a class="btn btn-small" id="dl-theme" href="MCO_OutSystems_Theme.css" download="MCO_OutSystems_Theme.css"><span class="mco-icon mco-i-document-download mco-size-20" aria-hidden="true"></span><span>Download theme file</span></a>
+        <a class="btn btn-small btn-tertiary" id="dl-icons" href="MCO_Icons_All.css" download="MCO_Icons_All.css">Download full icons file</a>
         <button type="button" class="btn btn-small" id="theme-toggle" aria-pressed="false"><span class="mco-icon mco-i-moon mco-size-20" aria-hidden="true"></span><span>Dark mode</span></button>
         <a class="btn btn-small btn-tertiary" href="https://claude.ai/code/artifact/99a47f33-8cb6-40f0-97a0-7e2d5cd8f308" target="_blank" rel="noopener">Written guide (Arabic)</a>
         <a class="btn btn-small btn-tertiary" id="lang-switch" href="ar.html" lang="ar" hreflang="ar">عربي</a>
@@ -22085,6 +22087,19 @@ body { background: var(--gd-ground); color: var(--gd-ink); font-family: var(--fo
       } catch (e) { fail(); }
     });
   }
+  // تنزيل الملفات: رابط download عادي في المتصفح، وداخل Claude عبر قدرة downloads (يسأل المشاهد)
+  ['dl-theme', 'dl-icons'].forEach(function (id) {
+    var a = document.getElementById(id); if (!a) return;
+    a.addEventListener('click', function (e) {
+      if (!window.claude) return; // المتصفح العادي: الرابط ينزّل الملف مباشرة
+      e.preventDefault();
+      var name = a.getAttribute('download');
+      fetch(a.getAttribute('href')).then(function (r) { if (!r.ok) throw 0; return r.blob(); }).then(function (b) {
+        if (dl) return dl.save({ filename: name, data: new Blob([b], { type: 'text/css' }) });
+        window.open(a.href, '_blank', 'noopener');
+      }).catch(function () { window.open(a.href, '_blank', 'noopener'); });
+    });
+  });
   // معاينات المكوّنات الجديدة: النص القابل للتوسيع، البطاقة المنسدلة، معرض الصور
   document.querySelectorAll('[data-xtoggle]').forEach(function (b) {
     b.addEventListener('click', function () {
