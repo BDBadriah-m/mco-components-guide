@@ -223,7 +223,6 @@ body { background: var(--gd-ground); color: var(--gd-ink); font-family: var(--fo
         <span class="upd">آخر تحديث: {UPDATED}</span>
       </div>
       <p class="pv-hint" id="theme-msg" role="status"></p>
-      <textarea id="theme-text" class="theme-text" readonly hidden aria-label="محتوى ملف الثيم"></textarea>
     </div>
     <dl class="stats">
       <div><dt>مكوّن</dt><dd>{N_ALL}</dd></div>
@@ -291,19 +290,48 @@ body { background: var(--gd-ground); color: var(--gd-ink); font-family: var(--fo
       catch (e) { report(name, url, false); }
     });
   });
-  // نسخ ملف الثيم (منشور مع الصفحة)
-  var ct = document.getElementById('copy-theme'), tm = document.getElementById('theme-msg'), tt = document.getElementById('theme-text');
-  if (ct) ct.addEventListener('click', function () {
-    tm.textContent = 'جارٍ التحميل…';
-    fetch('MCO_OutSystems_Theme.css').then(function (r) { if (!r.ok) throw 0; return r.text(); }).then(function (css) {
-      var show = function () { tt.value = css; tt.hidden = false; tt.focus(); tt.select(); tm.textContent = 'انسخ المحتوى من المربع (Ctrl+C).'; };
-      try { navigator.clipboard.writeText(css).then(function () { tm.textContent = 'تم نسخ ملف الثيم كاملاً، الصقه في Style Sheet الخاص بالـ Theme.'; }, show); } catch (e) { show(); }
-    }).catch(function () {
-      // الصفحة مفتوحة من ملف محلي (file://) والمتصفح يمنع القراءة: رابط مباشر للملف اللي في نفس المجلد
-      tm.textContent = 'تعذّر تحميل ملف الثيم من هنا. افتحه مباشرة: ';
-      var a = document.createElement('a'); a.href = 'MCO_OutSystems_Theme.css'; a.target = '_blank'; a.textContent = 'MCO_OutSystems_Theme.css'; tm.appendChild(a);
+  // نسخ ملف الثيم (منشور مع الصفحة). الملف كبير (~260KB) فما نعرضه في مربع نص لأنه يجمّد الصفحة.
+  // يُحمَّل مسبقاً، والنسخ يتم داخل ضغطة الزر نفسها (ClipboardItem بوعد) عشان المتصفح ما يرفضه.
+  // إذا رُفض النسخ (مثل داخل Claude) نعرض زر تنزيل الملف ورابط فتحه بدل المربع.
+  var ct = document.getElementById('copy-theme'), tm = document.getElementById('theme-msg'), cssP = null;
+  function getCss() {
+    if (!cssP) cssP = fetch('MCO_OutSystems_Theme.css').then(function (r) { if (!r.ok) throw 0; return r.text(); });
+    cssP.catch(function () { cssP = null; });
+    return cssP;
+  }
+  if (ct) {
+    var warm = function () { getCss().catch(function () {}); };
+    if ('requestIdleCallback' in window) requestIdleCallback(warm); else setTimeout(warm, 1500);
+    ct.addEventListener('click', function () {
+      tm.textContent = 'جارٍ التحميل…';
+      var ok = function () { tm.textContent = 'تم نسخ ملف الثيم كاملاً، الصقه في Style Sheet الخاص بالـ Theme.'; };
+      var fail = function () {
+        getCss().then(function (css) {
+          tm.textContent = 'تعذّر النسخ التلقائي هنا. نزّل الملف أو افتحه وانسخ محتواه: ';
+          var bt = document.createElement('button'); bt.type = 'button'; bt.className = 'pv-dl'; bt.textContent = 'تنزيل MCO_OutSystems_Theme.css';
+          bt.addEventListener('click', function () {
+            var blob = new Blob([css], { type: 'text/css' });
+            if (dl) { dl.save({ filename: 'MCO_OutSystems_Theme.css', data: blob }).catch(function () {}); return; }
+            var u = URL.createObjectURL(blob), x = document.createElement('a'); x.href = u; x.download = 'MCO_OutSystems_Theme.css';
+            document.body.appendChild(x); x.click(); x.remove(); setTimeout(function () { URL.revokeObjectURL(u); }, 4000);
+          });
+          tm.appendChild(bt); tm.appendChild(document.createTextNode(' '));
+          var a = document.createElement('a'); a.href = 'MCO_OutSystems_Theme.css'; a.target = '_blank'; a.rel = 'noopener'; a.textContent = 'فتح الملف'; tm.appendChild(a);
+        }, function () {
+          // الصفحة مفتوحة من ملف محلي (file://) والمتصفح يمنع القراءة: رابط مباشر للملف اللي في نفس المجلد
+          tm.textContent = 'تعذّر تحميل ملف الثيم من هنا. افتحه مباشرة: ';
+          var a = document.createElement('a'); a.href = 'MCO_OutSystems_Theme.css'; a.target = '_blank'; a.textContent = 'MCO_OutSystems_Theme.css'; tm.appendChild(a);
+        });
+      };
+      try {
+        if (window.ClipboardItem && navigator.clipboard && navigator.clipboard.write) {
+          navigator.clipboard.write([new ClipboardItem({ 'text/plain': getCss().then(function (t) { return new Blob([t], { type: 'text/plain' }); }) })]).then(ok, fail);
+        } else if (navigator.clipboard && navigator.clipboard.writeText) {
+          getCss().then(function (t) { return navigator.clipboard.writeText(t); }).then(ok, fail);
+        } else fail();
+      } catch (e) { fail(); }
     });
-  });
+  }
   // معاينات المكوّنات الجديدة: النص القابل للتوسيع، البطاقة المنسدلة، معرض الصور
   document.querySelectorAll('[data-xtoggle]').forEach(function (b) {
     b.addEventListener('click', function () {

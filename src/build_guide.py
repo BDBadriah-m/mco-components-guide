@@ -55,6 +55,8 @@ SHELL_EN = [
  ("'جارٍ التحميل…'", "'Loading…'"), ("'انسخ المحتوى من المربع (Ctrl+C).'", "'Copy the contents from the box (Ctrl+C).'"),
  ("'تم نسخ ملف الثيم كاملاً، الصقه في Style Sheet الخاص بالـ Theme.'", "'Theme file copied. Paste it into the Theme Style Sheet.'"),
  ("'تعذّر تحميل ملف الثيم من هنا. افتحه مباشرة: '", "'Couldn\\'t load the theme file from here. Open it directly: '"),
+ ("'تعذّر النسخ التلقائي هنا. نزّل الملف أو افتحه وانسخ محتواه: '", "'Automatic copy isn\\'t allowed here. Download the file, or open it and copy its contents: '"),
+ ("'تنزيل MCO_OutSystems_Theme.css'", "'Download MCO_OutSystems_Theme.css'"), ("'فتح الملف'", "'Open file'"),
  ("'عرض أقل' : 'عرض المزيد'", "'Show less' : 'Show more'"), ("'طي' : 'توسيع'", "'Collapse' : 'Expand'"),
  ("'فتح القائمة' : 'طي القائمة'", "'Expand menu' : 'Collapse menu'"), ("'الوضع الفاتح' : 'الوضع الداكن'", "'Light mode' : 'Dark mode'"),
  ('<h3 class="mco-dcard__title">أبرز عوامل النجاح</h3>', '<h3 class="mco-dcard__title">Key success factors</h3>'),
