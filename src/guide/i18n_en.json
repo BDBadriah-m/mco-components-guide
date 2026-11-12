@@ -347,7 +347,13 @@
   "صغير بزر جانبي (Size = small · Layout = left)": "Small with side button (Size = small · Layout = left)",
   "للعلم": "For your information",
   "تم تحديث نموذج الخطة لهذا العام، راجع التعليمات قبل البدء.": "The plan template has been updated for this year. Review the instructions before you start.",
-  "عرض التعليمات": "View instructions"
+  "عرض التعليمات": "View instructions",
+  "بيانات الخطة": "Plan data",
+  "العام": "Year",
+  "اختر العام": "Select year",
+  "الحد الأدنى للأهداف": "Minimum goals",
+  "الحد الأعلى للأهداف": "Maximum goals",
+  "ثلاثة أعمدة مع حقول قراءة (mco-fsection__grid--3)": "Three columns with read-only fields (mco-fsection__grid--3)"
  },
  "prefix": {
   "من أبرز التحديات والمخاطر المحتملة": "Key challenges and risks include: varying awareness across target segments, inaccurate information in some media channels, limited coordination between some related entities, and changes in the external environment that may affect the timing and priority of messages. Key challenges and risks include: varying awareness across target segments, inaccurate information in some media channels, limited coordination between some related entities, and changes in the external environment that may affect the timing and priority of messages. Key challenges and risks include: varying awareness across target segments, inaccurate information in some media channels, limited coordination between some related entities, and changes in the external environment that may affect the timing and priority of messages. Key challenges and risks include: varying awareness across target segments, inaccurate information in some media channels, limited coordination between some related entities, and changes in the external environment that may affect the timing and priority of messages. ",

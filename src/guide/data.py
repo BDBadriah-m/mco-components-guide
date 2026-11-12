@@ -607,6 +607,7 @@ C['fsection'] = dict(name='بطاقة قسم النموذج', mco='MCO_FormSecti
       Placeholder :: — :: Content''',
  notes=['داخل الجسم، عناوين الحقول تكبر تلقائياً لـ 20px عريض كما في Figma.',
         'الحقول توضع في Container بكلاس mco-fsection__grid: عمودان بمسافة 32px، وعمود واحد على الجوال.',
+        'ثلاثة أعمدة: أضف mco-fsection__grid--3 (مثل «بيانات الخطة»: حقل العام ثم حقلا قراءة MCO_InfoField بـ Style = "form"، من Sprint-1 1:21299).',
         'Figma سمّى الإطار «Frame 1820548551»، والاسم المقترح هنا MCO_FormSection.'],
  preview='FSECTION')
 
@@ -752,7 +753,7 @@ C['svcpage'] = dict(name='قالب صفحة الخدمة', mco='Screen: ServiceL
         'بين أقسام المحتوى 24px، والمحتوى بعرض أقصى 1304px في منتصف الصفحة.'],
  preview='SVCPAGE')
 
-NEW = {'svchero', 'svcsteps', 'phase', 'svcpage', 'dialog', 'csteps', 'avatar', 'ifield', 'datetile', 'fact', 'cardhead', 'activity', 'file', 'dhead', 'loader', 'footer', 'fsection', 'empty', 'record', 'stat', 'maintabs', 'usercard', 'summary', 'slide', 'dcard', 'xtext', 'gallery', 'person', 'addbanner'}
+NEW = {'fsection', 'ifield', 'svchero', 'svcsteps', 'phase', 'svcpage', 'dialog', 'csteps', 'avatar', 'ifield', 'datetile', 'fact', 'cardhead', 'activity', 'file', 'dhead', 'loader', 'footer', 'fsection', 'empty', 'record', 'stat', 'maintabs', 'usercard', 'summary', 'slide', 'dcard', 'xtext', 'gallery', 'person', 'addbanner'}
 
 C['stat'] = dict(name='بطاقة الرقم', mco='MCO_StatTile', kind=BLOCK, figma='467:12414',
  summary='رقم أو تاريخ بارز مع عنوانه وأيقونة في مربع متدرّج، داخل بطاقة الملخص أو أي لوحة أرقام.',
@@ -1033,9 +1034,10 @@ C['avatar'] = dict(name='الصورة الرمزية', mco='MCO_Avatar', kind=BL
 
 C['ifield'] = dict(name='حقل المعلومة', mco='MCO_InfoField', kind=BLOCK, figma='656:7158',
  summary='عنوان رمادي 16px وقيمة عريضة 20px بلون text-brand. أنواع: نص، أو دولة مع علمها، أو تصنيف كرقاقة. هو الحقل داخل بطاقة السجل.',
- inputs=[('Label', 'Text', ''), ('Value', 'Text', ''), ('Type', 'Text = "text"', 'text · country · chip'), ('FlagURL', 'Text', 'مع country')],
+ inputs=[('Label', 'Text', ''), ('Value', 'Text', ''), ('Type', 'Text = "text"', 'text · country · chip'), ('FlagURL', 'Text', 'مع country'),
+         ('Style', 'Text = "default"', 'default · form: داخل نموذج بجانب حقول الإدخال (عنوان 20px عريض وقيمة 16px خفيفة)')],
  tree="""MCO_InfoField :: — :: Block
-  Container :: "mco-ifield " + ExtraClass
+  Container :: "mco-ifield" + If(Style = "form", " mco-ifield--form", "") + " " + ExtraClass
     Expression :: mco-ifield__label :: Value = Label
     If :: — :: Type = "chip"
       Expression :: mco-ifield__chip :: Value = Value
@@ -1044,6 +1046,7 @@ C['ifield'] = dict(name='حقل المعلومة', mco='MCO_InfoField', kind=BLO
         If :: — :: Type = "country"
           Image :: mco-ifield__flag :: URL = FlagURL · Alt = ""
         Expression :: — :: Value = Value""",
+ notes=['Style = "form" (Figma «#Info Field» Type=Form 1032:8005): لقيمة للقراءة فقط داخل MCO_FormSection بجانب حقول الإدخال، مثل «الحد الأدنى للأهداف». مثاله في «بطاقة قسم النموذج».'],
  preview='IFIELD')
 
 C['datetile'] = dict(name='مربع التاريخ', mco='MCO_DateTile', kind=BLOCK, figma='718:7416',

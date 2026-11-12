@@ -244,6 +244,15 @@ def build(I):
                   '<p class="mco-dhead__desc">زيارة رسمية · وزارة الخارجية</p></div></div><button type="button" class="btn btn-cancel btn-mobile">تعديل</button></div>'
                   '<div class="mco-dhead__facts">%s%s%s%s</div></section>') % (FLAG_DK, fact('calendar', 'فترة الزيارة', '22 – 25 مايو 2026'), fact('calendar-2', 'مدة الزيارة', '4 أيام'),
                                                                               fact('tick-circle', 'تأكيد التاريخ', 'مؤكد', ' mco-fact--success'), fact('task-square', 'عدد الأنشطة', '3 أنشطة'))
+    # 11.4ب حقل معلومة داخل نموذج + شبكة بثلاثة أعمدة («بيانات الخطة» Sprint-1 1:21299)
+    iform = lambda l, v: '<div class="mco-ifield mco-ifield--form"><span class="mco-ifield__label">%s</span><span class="mco-ifield__value">%s</span></div>' % (l, v)
+    year = ('<div class="mco-field mco-field--select"><label class="mco-field__label" for="fs-year">العام</label><div class="mco-field__box">'
+            '<select id="fs-year" class="mco-field__control"><option value="">اختر العام</option><option>2026</option><option>2027</option></select>'
+            '<span class="mco-field__trail">%s</span></div></div>') % I('chevron-down', 22)
+    plan = ('<section class="mco-fsection"><header class="mco-fsection__head">%s<h3 class="mco-fsection__title">بيانات الخطة</h3></header>'
+            '<div class="mco-fsection__body"><div class="mco-fsection__grid mco-fsection__grid--3">%s%s%s</div></div></section>') % (I('document-text', 29), year, iform('الحد الأدنى للأهداف', '2'), iform('الحد الأعلى للأهداف', '5'))
+    P['IFIELD'] = P['IFIELD'][:-len('</div>')] + '</div><span class="pv-k" style="display:block;margin-top:24px">Style = form</span><div class="pv-row" style="gap:48px">%s%s</div>' % (iform('الحد الأدنى للأهداف', '2'), iform('الحد الأعلى للأهداف', '5'))
+    P['FSECTION'] = '<div class="pv-stack">%s<span class="pv-k">ثلاثة أعمدة مع حقول قراءة (mco-fsection__grid--3)</span>%s</div>' % (P['FSECTION'], plan)
     # 11.14–11.17 صفحة الخدمة (Sprint-1)
     P['SVCHERO'] = ('<section class="mco-svchero"><div class="mco-svchero__content"><span class="mco-svchero__tag">%s<span>خدمات التواصل الخارجي</span></span>'
                     '<div class="mco-svchero__text"><h3 class="mco-svchero__title">رفع خطة التواصل الخارجي السنوية</h3><p class="mco-svchero__desc">تمكّنك هذه الخدمة من رفع خطة التواصل الخارجي للوزارة، وتتضمن أهداف التواصل الاستراتيجية وأنشطة التواصل المختلفة، مثل الزيارات والاستقبالات والأنشطة الأخرى.</p></div></div>'

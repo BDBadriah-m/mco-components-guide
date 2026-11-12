@@ -440,6 +440,14 @@ span.mco-icon, div.mco-icon, i.mco-icon {
 .mco-ifield__flag { flex: none; width: 30px; height: 20px; border: 1px solid var(--color-border-default); border-radius: 3px; object-fit: cover; }
 .mco-ifield__chip { align-self: flex-start; display: inline-flex; align-items: center; padding: var(--space-4) var(--space-12); border: 1px solid var(--color-border-brand-subtle); border-radius: var(--radius-sm); background: var(--color-bg-brand-soft); font-size: 14px; line-height: 20px; font-weight: 700; color: var(--color-text-primary); }
 
+/* 11.4ب حقل معلومة داخل نموذج — «#Info Field» Type=Form (1032:8005، من Sprint-1 1:21311): بجانب حقول الإدخال، عنوان 20px عريض بنفس شكل عنوان الحقل وقيمة 16px خفيفة تحته */
+.mco-ifield--form { justify-content: flex-start; gap: 20px; }
+.mco-ifield--form .mco-ifield__label { padding-top: 5px; font-size: 20px; line-height: 22px; font-weight: 700; color: var(--color-text-primary); }
+.mco-ifield--form .mco-ifield__value { font-size: 16px; line-height: 24px; font-weight: 300; color: var(--color-text-secondary); }
+/* شبكة قسم النموذج بثلاثة أعمدة (حقل إدخال + حقلا قراءة مثلاً) */
+.mco-fsection__grid--3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+@media (max-width: 768px) { .mco-fsection__grid--3 { grid-template-columns: minmax(0, 1fr); } }
+
 /* 11.5 شريط الإضافة بزرّين — «Add Goal Banner» 755:7538 (tow actions) */
 .mco-addbanner__actions { display: flex; flex-wrap: wrap; gap: var(--space-8); }
 .mco-addbanner .mco-addbanner__actions .btn { height: 36px; min-height: 36px; padding: var(--space-8); font-size: 16px; line-height: 24px; box-shadow: none; border-radius: 7px; background: transparent; border-color: var(--color-border-focus); color: var(--color-text-link); }
