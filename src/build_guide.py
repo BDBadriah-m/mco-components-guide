@@ -353,8 +353,10 @@ def build():
     if 'NAVBAR' in rp and rp['NAVBAR'].endswith('</div>'):
         rp['NAVBAR'] = rp['NAVBAR'][:-len('</div>')] + op['NAVSTEPPER'] + '</div>'
     # زر تبديل اللغة (Figma «Language switch» 1040:8027) آخر عنصر في شريط الأدوات بكل أنواع الشريط وقالب الصفحة
-    lang_btn = ('<button type="button" class="mco-nav__lang" aria-label="Switch to English">%s'
-                '<span class="mco-nav__lang-label" lang="en">EN</span></button>') % I('global', 20)
+    # النص يتبع اتجاه المعاينة (زر «عربي / EN»): «EN» في المعاينة العربية و«ع» في الإنجليزية، كما يفعل If(IsArabic…) في المنصة
+    lang_btn = ('<button type="button" class="mco-nav__lang">%s'
+                '<span class="mco-nav__lang-label pv-lang-rtl" lang="en">EN</span>'
+                '<span class="mco-nav__lang-label pv-lang-ltr" lang="ar">ع</span></button>') % I('global', 20)
     for k in ('NAVBAR', 'LAYOUT'):
         if k in rp:
             rp[k] = re.sub(r'(<div class="mco-nav__tools">.*?)(</div>)', lambda m: m.group(1) + lang_btn + m.group(2), rp[k], flags=re.S)
