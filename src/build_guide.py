@@ -52,7 +52,7 @@ SHELL_EN = [
  ('aria-label="فهرس الدليل"', 'aria-label="Guide contents"'),
  ("'تم نسخ رابط SVG للأيقونة «' + name + '». '", "'Copied the SVG link for “' + name + '”. '"), ("'رابط SVG للأيقونة «' + name + '»: '", "'SVG link for “' + name + '”: '"),
  ("'تنزيل ' + name + '.svg'", "'Download ' + name + '.svg'"), ("'الاسم: ' + name", "'Name: ' + name"),
- ("'جارٍ التحميل…'", "'Loading…'"),
+ ("'جارٍ التحميل…'", "'Loading…'"), ("' نتيجة'", "' results'"), ("'ما فيه أيقونة بهذا الاسم. الأسماء بالإنجليزي، مثل send أو arrow-left.'", "'No icon matches that name. Names are in English, e.g. send or arrow-left.'"),
  ("'تم نسخ ملف الثيم كاملاً، الصقه في Style Sheet الخاص بالـ Theme.'", "'Theme file copied. Paste it into the Theme Style Sheet.'"),
  ("'تعذّر تحميل ملف الثيم من هنا. افتحه مباشرة: '", "'Couldn\\'t load the theme file from here. Open it directly: '"),
  ("'تعذّر النسخ التلقائي هنا. نزّل الملف أو افتحه وانسخ محتواه: '", "'Automatic copy isn\\'t allowed here. Download the file, or open it and copy its contents: '"),

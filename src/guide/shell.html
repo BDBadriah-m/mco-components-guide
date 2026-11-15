@@ -176,7 +176,8 @@ body { background: var(--gd-ground); color: var(--gd-ink); font-family: var(--fo
 .pv-icons .mco-icon { transform: none !important; } /* فهرس الأيقونات يعرض الأيقونة كما هي في الاتجاهين */
 .pv-sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
 .pv-isearch { display: block; max-width: 420px; margin-bottom: 16px; }
-.pv-icat { margin-bottom: 20px; } .pv-icat[hidden] { display: none; }
+.pv-icat { margin-bottom: 20px; } .pv-icat[hidden], .pv-icon[hidden] { display: none !important; }
+.pv-isearch-n { margin: -8px 0 16px; font-size: 13px; color: var(--gd-quiet); }
 .pv-icat__t { margin: 0 0 8px; font-size: 14px; font-weight: 700; color: var(--gd-ink, inherit); } .pv-icat__t em { font-style: normal; font-weight: 400; color: var(--gd-quiet); }
 .pv-icons { display: grid; grid-template-columns: repeat(auto-fill, minmax(104px, 1fr)); gap: 8px; }
 .pv-icon { display: flex; flex-direction: column; align-items: center; gap: 6px; padding: 12px 4px 8px; border: 1px solid transparent; border-radius: 6px; background: transparent; color: var(--font-primary); cursor: pointer; font: 500 11.5px var(--gd-mono); direction: ltr; }
@@ -246,16 +247,29 @@ body { background: var(--gd-ground); color: var(--gd-ink); font-family: var(--fo
 <script src="https://cdn.jsdelivr.net/npm/virtual-select-plugin@1.0.49/dist/virtual-select.min.js"></script>
 <script>
 (function () {
-  // البحث في فهرس الأيقونات بالاسم
+  // البحث في فهرس الأيقونات بالاسم: بدون حساسية لحالة الأحرف، والمسافة و _ تُعامل مثل -،
+  // وكل كلمة في البحث لازم تكون في الاسم (arrow left تلقى arrow-left و arrow-circle-left)
   var isq = document.querySelector('[data-isearch]');
-  if (isq) isq.addEventListener('input', function () {
-    var q = isq.value.trim().toLowerCase();
-    document.querySelectorAll('[data-icat]').forEach(function (sec) {
-      var n = 0;
-      sec.querySelectorAll('[data-copy]').forEach(function (b) { var ok = !q || b.getAttribute('data-copy').indexOf(q) !== -1; b.hidden = !ok; if (ok) n++; });
-      sec.hidden = n === 0;
+  if (isq) {
+    var isn = document.createElement('p'); isn.className = 'pv-isearch-n'; isn.setAttribute('role', 'status');
+    isq.closest('label').insertAdjacentElement('afterend', isn);
+    var norm = function (t) { return t.toLowerCase().replace(/[\s_]+/g, '-').replace(/-+/g, '-').replace(/^-|-$/g, ''); };
+    isq.addEventListener('input', function () {
+      var q = norm(isq.value.trim()), parts = q ? q.split('-') : [], total = 0;
+      document.querySelectorAll('[data-icat]').forEach(function (sec) {
+        var n = 0;
+        sec.querySelectorAll('[data-copy]').forEach(function (b) {
+          var name = b.getAttribute('data-copy');
+          var ok = !q || name.indexOf(q) !== -1 || parts.every(function (w) { return name.indexOf(w) !== -1; });
+          b.hidden = !ok; if (ok) n++;
+        });
+        sec.hidden = n === 0;
+        var c = sec.querySelector('.pv-icat__t em'); if (c) { if (!c.dataset.all) c.dataset.all = c.textContent; c.textContent = q ? n + ' / ' + c.dataset.all : c.dataset.all; }
+        total += n;
+      });
+      isn.textContent = !q ? '' : total ? total + ' نتيجة' : 'ما فيه أيقونة بهذا الاسم. الأسماء بالإنجليزي، مثل send أو arrow-left.';
     });
-  });
+  }
   // نسخ الأيقونة كرابط SVG (data:image/svg+xml) من متغير --mco-icon في الثيم، مع رابط تنزيل ملف name.svg
   var msg = document.getElementById('copy-msg');
   function svgUrl(el) {
