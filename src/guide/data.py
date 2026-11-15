@@ -237,14 +237,19 @@ C['layout'] = dict(name='قالب الصفحة', mco='MCO_LayoutBase', kind=BLOC
 C['navbar'] = dict(name='شريط التنقل العلوي', mco='MCO_Navbar', kind=BLOCK, figma='2:20663',
  summary='شريط أدوات متدرّج، ثم مسار التنقل وعنوان الصفحة وزر الرجوع والإجراء الرئيسي على خلفية متدرّجة بتموّجات خفيفة. أربعة أنواع: default وtabs وsimple وstepper.',
  inputs=[('Type', 'Text = "default"', 'default · tabs (مع تبويبات) · simple (شريط الأدوات فقط) · stepper (مع مؤشر الخطوات الدائري)'), ('Title', 'Text', ''),
-         ('Breadcrumbs', 'List of MCO_Breadcrumb', '{Label, URL}، آخر عنصر بدون URL'), ('ShowBack', 'Boolean = True', '')],
- events=[('OnBack', '—')],
+         ('Breadcrumbs', 'List of MCO_Breadcrumb', '{Label, URL}، آخر عنصر بدون URL'), ('ShowBack', 'Boolean = True', ''), ('ShowLanguage', 'Boolean = True', 'زر تبديل اللغة في الشريط العلوي')],
+ events=[('OnBack', '—'), ('OnLanguageChange', 'الشاشة تستدعي SetCurrentLocale باللغة الأخرى')],
  placeholders=[('Tools', 'أزرار شريط الأدوات: Button بكلاس mco-nav__tool وفيه MCO_Icon'), ('Action', 'زر بكلاس "btn btn-primary btn-mobile"'), ('Tabs', 'Tabs عند Type = "tabs"'), ('Steps', 'MCO_StepsBar بـ ExtraClass = "mco-nav__steps" عند Type = "stepper"')],
  tree='''MCO_Navbar :: — :: Block
   HTML Element (header) :: "mco-nav " + ExtraClass
     Container :: mco-nav__bar
       Container :: mco-nav__tools
         Placeholder :: — :: Tools
+        If :: — :: ShowLanguage
+          Button :: mco-nav__lang :: OnClick → OnLanguageChange · aria-label = If(IsArabic, "Switch to English", "التبديل إلى العربية")
+            MCO_Icon :: — :: Name = "global" · Size = 20
+            HTML Element (span) :: mco-nav__lang-label :: lang = If(IsArabic, "en", "ar")
+              Expression :: — :: Value = If(IsArabic, "EN", "ع")
     If :: — :: Type <> "simple"
       Container :: mco-nav__body
         Container :: mco-crumbs :: role = "navigation" · aria-label = "مسار التنقل"
@@ -270,6 +275,7 @@ C['navbar'] = dict(name='شريط التنقل العلوي', mco='MCO_Navbar', 
       Placeholder :: — :: Steps''',
  notes=['محدّث من Figma (navbar 2:20663): الشريط العلوي متدرّج من action-primary-default إلى bg-navbar، والخلفية تحته متدرّجة من bg-brand-soft إلى bg-surface مع تموّجات دائرية خفيفة، وكلها من الثيم بدون صور.',
         'مسار التنقل 14px بلون text-tertiary، وزر الرجوع على bg-subtle بدون حد.',
+        'زر تبديل اللغة (Language switch 1040:8027) آخر عنصر في شريط الأدوات، ويعرض اللغة الأخرى دائماً: «EN» في الشاشة العربية و«ع» في الإنجليزية. IsArabic متغيّر محلي = Index(GetCurrentLocale(), "ar") = 0. بدون حد، والأيقونة بعد الحرف في اتجاه قراءته تلقائياً من ترتيب الشجرة.',
         'زر الإجراء داخل الشريط يأخذ brand-secondary تلقائياً من الثيم، كما في Figma.', 'التبويبات داخل mco-nav__tabs تأخذ شكل «#Nav Tab» تلقائياً: ارتفاع 53px، ونص 16px عريض، وخط سفلي 4px brand-default للنشط، وتلتصق بالحافة السفلية للشريط بدون مسافة.'],
  preview='NAVBAR')
 

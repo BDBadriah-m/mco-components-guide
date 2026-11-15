@@ -2326,6 +2326,15 @@ button.mco-avatar { cursor: pointer; } button.mco-avatar:hover { background: var
 .mco-dialog--danger { --mco-dlg-act: var(--color-action-danger-default); --mco-dlg-act-h: var(--color-action-danger-hover); }
 @media (max-width: 600px) { .mco-dialog--small.mco-dialog--left { flex-wrap: wrap; } .mco-dialog--small.mco-dialog--left .mco-dialog__actions { width: 100%; margin-inline-start: 0; } .mco-dialog--small.mco-dialog--left .btn.mco-dialog__cta { flex: 1; } }
 
+/* 11.18 زر تبديل اللغة — «Language switch» 1040:8027، آخر عنصر في mco-nav__tools
+   يعرض اللغة الأخرى دائماً: الشاشة العربية «EN» والإنجليزية «ع». بدون حد، بلون icon-on-navbar مثل باقي أدوات الشريط.
+   الأيقونة قبل النص في الشجرة، فتقع بعد الحرف في اتجاه قراءته تلقائياً: «EN» ثم الأيقونة على يمينها في RTL، و«ع» ثم الأيقونة على يسارها في LTR */
+.mco-nav__lang { display: inline-flex; align-items: center; gap: 4px; height: 24px; padding: 0; border: 0; border-radius: var(--radius-sm); background: transparent; color: var(--color-icon-on-navbar); font-family: inherit; font-size: 14px; line-height: 20px; font-weight: 700; cursor: pointer; }
+.mco-nav__lang:hover { opacity: .85; }
+.mco-nav__lang:focus-visible { outline: 2px solid var(--color-icon-on-navbar); outline-offset: 2px; }
+.mco-nav__lang-label { display: inline-block; line-height: 20px; }
+.mco-nav__lang-label[lang="ar"] { transform: translateY(-3px); } /* «ع» ينزل تحت السطر بطبيعة شكله، فيُرفع ليتوسّط مع الأيقونة كما في Figma */
+
 /* ===========================================================================
    10. دعم الإنجليزي (LTR)
    القاعدة: العربي يضيف OutSystems كلاس is-rtl على body، والإنجليزي بدونه.

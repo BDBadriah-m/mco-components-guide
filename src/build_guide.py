@@ -352,6 +352,12 @@ def build():
     # نوع stepper الجديد في شريط التنقل (Figma navbar 2:20663) بعد الأنواع الثلاثة من bundle.js
     if 'NAVBAR' in rp and rp['NAVBAR'].endswith('</div>'):
         rp['NAVBAR'] = rp['NAVBAR'][:-len('</div>')] + op['NAVSTEPPER'] + '</div>'
+    # زر تبديل اللغة (Figma «Language switch» 1040:8027) آخر عنصر في شريط الأدوات بكل أنواع الشريط وقالب الصفحة
+    lang_btn = ('<button type="button" class="mco-nav__lang" aria-label="Switch to English">%s'
+                '<span class="mco-nav__lang-label" lang="en">EN</span></button>') % I('global', 20)
+    for k in ('NAVBAR', 'LAYOUT'):
+        if k in rp:
+            rp[k] = re.sub(r'(<div class="mco-nav__tools">.*?)(</div>)', lambda m: m.group(1) + lang_btn + m.group(2), rp[k], flags=re.S)
     # الحوار المضمّن الصغير بزر جانبي (Figma 1021:8123) تحت أمثلة MCO_InlineDialog
     if 'dialog' in rp and rp['dialog'].endswith('</div>'):
         rp['dialog'] = rp['dialog'][:-len('</div>')] + op['DLGSMALL'] + '</div>'
