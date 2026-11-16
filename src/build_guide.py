@@ -360,6 +360,10 @@ def build():
     for k in ('NAVBAR', 'LAYOUT'):
         if k in rp:
             rp[k] = re.sub(r'(<div class="mco-nav__tools">.*?)(</div>)', lambda m: m.group(1) + lang_btn + m.group(2), rp[k], flags=re.S)
+    # زر الرجوع في شريط التنقل: أيقونة chevron-right من Figma (arrow-right 2:30264) بدل arrow-left المعكوس
+    for k in ('NAVBAR', 'LAYOUT'):
+        if k in rp:
+            rp[k] = re.sub(r'(<button[^>]*class="mco-nav__back"[^>]*>)\s*<span[^>]*class="mco-icon[^"]*"[^>]*>\s*</span>', lambda m: m.group(1) + I('chevron-right', 24), rp[k])
     # الحوار المضمّن الصغير بزر جانبي (Figma 1021:8123) تحت أمثلة MCO_InlineDialog
     if 'dialog' in rp and rp['dialog'].endswith('</div>'):
         rp['dialog'] = rp['dialog'][:-len('</div>')] + op['DLGSMALL'] + '</div>'

@@ -33,6 +33,7 @@ C['icon'] = dict(name='الأيقونة', mco='MCO_Icon', kind=BLOCK,
   Expression :: "mco-icon mco-i-" + Name + " mco-size-" + Size + If(IsFlipped, " mco-flip", "") + " " + ExtraClass :: Value = "" · aria-hidden = If(AriaLabel = "", "true", "false") · role = "img" و aria-label = AriaLabel عند وجوده''',
  notes=['الأحجام: 20 داخل الأزرار، 22 داخل الحقول، 24 في القوائم والتبويبات.',
         '«التالي» = arrow-left، و«السابق» = arrow-left مع IsFlipped = True. لا تستخدم arrow-right للرجوع، فهي في Vuesax سهم داخل مربع.',
+        'زر الرجوع في شريط التنقل يستخدم chevron-right (نفس أيقونة arrow-right في مكتبة Figma 2:30264): يشير لليمين في العربي وينعكس تلقائياً لليسار في الإنجليزي، فبدون IsFlipped.',
         'الأيقونات المستخدمة في المكوّنات موجودة في الثيم نفسه. المجموعة الكاملة (900 أيقونة) في ملف MCO_Icons_All.css: أضفه في الـ Theme كـ Style Sheet ثاني بعد ملف الثيم إذا احتجت أيقونة غير موجودة فيه.'],
  preview='ICONGRID')
 
@@ -264,7 +265,7 @@ C['navbar'] = dict(name='شريط التنقل العلوي', mco='MCO_Navbar', 
         Container :: mco-nav__titlerow
           If :: — :: ShowBack
             Button :: mco-nav__back :: OnClick → OnBack · aria-label = "رجوع"
-              MCO_Icon :: — :: Name = "arrow-left" · IsFlipped = True
+              MCO_Icon :: — :: Name = "chevron-right" · Size = 24
           HTML Element (h1) :: mco-nav__title
             Expression :: — :: Value = Title
           Placeholder :: — :: Action

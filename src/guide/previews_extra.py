@@ -190,7 +190,7 @@ def build(I):
                        '<div class="mco-nav__body"><nav aria-label="مسار التنقل" class="mco-crumbs">%s%s<a href="#">أجندة التواصل</a>%s<span aria-current="page">خطة التواصل السنوية</span></nav>'
                        '<div class="mco-nav__titlerow"><button aria-label="رجوع" class="mco-nav__back" type="button">%s</button><h1 class="mco-nav__title">الأهداف الاستراتيجية</h1>'
                        '<button class="btn btn-primary btn-mobile" type="button">%s<span>اضغط هنا</span>%s</button></div></div>%s</header>') % (
-        I('notification-bing', 24), I('search-normal', 24), I('moon', 24), I('home', 16), I('arrow-left', 12), I('arrow-left', 12), I('arrow-left', 24, 'mco-flip'),
+        I('notification-bing', 24), I('search-normal', 24), I('moon', 24), I('home', 16), I('arrow-left', 12), I('arrow-left', 12), I('chevron-right', 24),
         I('user', 20), I('arrow-left', 20), csteps(['active', 'todo', 'todo'], ' mco-nav__steps'))
     # 11.4 حقل المعلومة
     ifield = lambda l, v: '<div class="mco-ifield"><span class="mco-ifield__label">%s</span><span class="mco-ifield__value">%s</span></div>' % (l, v)

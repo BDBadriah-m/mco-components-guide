@@ -651,9 +651,9 @@ button.mco-avatar { cursor: pointer; } button.mco-avatar:hover { background: var
 :is(body:not(.is-rtl):not(.mco-guide), [dir="ltr"]) .mco-step--final::before, :is(body:not(.is-rtl):not(.mco-guide), [dir="ltr"]) .mco-step:last-child:not(:first-child)::before { clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%, 17.3px 50%) !important; }
 
 /* 10.4 أيقونات الاتجاه: في النظام arrow-left = «التالي»، فتنعكس في LTR */
-:is(body:not(.is-rtl):not(.mco-guide), [dir="ltr"]) :is(.mco-i-arrow-left, .mco-i-arrow-right, .mco-i-expand-menu, .mco-i-collapse-menu, .mco-i-sidebar-left, .mco-i-sidebar-right, .mco-i-backward-item, .mco-i-logout) { transform: scaleX(-1); }
+:is(body:not(.is-rtl):not(.mco-guide), [dir="ltr"]) :is(.mco-i-arrow-left, .mco-i-arrow-right, .mco-i-expand-menu, .mco-i-collapse-menu, .mco-i-sidebar-left, .mco-i-sidebar-right, .mco-i-backward-item, .mco-i-logout, .mco-i-chevron-right) { transform: scaleX(-1); }
 /* حاوية عربية داخل صفحة إنجليزية (مثل زر «عربي» في الدليل): أقرب اتجاه هو اللي يحكم، فترجع الأيقونات لأصلها */
-:is(body:not(.is-rtl):not(.mco-guide), [dir="ltr"]) :is(.is-rtl, [dir="rtl"]) :is(.mco-i-arrow-left, .mco-i-arrow-right, .mco-i-expand-menu, .mco-i-collapse-menu, .mco-i-sidebar-left, .mco-i-sidebar-right, .mco-i-backward-item, .mco-i-logout) { transform: none; }
+:is(body:not(.is-rtl):not(.mco-guide), [dir="ltr"]) :is(.is-rtl, [dir="rtl"]) :is(.mco-i-arrow-left, .mco-i-arrow-right, .mco-i-expand-menu, .mco-i-collapse-menu, .mco-i-sidebar-left, .mco-i-sidebar-right, .mco-i-backward-item, .mco-i-logout, .mco-i-chevron-right) { transform: none; }
 :is(body:not(.is-rtl):not(.mco-guide), [dir="ltr"]) :is(.mco-i-arrow-left, .mco-i-arrow-right).mco-flip { transform: none; }
 
 /* 10.5 المفتاح (Switch) في LTR */
