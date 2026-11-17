@@ -446,7 +446,18 @@
   "زر تبديل اللغة في الشريط العلوي": "Language switch in the top strip",
   "الشاشة تستدعي SetCurrentLocale باللغة الأخرى": "The screen calls SetCurrentLocale with the other language",
   "زر تبديل اللغة (Language switch 1040:8027) آخر عنصر في شريط الأدوات، ويعرض اللغة الأخرى دائماً: «EN» في الشاشة العربية و«ع» في الإنجليزية. IsArabic متغيّر محلي = Index(GetCurrentLocale(), \"ar\") = 0. بدون حد، والأيقونة بعد الحرف في اتجاه قراءته تلقائياً من ترتيب الشجرة.": "The language switch (Language switch 1040:8027) is the last item in the toolbar and always shows the other language: “EN” on Arabic screens and “ع” on English ones. IsArabic is a local variable = Index(GetCurrentLocale(), \"ar\") = 0. No border; the icon falls after the letter in its reading direction automatically from the tree order.",
-  "زر الرجوع في شريط التنقل يستخدم chevron-right (نفس أيقونة arrow-right في مكتبة Figma 2:30264): يشير لليمين في العربي وينعكس تلقائياً لليسار في الإنجليزي، فبدون IsFlipped.": "The navbar back button uses chevron-right (the same icon as arrow-right in the Figma library, 2:30264): it points right in Arabic and flips to the left automatically in English, so no IsFlipped."
+  "زر الرجوع في شريط التنقل يستخدم chevron-right (نفس أيقونة arrow-right في مكتبة Figma 2:30264): يشير لليمين في العربي وينعكس تلقائياً لليسار في الإنجليزي، فبدون IsFlipped.": "The navbar back button uses chevron-right (the same icon as arrow-right in the Figma library, 2:30264): it points right in Arabic and flips to the left automatically in English, so no IsFlipped.",
+  "الرسم البياني للمستهدف": "Target chart",
+  "المستهدف التراكمي للخطة في الأرباع الأربعة: منحنى متدرّج بنقطة وقيمة لكل ربع، وعمود الربع الحالي مميّز. نقطة الربع الأخير (المستهدف السنوي) معبّأة. قبل إدخال البيانات يظهر بحالة فارغة.": "The plan's cumulative target across the four quarters: a gradient curve with a point and value per quarter, and the current quarter's column highlighted. The last quarter's point (the annual target) is filled. Before any data is entered it shows an empty state.",
+  "Text = \"الرسم البياني للمستهدف\"": "Text = \"Target chart\"",
+  "المستهدف التراكمي للربع الأول، من 0 إلى 100 (وكذلك Q2 · Q3 · Q4)": "Cumulative target for Q1, 0 to 100 (same for Q2 · Q3 · Q4)",
+  "المستهدف السنوي": "Annual target",
+  "من 1 إلى 4؛ 0 = بدون تمييز": "1 to 4; 0 = no highlight",
+  "False = الحالة الفارغة": "False = empty state",
+  "MCO_TargetChartSVG: Client Action بخاصية Function = Yes، تأخذ Q1 إلى Q4 وترجع Text. لكل قيمة y = 170 − Q × 1.2، والمسار من مركز عمود لآخر بمنحنى: \"M50 y1 C100 y1 100 y2 150 y2 C200 y2 200 y3 250 y3 C300 y3 300 y4 350 y4\".": "MCO_TargetChartSVG: a Client Action with Function = Yes that takes Q1 to Q4 and returns Text. For each value y = 170 − Q × 1.2, and the path curves from one column centre to the next: \"M50 y1 C100 y1 100 y2 150 y2 C200 y2 200 y3 250 y3 C300 y3 300 y4 350 y4\".",
+  "ترجع الدالة: <svg viewBox=\"0 0 400 236\" preserveAspectRatio=\"none\" aria-hidden=\"true\" focusable=\"false\"> فيه defs بتدرّجين: mco-tchart-line (userSpaceOnUse من x1=50 إلى x2=350، وقفات بكلاسات mco-tchart__s-muted · s-default · s-pressed) وmco-tchart-area (عمودي، s-focus ثم s-surface)، ثم path بكلاس mco-tchart__area (المسار + \" L350 170 L50 170 Z\") وpath بكلاس mco-tchart__line. الألوان من الثيم عبر الكلاسات، فتتبع الوضع الداكن.": "The function returns <svg viewBox=\"0 0 400 236\" preserveAspectRatio=\"none\" aria-hidden=\"true\" focusable=\"false\"> with defs holding two gradients: mco-tchart-line (userSpaceOnUse from x1=50 to x2=350, stops with classes mco-tchart__s-muted · s-default · s-pressed) and mco-tchart-area (vertical, s-focus then s-surface), then a path with class mco-tchart__area (the path + \" L350 170 L50 170 Z\") and a path with class mco-tchart__line. Colours come from the theme through the classes, so they follow dark mode.",
+  "المسار يُكتب بترتيب LTR (الربع الأول يسار)، والثيم يقلبه أفقياً في العربي، فلا تعكس القيم.": "Write the path in LTR order (Q1 on the left); the theme mirrors it in Arabic, so don't reverse the values.",
+  "العرض الأدنى للرسم 560px، وعلى الشاشات الأصغر يتمرّر أفقياً داخل mco-tchart__scroll.": "The plot is at least 560px wide; on smaller screens it scrolls horizontally inside mco-tchart__scroll."
  },
  "tree": {
   "Expression :: \"mco-icon mco-i-\" + Name + \" mco-size-\" + Size + If(IsFlipped, \" mco-flip\", \"\") + \" \" + ExtraClass :: Value = \"\" · aria-hidden = If(AriaLabel = \"\", \"true\", \"false\") · role = \"img\" و aria-label = AriaLabel عند وجوده": "Expression :: \"mco-icon mco-i-\" + Name + \" mco-size-\" + Size + If(IsFlipped, \" mco-flip\", \"\") + \" \" + ExtraClass :: Value = \"\" · aria-hidden = If(AriaLabel = \"\", \"true\", \"false\") · role = \"img\" and aria-label = AriaLabel when set",
@@ -525,6 +536,15 @@
   "MCO_ServiceSteps :: — :: CountLabel = \"مرحلتان\"": "MCO_ServiceSteps :: — :: CountLabel = \"2 phases\"",
   "Text :: — :: Message: \"يرجى تحديث أولويات الدول قبل إنشاء الخطة السنوية…\"": "Text :: — :: Message: \"Please update country priorities before creating the annual plan…\"",
   "Button :: mco-nav__lang :: OnClick → OnLanguageChange · aria-label = If(IsArabic, \"Switch to English\", \"التبديل إلى العربية\")": "Button :: mco-nav__lang :: OnClick → OnLanguageChange · aria-label = If(IsArabic, \"Switch to English\", \"التبديل إلى العربية\")",
-  "Expression :: — :: Value = If(IsArabic, \"EN\", \"ع\")": "Expression :: — :: Value = If(IsArabic, \"EN\", \"ع\")"
+  "Expression :: — :: Value = If(IsArabic, \"EN\", \"ع\")": "Expression :: — :: Value = If(IsArabic, \"EN\", \"ع\")",
+  "Container :: mco-tchart__plot :: role = \"img\" · aria-label = If(HasData, \"الربع الأول \" + Q1 + \"%، الربع الثاني \" + Q2 + \"%، الربع الثالث \" + Q3 + \"%، الربع الرابع \" + Q4 + \"%\", \"لا توجد بيانات بعد\")": "Container :: mco-tchart__plot :: role = \"img\" · aria-label = If(HasData, \"Q1 \" + Q1 + \"%, Q2 \" + Q2 + \"%, Q3 \" + Q3 + \"%, Q4 \" + Q4 + \"%\", \"No data yet\")",
+  "Container :: … :: الربع الثاني (أبريل – يونيو) · الثالث (يوليو – سبتمبر) · الرابع (أكتوبر – ديسمبر) بنفس الشكل مع Q2 · Q3 · Q4": "Container :: … :: Q2 (April – June) · Q3 (July – September) · Q4 (October – December) the same way with Q2 · Q3 · Q4",
+  "Expression :: mco-tchart__empty-hint :: \"أدخل نسبة المستهدف لكل ربع ليظهر الرسم البياني\"": "Expression :: mco-tchart__empty-hint :: \"Enter the target percentage for each quarter to show the chart\"",
+  "Expression :: mco-tchart__empty-title :: \"لا توجد بيانات بعد\"": "Expression :: mco-tchart__empty-title :: \"No data yet\"",
+  "Expression :: mco-tchart__key mco-tchart__key--current :: \"الربع الحالي\"": "Expression :: mco-tchart__key mco-tchart__key--current :: \"Current quarter\"",
+  "Expression :: mco-tchart__key mco-tchart__key--line :: \"المستهدف التراكمي\"": "Expression :: mco-tchart__key mco-tchart__key--line :: \"Cumulative target\"",
+  "Expression :: mco-tchart__months :: \"يناير – مارس\"": "Expression :: mco-tchart__months :: \"January – March\"",
+  "Expression :: mco-tchart__qname :: \"الربع الأول\"": "Expression :: mco-tchart__qname :: \"Q1\"",
+  "Expression :: mco-tchart__tag :: \"الربع الحالي\"": "Expression :: mco-tchart__tag :: \"Current quarter\""
  }
 }

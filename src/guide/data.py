@@ -15,7 +15,7 @@ SECTIONS = [
   {'title': 'هيكل الصفحة', 'items': ['layout', 'navbar', 'sidemenu', 'usercard', 'subheader', 'actionsbar', 'footer']},
   {'title': 'النماذج', 'items': ['fsection', 'empty']},
   {'title': 'الرسائل والنوافذ', 'items': ['toast', 'popup', 'formpopup', 'dialog', 'loader']},
-  {'title': 'عرض البيانات', 'items': ['table', 'filterbar', 'pfooter', 'mcard', 'info', 'points', 'quarters', 'timeline', 'addmore']},
+  {'title': 'عرض البيانات', 'items': ['table', 'filterbar', 'pfooter', 'mcard', 'info', 'points', 'quarters', 'tchart', 'timeline', 'addmore']},
   {'title': 'عرض التفاصيل للقراءة فقط', 'items': ['dhead', 'summary', 'cardhead', 'record', 'activity', 'file', 'slide', 'dcard', 'xtext', 'gallery', 'person', 'addbanner']},
   {'title': 'صفحة الخدمة', 'items': ['svchero', 'svcsteps', 'phase', 'svcpage']},
  ]},
@@ -546,6 +546,46 @@ C['quarters'] = dict(name='مؤشر الأرباع', mco='MCO_QuarterProgress', 
       Expression :: — :: "الربع الأول" · "الربع الثاني" · "الربع الثالث" · "الربع الرابع"''',
  preview_js="h(M.QuarterProgress,{value:60})")
 
+C['tchart'] = dict(name='الرسم البياني للمستهدف', mco='MCO_TargetChart', kind=BLOCK, figma='600:8853',
+ summary='المستهدف التراكمي للخطة في الأرباع الأربعة: منحنى متدرّج بنقطة وقيمة لكل ربع، وعمود الربع الحالي مميّز. نقطة الربع الأخير (المستهدف السنوي) معبّأة. قبل إدخال البيانات يظهر بحالة فارغة.',
+ inputs=[('Title', 'Text = "الرسم البياني للمستهدف"', ''), ('Q1', 'Integer', 'المستهدف التراكمي للربع الأول، من 0 إلى 100 (وكذلك Q2 · Q3 · Q4)'), ('Q2', 'Integer', ''), ('Q3', 'Integer', ''), ('Q4', 'Integer', 'المستهدف السنوي'), ('CurrentQuarter', 'Integer = 0', 'من 1 إلى 4؛ 0 = بدون تمييز'), ('HasData', 'Boolean = True', 'False = الحالة الفارغة')],
+ tree="""MCO_TargetChart :: — :: Block
+  HTML Element (section) :: "mco-tchart " + If(HasData, "", "mco-tchart--empty ") + ExtraClass :: aria-label = Title
+    Container :: mco-tchart__head
+      HTML Element (h3) :: mco-tchart__title
+        Expression :: — :: Value = Title
+      Container :: mco-tchart__legend :: aria-hidden = "true"
+        If :: — :: HasData
+          Expression :: mco-tchart__key mco-tchart__key--line :: "المستهدف التراكمي"
+        Expression :: mco-tchart__key mco-tchart__key--current :: "الربع الحالي"
+    Container :: mco-tchart__scroll
+      Container :: mco-tchart__plot :: role = "img" · aria-label = If(HasData, "الربع الأول " + Q1 + "%، الربع الثاني " + Q2 + "%، الربع الثالث " + Q3 + "%، الربع الرابع " + Q4 + "%", "لا توجد بيانات بعد")
+        Container :: mco-tchart__grid :: aria-hidden = "true"
+          Expression :: mco-tchart__axis mco-tchart__axis--100 :: "100%"
+          Expression :: mco-tchart__axis mco-tchart__axis--50 :: "50%"
+        If :: — :: HasData
+          Expression :: mco-tchart__curve :: Escape Content = No · Value = MCO_TargetChartSVG(Q1, Q2, Q3, Q4)
+        Container :: mco-tchart__quarters :: aria-hidden = "true"
+          Container :: "mco-tchart__q" + If(CurrentQuarter = 1, " is-current", "") :: Style = "--v: " + Q1
+            If :: — :: CurrentQuarter = 1
+              Expression :: mco-tchart__tag :: "الربع الحالي"
+            Container :: mco-tchart__point
+            Expression :: mco-tchart__value :: Value = Q1 + "%"
+            Container :: mco-tchart__label
+              Expression :: mco-tchart__qname :: "الربع الأول"
+              Expression :: mco-tchart__months :: "يناير – مارس"
+          Container :: … :: الربع الثاني (أبريل – يونيو) · الثالث (يوليو – سبتمبر) · الرابع (أكتوبر – ديسمبر) بنفس الشكل مع Q2 · Q3 · Q4
+        If :: — :: Not HasData
+          Container :: mco-tchart__empty
+            MCO_Icon :: — :: Name = "chart" · Size = 28
+            Expression :: mco-tchart__empty-title :: "لا توجد بيانات بعد"
+            Expression :: mco-tchart__empty-hint :: "أدخل نسبة المستهدف لكل ربع ليظهر الرسم البياني\"""",
+ notes=['MCO_TargetChartSVG: Client Action بخاصية Function = Yes، تأخذ Q1 إلى Q4 وترجع Text. لكل قيمة y = 170 − Q × 1.2، والمسار من مركز عمود لآخر بمنحنى: "M50 y1 C100 y1 100 y2 150 y2 C200 y2 200 y3 250 y3 C300 y3 300 y4 350 y4".',
+        'ترجع الدالة: <svg viewBox="0 0 400 236" preserveAspectRatio="none" aria-hidden="true" focusable="false"> فيه defs بتدرّجين: mco-tchart-line (userSpaceOnUse من x1=50 إلى x2=350، وقفات بكلاسات mco-tchart__s-muted · s-default · s-pressed) وmco-tchart-area (عمودي، s-focus ثم s-surface)، ثم path بكلاس mco-tchart__area (المسار + " L350 170 L50 170 Z") وpath بكلاس mco-tchart__line. الألوان من الثيم عبر الكلاسات، فتتبع الوضع الداكن.',
+        'المسار يُكتب بترتيب LTR (الربع الأول يسار)، والثيم يقلبه أفقياً في العربي، فلا تعكس القيم.',
+        'العرض الأدنى للرسم 560px، وعلى الشاشات الأصغر يتمرّر أفقياً داخل mco-tchart__scroll.'],
+ preview='TCHART')
+
 C['timeline'] = dict(name='الخط الزمني', mco='MCO_Timeline', kind=BLOCK,
  summary='مراحل متتالية، لكل مرحلة دائرة حالة وشارة صغيرة وتاريخ.',
  inputs=[('Stages', 'List of MCO_Stage', '{Name, State, StatusLabel, Date}؛ State = notStarted · inProgress · onHold · failure · success')],
@@ -760,7 +800,7 @@ C['svcpage'] = dict(name='قالب صفحة الخدمة', mco='Screen: ServiceL
         'بين أقسام المحتوى 24px، والمحتوى بعرض أقصى 1304px في منتصف الصفحة.'],
  preview='SVCPAGE')
 
-NEW = {'fsection', 'ifield', 'svchero', 'svcsteps', 'phase', 'svcpage', 'dialog', 'csteps', 'avatar', 'ifield', 'datetile', 'fact', 'cardhead', 'activity', 'file', 'dhead', 'loader', 'footer', 'fsection', 'empty', 'record', 'stat', 'maintabs', 'usercard', 'summary', 'slide', 'dcard', 'xtext', 'gallery', 'person', 'addbanner'}
+NEW = {'tchart', 'fsection', 'ifield', 'svchero', 'svcsteps', 'phase', 'svcpage', 'dialog', 'csteps', 'avatar', 'ifield', 'datetile', 'fact', 'cardhead', 'activity', 'file', 'dhead', 'loader', 'footer', 'fsection', 'empty', 'record', 'stat', 'maintabs', 'usercard', 'summary', 'slide', 'dcard', 'xtext', 'gallery', 'person', 'addbanner'}
 
 C['stat'] = dict(name='بطاقة الرقم', mco='MCO_StatTile', kind=BLOCK, figma='467:12414',
  summary='رقم أو تاريخ بارز مع عنوانه وأيقونة في مربع متدرّج، داخل بطاقة الملخص أو أي لوحة أرقام.',

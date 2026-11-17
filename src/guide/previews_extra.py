@@ -271,4 +271,27 @@ def build(I):
     P['DLGSMALL'] = '<div class="pv-stack" style="margin-top:24px"><span class="pv-k">صغير بزر جانبي (Size = small · Layout = left)</span>%s%s</div>' % (
         dlg_small('warning', 'danger', 'ملاحظة', 'يرجى تحديث أولويات الدول قبل إنشاء الخطة السنوية، ويمكنك إدارتها بالضغط على «أولويات الدول».', 'أولويات الدول'),
         dlg_small('info', 'info-circle', 'للعلم', 'تم تحديث نموذج الخطة لهذا العام، راجع التعليمات قبل البدء.', 'عرض التعليمات'))
+    # 11.19 الرسم البياني للمستهدف («Target Chart» 600:8853، من Sprint-1 534:18791) — نفس ما ترجعه MCO_TargetChartSVG
+    def tchart_svg(vals):
+        y = ['%g' % (170 - v * 1.2) for v in vals]
+        d = 'M50 {0} C100 {0} 100 {1} 150 {1} C200 {1} 200 {2} 250 {2} C300 {2} 300 {3} 350 {3}'.format(*y)
+        return ('<svg viewBox="0 0 400 236" preserveAspectRatio="none" aria-hidden="true" focusable="false"><defs>'
+                '<linearGradient id="mco-tchart-line" gradientUnits="userSpaceOnUse" x1="50" y1="0" x2="350" y2="0"><stop offset="0" class="mco-tchart__s-muted"/><stop offset=".5" class="mco-tchart__s-default"/><stop offset="1" class="mco-tchart__s-pressed"/></linearGradient>'
+                '<linearGradient id="mco-tchart-area" x1="0" y1="0" x2="0" y2="1"><stop offset="0" class="mco-tchart__s-focus"/><stop offset="1" class="mco-tchart__s-surface"/></linearGradient></defs>'
+                '<path class="mco-tchart__area" d="%s L350 170 L50 170 Z"/><path class="mco-tchart__line" d="%s"/></svg>') % (d, d)
+    QN = [('الربع الأول', 'يناير – مارس'), ('الربع الثاني', 'أبريل – يونيو'), ('الربع الثالث', 'يوليو – سبتمبر'), ('الربع الرابع', 'أكتوبر – ديسمبر')]
+    def tchart(vals, current, has_data=True):
+        qs = ''.join('<div class="mco-tchart__q%s" style="--v: %d">%s<span class="mco-tchart__point"></span><span class="mco-tchart__value">%d%%</span>'
+                     '<div class="mco-tchart__label"><span class="mco-tchart__qname">%s</span><span class="mco-tchart__months">%s</span></div></div>' % (
+                         ' is-current' if i + 1 == current else '', v, '<span class="mco-tchart__tag">الربع الحالي</span>' if i + 1 == current else '', v, n, m)
+                     for i, (v, (n, m)) in enumerate(zip(vals, QN)))
+        label = '، '.join('%s %d%%' % (n, v) for v, (n, _) in zip(vals, QN)) if has_data else 'لا توجد بيانات بعد'
+        return ('<section class="mco-tchart%s" aria-label="الرسم البياني للمستهدف"><div class="mco-tchart__head"><h3 class="mco-tchart__title">الرسم البياني للمستهدف</h3>'
+                '<div class="mco-tchart__legend" aria-hidden="true">%s<span class="mco-tchart__key mco-tchart__key--current">الربع الحالي</span></div></div>'
+                '<div class="mco-tchart__scroll"><div class="mco-tchart__plot" role="img" aria-label="%s"><div class="mco-tchart__grid" aria-hidden="true"><span class="mco-tchart__axis mco-tchart__axis--100">100%%</span><span class="mco-tchart__axis mco-tchart__axis--50">50%%</span></div>'
+                '%s<div class="mco-tchart__quarters" aria-hidden="true">%s</div>%s</div></div></section>') % (
+            '' if has_data else ' mco-tchart--empty', '<span class="mco-tchart__key mco-tchart__key--line">المستهدف التراكمي</span>' if has_data else '', label,
+            '<div class="mco-tchart__curve">%s</div>' % tchart_svg(vals) if has_data else '', qs,
+            '' if has_data else '<div class="mco-tchart__empty">%s<span class="mco-tchart__empty-title">لا توجد بيانات بعد</span><span class="mco-tchart__empty-hint">أدخل نسبة المستهدف لكل ربع ليظهر الرسم البياني</span></div>' % I('chart', 28))
+    P['TCHART'] = '<div class="pv-stack" style="gap:16px">%s<span class="pv-k">HasData = False</span>%s</div>' % (tchart([20, 45, 70, 100], 2), tchart([0, 0, 0, 0], 2, False))
     return P

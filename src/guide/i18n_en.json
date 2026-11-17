@@ -353,7 +353,16 @@
   "اختر العام": "Select year",
   "الحد الأدنى للأهداف": "Minimum goals",
   "الحد الأعلى للأهداف": "Maximum goals",
-  "ثلاثة أعمدة مع حقول قراءة (mco-fsection__grid--3)": "Three columns with read-only fields (mco-fsection__grid--3)"
+  "ثلاثة أعمدة مع حقول قراءة (mco-fsection__grid--3)": "Three columns with read-only fields (mco-fsection__grid--3)",
+  "الرسم البياني للمستهدف": "Target chart",
+  "المستهدف التراكمي": "Cumulative target",
+  "الربع الحالي": "Current quarter",
+  "يناير – مارس": "January – March",
+  "أبريل – يونيو": "April – June",
+  "يوليو – سبتمبر": "July – September",
+  "أكتوبر – ديسمبر": "October – December",
+  "لا توجد بيانات بعد": "No data yet",
+  "أدخل نسبة المستهدف لكل ربع ليظهر الرسم البياني": "Enter the target percentage for each quarter to show the chart"
  },
  "prefix": {
   "من أبرز التحديات والمخاطر المحتملة": "Key challenges and risks include: varying awareness across target segments, inaccurate information in some media channels, limited coordination between some related entities, and changes in the external environment that may affect the timing and priority of messages. Key challenges and risks include: varying awareness across target segments, inaccurate information in some media channels, limited coordination between some related entities, and changes in the external environment that may affect the timing and priority of messages. Key challenges and risks include: varying awareness across target segments, inaccurate information in some media channels, limited coordination between some related entities, and changes in the external environment that may affect the timing and priority of messages. Key challenges and risks include: varying awareness across target segments, inaccurate information in some media channels, limited coordination between some related entities, and changes in the external environment that may affect the timing and priority of messages. ",
