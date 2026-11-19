@@ -54,6 +54,8 @@ MCO_OutSystems_Theme.css
 3. لو احتاج CSS ما هو موجود في bundle.css، أضفه في `theme/theme_extra.css`.
 4. شغّل `build_guide.py`.
 
+**زر «عرض CSS» تحت المكوّن:** أضف في تعريفه بـ `guide/data.py` المفتاح `css=['mco-fsection']` (كلاسات المكوّن الجذرية). `build_guide.py` يسحب كل القواعد اللي فيها الكلاس أو `__عنصر` أو `--نوع` منه من `MCO_OutSystems_Theme.css` نفسه، فما يُكتب CSS يدوياً في الدليل.
+
 **تعديل طريقة البناء (شجرة ودجات، Parameter، ملاحظة):** في `guide/data.py` فقط، ثم `build_guide.py`.
 
 **تعديل سلوك ودجت من OutSystems UI (زر، حقل، جدول…):** في `theme/theme_head.css` القسم 5، ثم البناءان.
