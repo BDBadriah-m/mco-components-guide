@@ -35,7 +35,7 @@ C['icon'] = dict(name='الأيقونة', mco='MCO_Icon', kind=BLOCK,
         '«التالي» = arrow-left، و«السابق» = arrow-left مع IsFlipped = True. لا تستخدم arrow-right للرجوع، فهي في Vuesax سهم داخل مربع.',
         'زر الرجوع في شريط التنقل يستخدم chevron-right (نفس أيقونة arrow-right في مكتبة Figma 2:30264): يشير لليمين في العربي وينعكس تلقائياً لليسار في الإنجليزي، فبدون IsFlipped.',
         'الأيقونات المستخدمة في المكوّنات موجودة في الثيم نفسه. المجموعة الكاملة (900 أيقونة) في ملف MCO_Icons_All.css: أضفه في الـ Theme كـ Style Sheet ثاني بعد ملف الثيم إذا احتجت أيقونة غير موجودة فيه.'],
- preview='ICONGRID')
+ css=['mco-icon', 'mco-size', 'mco-flip'], css_sec=['8.1'], preview='ICONGRID')
 
 C['status'] = dict(name='شارة الحالة', mco='MCO_StatusBadge', kind=BLOCK,
  summary='نص الحالة على خلفية لونها مع نقطة 9px. النص هو حامل المعنى، واللون مساند.',
@@ -73,7 +73,7 @@ C['button'] = dict(name='الزر', mco='Button', kind=OS,
   Text :: — :: "إضافة خطة"''',
  notes=['المعطّل: Enabled = False فقط، والثيم يرسم حالته.', 'سهم «التالي» يوضع بعد النص: Text ثم MCO_Icon بـ Name = "arrow-left".',
         'تنبيه تباين: نص الزر الثانوي brand-light على الأبيض 3.8:1، فالإجراءات المهمة تكون بالزر الأساسي.'],
- preview='BUTTONS')
+ css=['mco-btn'], css_sec=['5.1'], preview='BUTTONS')
 
 C['textfield'] = dict(name='حقل الإدخال', mco='MCO_TextField', kind=MIX,
  summary='Block يلفّ ودجت الإدخال حق المنصة (Input أو TextArea أو Date Picker أو Upload) ويضيف العنوان والنص المساعد ورسالة الخطأ.',
@@ -108,7 +108,7 @@ C['textfield'] = dict(name='حقل الإدخال', mco='MCO_TextField', kind=MI
  notes=['التحقق: مرّر ErrorText = If(Input.Valid, "", Input.ValidationMessage). الثيم يخفي رسالة المنصة الافتراضية داخل الحقل حتى لا تتكرر.',
         'التاريخ: نمط Date Picker من OutSystems UI على Input بكلاس mco-field__control.',
         'خارج النماذج (مثل شريط البحث في FilterBar) يكفي Input عادي بكلاس form-control.'],
- preview_js=r"""h('div',{className:'pv-grid3'},
+ css_sec=['5.2'], preview_js=r"""h('div',{className:'pv-grid3'},
  h(M.TextField,{label:'عنوان الحقل',info:'معلومة',placeholder:'النص الإرشادي',helper:'نص مساعد لتوضيح متطلبات الحقل'}),
  h(M.TextField,{label:'عنوان الحقل',defaultValue:'قيمة مدخلة',error:'هذا الحقل مطلوب'}),
  h(M.TextField,{label:'عنوان الحقل',defaultValue:'قيمة معطلة',disabled:true,helper:'نص مساعد'}),
@@ -122,7 +122,7 @@ C['dropdown'] = dict(name='القائمة المنسدلة', mco='Dropdown Searc
            ('قائمة بسيطة بدون بحث', 'ودجت Dropdown', 'للقوائم القصيرة (أقل من 7 خيارات)'), ('مع عنوان ونص مساعد', 'داخل MCO_TextField بـ HasBox = False', '')],
  tree='''MCO_TextField :: — :: Label = "الجهة" · HasBox = False · HelperText = "…"
   Dropdown Search :: — :: Prompt = "اختر" · SearchPrompt = "بحث"''',
- preview='DROPDOWN')
+ css=['mco-dropdown'], css_sec=['5.3', '5.4', '8.6'], preview='DROPDOWN')
 
 C['chips'] = dict(name='الاختيار المتعدد برقائق', mco='Dropdown Tags', kind=OS,
  summary='نمط Dropdown Tags من OutSystems UI. القيم المختارة تظهر رقائق على bg-light-grey.',
@@ -130,7 +130,7 @@ C['chips'] = dict(name='الاختيار المتعدد برقائق', mco='Drop
  tree='''MCO_TextField :: — :: Label = "الجهات المشاركة" · HasBox = False
   Dropdown Tags :: — :: Prompt = "اختر جهة أو أكثر"''',
  notes=['رقاقة العدّاد «+N» الموجودة في Figma غير مدعومة في النمط، فكل القيم تظهر رقائق.'],
- preview='CHIPS')
+ css=['mco-chip'], css_sec=['5.4', '8.6'], preview='CHIPS')
 
 C['checkbox'] = dict(name='مربع الاختيار', mco='Checkbox', kind=OS,
  summary='ودجت Checkbox حق المنصة. الثيم يعطيه 26px بزاوية 6px، والمحدد بلون brand-primary.',
@@ -138,7 +138,7 @@ C['checkbox'] = dict(name='مربع الاختيار', mco='Checkbox', kind=OS,
  tree='''Container :: mco-choice-row
   Checkbox :: — :: Variable = …
   Label :: — :: Input Widget = اسم الـ Checkbox · Text = "أوافق على الشروط"''',
- preview='CHECKBOX')
+ css_sec=['5.5'], preview='CHECKBOX')
 
 C['radio'] = dict(name='زر الاختيار الواحد', mco='Radio Group', kind=OS,
  summary='Radio Group مع Radio Button لكل خيار. لخيار واحد من 2 إلى 5 خيارات؛ لأكثر استخدم القائمة المنسدلة.',
@@ -147,7 +147,7 @@ C['radio'] = dict(name='زر الاختيار الواحد', mco='Radio Group', 
   Container :: mco-choice-row
     Radio Button :: — :: Value = 1
     Label :: — :: Input Widget = اسم الـ Radio Button · Text = "داخلي"''',
- preview='RADIO')
+ css_sec=['5.6'], preview='RADIO')
 
 C['switch'] = dict(name='المفتاح', mco='Switch', kind=OS,
  summary='ودجت Switch: مسار 48×26 ومقبض 22px. لإعداد يُطبَّق فوراً، لا لخيار داخل نموذج يُرسل لاحقاً.',
@@ -155,7 +155,7 @@ C['switch'] = dict(name='المفتاح', mco='Switch', kind=OS,
  tree='''Container :: mco-choice-row
   Switch :: — :: Variable = …
   Label :: — :: Input Widget = اسم الـ Switch · Text = "إشعارات البريد"''',
- preview='SWITCH')
+ css_sec=['5.7', '10.5'], preview='SWITCH')
 
 C['choicecard'] = dict(name='الخيار داخل بطاقة', mco='MCO_ChoiceCard', kind=BLOCK,
  summary='صندوق 46px يحمل Checkbox أو Radio Button ونصه. المحدد يأخذ خلفية brand-shade-30.',
@@ -176,7 +176,7 @@ C['tabs'] = dict(name='التبويبات', mco='Tabs', kind=OS,
  tree='''Tabs :: — :: ExtendedClass = "mco-tabs-filled"
   TabsHeaderItem :: — :: Text = "الكل"
   TabsContentItem :: — :: محتوى التبويب''',
- preview='TABS')
+ css=['mco-tabs-filled', 'mco-tabs-list', 'mco-tabs'], css_sec=['5.14'], preview='TABS')
 
 C['segtabs'] = dict(name='التبويبات المتساوية', mco='MCO_SegmentedTabs', kind=BLOCK,
  summary='تبويبات بعرض متساوٍ داخل بطاقة بيضاء، للتبديل بين عروض متقاربة داخل قسم واحد.',
@@ -193,7 +193,7 @@ C['pagination'] = dict(name='ترقيم الصفحات', mco='Pagination', kind=
  summary='نمط Pagination من OutSystems UI. أزرار 36px بظل shadow-s، والصفحة الحالية brand-primary.',
  variants=[('عادي', 'بدون كلاس', ''), ('مع عدد النتائج', 'داخل MCO_PaginationFooter', 'في القسم الثاني')],
  tree='''Pagination :: — :: StartIndex · MaxRecords · TotalCount · OnNavigate = …''',
- preview='PAGINATION')
+ css_sec=['5.13'], preview='PAGINATION')
 
 C['stepper'] = dict(name='مؤشر الخطوات', mco='MCO_Stepper', kind=BLOCK,
  summary='3 إلى 7 خطوات على شكل أسهم متتالية: المكتملة brand-default، والنشطة brand-shade-30. الطرفان مستويان بزوايا 8px.', figma='2:20204',
@@ -216,7 +216,7 @@ C['wizard'] = dict(name='مؤشر التقدّم المختصر', mco='MCO_Wizar
  tree='''MCO_WizardProgress :: — :: Block · OnParametersChanged: تُبنى قائمة Bars بأرقام 0 … Total-1
   List :: "mco-wizard " + ExtraClass :: Source = Bars · role = "progressbar" · aria-valuemin = 1 · aria-valuemax = Total · aria-valuenow = Current + 1 · aria-label = AriaLabel
     Container :: "mco-wizard__bar " + If(Bars.Current < Current, "is-done", If(Bars.Current = Current, "is-current", "is-next"))''',
- preview_js="row([h(M.WizardProgress,{key:1,total:3,current:1}),h(M.WizardProgress,{key:2,total:5,current:3})])")
+ css_sec=['5.15'], preview_js="row([h(M.WizardProgress,{key:1,total:3,current:1}),h(M.WizardProgress,{key:2,total:5,current:3})])")
 
 # ───────────────────────── القسم الثاني ─────────────────────────
 
@@ -233,7 +233,7 @@ C['layout'] = dict(name='قالب الصفحة', mco='MCO_LayoutBase', kind=BLOC
       HTML Element (footer) :: mco-shell__footer
         Placeholder :: — :: Footer''',
  notes=['يُنشأ كـ Layout جديد في وحدة MCO_Components، وكل شاشة داخلية تبدأ منه.', 'كلاس layout يبقى على الجذر لأن بعض أنماط OutSystems UI تبحث عنه.'],
- preview='LAYOUT')
+ css_sec=['5.18'], preview='LAYOUT')
 
 C['navbar'] = dict(name='شريط التنقل العلوي', mco='MCO_Navbar', kind=BLOCK, figma='2:20663',
  summary='شريط أدوات متدرّج، ثم مسار التنقل وعنوان الصفحة وزر الرجوع والإجراء الرئيسي على خلفية متدرّجة بتموّجات خفيفة. أربعة أنواع: default وtabs وsimple وstepper.',
@@ -366,7 +366,7 @@ C['toast'] = dict(name='الإشعار القصير', mco='Feedback Message', ki
  variants=[('نجاح', 'Message · Type = Success', ''), ('معلومة', 'Message · Type = Info', ''), ('تحذير', 'Message · Type = Warning', ''), ('خطأ', 'Message · Type = Error', '')],
  tree='''Client Action :: — :: بعد الحفظ
   Message :: — :: Type = Success · Message = "تم حفظ التغييرات"''',
- preview='TOAST')
+ css_sec=['5.8'], preview='TOAST')
 
 C['popup'] = dict(name='نافذة الرسالة', mco='Popup + MCO_PopupContent', kind=MIX,
  summary='ودجت Popup حق المنصة للنافذة والطبقة الخلفية، وداخله Block للمحتوى: أيقونة حالة 60px وعنوان ونص وأزرار.',
@@ -384,7 +384,7 @@ C['popup'] = dict(name='نافذة الرسالة', mco='Popup + MCO_PopupConten
           Placeholder :: — :: Message
       Container :: mco-popup__actions
         Placeholder :: — :: Actions''',
- preview='POPUP')
+ css_sec=['5.9', '8.5'], preview='POPUP')
 
 C['formpopup'] = dict(name='نافذة النموذج', mco='Popup + MCO_FormPopup', kind=MIX,
  summary='نافذة 1000px لنموذج قصير: عنوان brand-primary وشبكة حقول بعمودين ثم الأزرار.',
@@ -438,7 +438,7 @@ C['table'] = dict(name='جدول البيانات', mco='Table', kind=OS,
     MCO_StatusBadge :: — :: Status = StatusId · Label = StatusLabel
     Button :: btn btn-cancel btn-small :: Text = "عرض"''',
  notes=['ضع فوقه MCO_FilterBar وتحته MCO_PaginationFooter.'],
- preview='TABLE')
+ css_sec=['5.12'], preview='TABLE')
 
 C['filterbar'] = dict(name='شريط التصفية', mco='MCO_FilterBar', kind=BLOCK,
  summary='حقل بحث أعرض ثم حقول تصفية متساوية، فوق الجدول.',
@@ -660,7 +660,7 @@ C['fsection'] = dict(name='بطاقة قسم النموذج', mco='MCO_FormSecti
         'الحقول توضع في Container بكلاس mco-fsection__grid: عمودان بمسافة 32px، وعمود واحد على الجوال.',
         'ثلاثة أعمدة: أضف mco-fsection__grid--3 (مثل «بيانات الخطة»: حقل العام ثم حقلا قراءة MCO_InfoField بـ Style = "form"، من Sprint-1 1:21299).',
         'خلفية الجسم color-bg-surface وليست color-bg-page: في الداكن bg-page هو لون الشاشة نفسه (gray-950) فتختفي البطاقة.', 'Figma سمّى الإطار «Frame 1820548551»، والاسم المقترح هنا MCO_FormSection.'],
- preview='FSECTION', css=['mco-fsection'])
+ preview='FSECTION')
 
 C['empty'] = dict(name='الحالة الفارغة', mco='MCO_EmptyState', kind=BLOCK, figma='719:7652',
  summary='أيقونة ونص عريض وزر إجراء أساسي عند غياب المحتوى. شكلان: داخل قسم نموذج (مربع أيقونة 67px)، أو بطاقة مستقلة بدائرة أيقونة 72px ووصف مختصر كما في Figma «Empty state».',
