@@ -320,12 +320,47 @@ def _css_rules(src):
         i = e + 1
     return out
 _THEME_RULES = None
-def css_for(prefixes):
-    global _THEME_RULES
-    if _THEME_RULES is None: _THEME_RULES = _css_rules(theme)
-    pat = re.compile(r'\.(?:%s)(?![a-z0-9-]|-(?!-))' % '|'.join(re.escape(p) for p in prefixes)) if False else \
-          re.compile(r'\.(?:%s)(?:__[a-z0-9-]+|--[a-z0-9-]+)?(?![a-z0-9_-])' % '|'.join(re.escape(p) for p in prefixes))
-    hits = [(m, sel, body) for m, sel, body in _THEME_RULES if pat.search(sel)]
+_THEME_SRC = None
+def _sec_text(num):
+    """نص قسم من الثيم حسب رقمه في تعليق العنوان (مثل 5.1)، حتى عنوان القسم التالي"""
+    m = re.search(r'/\* %s[ ب]' % re.escape(num), _THEME_SRC)
+    if not m: print('CSS section miss:', num); return ''
+    nxt = re.search(r'\n/\* (?:\d+\.\d+|-{3,})', _THEME_SRC[m.end():])
+    return _THEME_SRC[m.start(): m.end() + (nxt.start() if nxt else len(_THEME_SRC))]
+_UTIL = {'mco-rot', 'mco-i-', 'mco-size-', 'mco-flip', 'mco-iconbtn'}
+_OWNER = None
+def css_prefixes(key):
+    """كلاسات المكوّن: c['css'] إن وُجد، وإلا من شجرة الودجات بدون كلاسات مكوّنات أخرى والكلاسات المساعدة"""
+    global _OWNER
+    c = C[key]
+    if 'css' in c: return c['css']
+    base = lambda x: re.sub(r'(__|--).*', '', x)
+    bases = lambda k: list(dict.fromkeys(base(x) for x in re.findall(r'\bmco-[a-z0-9_-]+', C[k].get('tree', ''))))
+    if _OWNER is None:
+        _OWNER = {}
+        for k in C:
+            b = bases(k)
+            if b and b[0] not in _UTIL: _OWNER.setdefault(b[0], k)
+    return [b for b in bases(key) if b not in _UTIL and _OWNER.get(b, key) == key]
+def css_for(prefixes, secs=()):
+    global _THEME_RULES, _THEME_SRC
+    if _THEME_RULES is None: _THEME_SRC = theme; _THEME_RULES = _css_rules(theme)
+    hits = []
+    for num in secs:
+        hits += _css_rules(_sec_text(num))
+    if prefixes:
+        pat = re.compile(r'\.(?:%s)(?:__[a-z0-9-]+|--[a-z0-9-]+)?(?![a-z0-9_-])' % '|'.join(re.escape(p) for p in prefixes))
+        # من قوائم المحدِّدات المشتركة (.mco-btn, .mco-field, …) نعرض محدِّدات المكوّن فقط
+        for m_, sel, body in _THEME_RULES:
+            if not pat.search(sel): continue
+            parts_ = [x.strip() for x in re.split(r',(?![^(]*\))', sel)]
+            keep = [x for x in parts_ if pat.search(x)]
+            hits.append((m_, ', '.join(keep), body))
+    seen = set(); uniq = []
+    for h in hits:
+        if h in seen or h[2].startswith('--mco-icon:'): continue
+        seen.add(h); uniq.append(h)
+    hits = uniq
     lines = []; cur = None
     for m, sel, body in hits:
         if m != cur:
@@ -333,7 +368,7 @@ def css_for(prefixes):
             if m: lines.append(m + ' {')
             cur = m
         ind = '  ' if m else ''
-        sels = ',\n'.join(ind + x.strip() for x in sel.split(','))
+        sels = ',\n'.join(ind + x.strip() for x in re.split(r',(?![^(]*\))', sel))
         decls = [d.strip() for d in re.split(r';(?![^(]*\))', body) if d.strip()]
         lines.append(sels + ' {'); lines += [ind + '  ' + d + ';' for d in decls]; lines.append(ind + '}')
     if cur: lines.append('}')
@@ -351,8 +386,7 @@ def css_hl(code):
         outl.append(e)
     return '\n'.join(outl)
 def css_html(c):
-    if not c.get('css'): return ''
-    n, code = css_for(c['css'])
+    n, code = css_for(css_prefixes(c['_key']), c.get('css_sec', ()))
     if not n: return ''
     return ('<details class="cssbox"><summary><span class="mco-icon mco-i-code mco-size-16" aria-hidden="true"></span>%s <em>%d %s</em></summary>'
             '<div class="cssbox__bar"><span>%s</span><button type="button" class="btn btn-small" data-copy-css>%s</button></div>'
@@ -384,6 +418,7 @@ def comp_html(key, num, prev):
     parts.append('<div class="build%s">%s%s</div>' % (' os' if (c['kind'] == OS or 'variants' in c) else '', tree, spec))
     if c.get('notes'):
         parts.append('<ul class="notes">%s</ul>' % ''.join('<li>%s</li>' % bidi(tr(n)) for n in c['notes']))
+    c['_key'] = key
     parts.append(css_html(c))
     parts.append('</article>')
     return ''.join(parts)
