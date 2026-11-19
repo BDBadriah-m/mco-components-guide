@@ -461,7 +461,18 @@ body { background: var(--gd-ground); color: var(--gd-ink); font-family: var(--fo
       b.setAttribute('aria-pressed', dark ? 'true' : 'false');
       b.lastElementChild.textContent = dark ? 'الوضع الفاتح' : 'الوضع الداكن';
       var ic = b.firstElementChild; ic.classList.toggle('mco-i-moon', !dark); ic.classList.toggle('mco-i-sun', dark);
+      // زر الوضع داخل معاينات شريط التنقل (MCO_Navbar): Name = If(IsDark, "sun", "moon")
+      document.querySelectorAll('.mco-nav__theme').forEach(function (t) {
+        var l = t.closest('[lang]'), en = (l ? l.getAttribute('lang') : root.getAttribute('lang')) === 'en';
+        t.setAttribute('aria-pressed', dark ? 'true' : 'false');
+        var ar = dark ? 'التبديل إلى الوضع الفاتح' : 'التبديل إلى الوضع الداكن';
+        t.setAttribute('aria-label', en ? (dark ? 'Switch to light mode' : 'Switch to dark mode') : ar);
+        if (en) t['__ar_aria-label'] = ar;  // ترجع العربية الصحيحة عند تبديل المعاينة للعربي
+        var i = t.querySelector('.mco-icon'); if (i) { i.classList.toggle('mco-i-moon', !dark); i.classList.toggle('mco-i-sun', dark); }
+      });
     });
+    // الضغط على زر الوضع في المعاينة يبدّل وضع الدليل كله، مثل المنصة
+    document.addEventListener('click', function (e) { if (e.target.closest('.mco-nav__theme')) b.click(); });
   })();
   // فتح وطي القائمة الجانبية في المعاينة (في OutSystems: OnCollapse ← IsCollapsed = not IsCollapsed)
   document.addEventListener('click', function (e) {

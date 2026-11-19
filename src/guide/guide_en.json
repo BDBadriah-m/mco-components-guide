@@ -186,7 +186,6 @@
   "الشعار المصغّر 24px": "Mini crest 24px",
   "روابط Link بكلاس mco-footer__link (الشروط والأحكام، سياسة الخصوصية)": "Link widgets with class mco-footer__link (Terms and conditions, Privacy policy)",
   "بطاقة قسم النموذج": "Form section card",
-  "قسم من نموذج طويل: رأس بخلفية brand-shade-20 فيه أيقونة وعنوان، وتحته جسم أبيض فيه تنبيه اختياري وحقول على عمودين.": "One section of a long form: a brand-shade-20 header with an icon and title, and below a white body with an optional alert and fields in two columns.",
   "داخل الجسم، عناوين الحقول تكبر تلقائياً لـ 20px عريض كما في Figma.": "Inside the body, field labels grow to 20px bold automatically, as in Figma.",
   "الحقول توضع في Container بكلاس mco-fsection__grid: عمودان بمسافة 32px، وعمود واحد على الجوال.": "Fields go in a Container with class mco-fsection__grid: two columns 32px apart, one column on mobile.",
   "Figma سمّى الإطار «Frame 1820548551»، والاسم المقترح هنا MCO_FormSection.": "Figma names the frame “Frame 1820548551”; the proposed name here is MCO_FormSection.",
@@ -457,7 +456,13 @@
   "MCO_TargetChartSVG: Client Action بخاصية Function = Yes، تأخذ Q1 إلى Q4 وترجع Text. لكل قيمة y = 170 − Q × 1.2، والمسار من مركز عمود لآخر بمنحنى: \"M50 y1 C100 y1 100 y2 150 y2 C200 y2 200 y3 250 y3 C300 y3 300 y4 350 y4\".": "MCO_TargetChartSVG: a Client Action with Function = Yes that takes Q1 to Q4 and returns Text. For each value y = 170 − Q × 1.2, and the path curves from one column centre to the next: \"M50 y1 C100 y1 100 y2 150 y2 C200 y2 200 y3 250 y3 C300 y3 300 y4 350 y4\".",
   "ترجع الدالة: <svg viewBox=\"0 0 400 236\" preserveAspectRatio=\"none\" aria-hidden=\"true\" focusable=\"false\"> فيه defs بتدرّجين: mco-tchart-line (userSpaceOnUse من x1=50 إلى x2=350، وقفات بكلاسات mco-tchart__s-muted · s-default · s-pressed) وmco-tchart-area (عمودي، s-focus ثم s-surface)، ثم path بكلاس mco-tchart__area (المسار + \" L350 170 L50 170 Z\") وpath بكلاس mco-tchart__line. الألوان من الثيم عبر الكلاسات، فتتبع الوضع الداكن.": "The function returns <svg viewBox=\"0 0 400 236\" preserveAspectRatio=\"none\" aria-hidden=\"true\" focusable=\"false\"> with defs holding two gradients: mco-tchart-line (userSpaceOnUse from x1=50 to x2=350, stops with classes mco-tchart__s-muted · s-default · s-pressed) and mco-tchart-area (vertical, s-focus then s-surface), then a path with class mco-tchart__area (the path + \" L350 170 L50 170 Z\") and a path with class mco-tchart__line. Colours come from the theme through the classes, so they follow dark mode.",
   "المسار يُكتب بترتيب LTR (الربع الأول يسار)، والثيم يقلبه أفقياً في العربي، فلا تعكس القيم.": "Write the path in LTR order (Q1 on the left); the theme mirrors it in Arabic, so don't reverse the values.",
-  "العرض الأدنى للرسم 560px، وعلى الشاشات الأصغر يتمرّر أفقياً داخل mco-tchart__scroll.": "The plot is at least 560px wide; on smaller screens it scrolls horizontally inside mco-tchart__scroll."
+  "العرض الأدنى للرسم 560px، وعلى الشاشات الأصغر يتمرّر أفقياً داخل mco-tchart__scroll.": "The plot is at least 560px wide; on smaller screens it scrolls horizontally inside mco-tchart__scroll.",
+  "قسم من نموذج طويل: رأس بخلفية brand-shade-20 فيه أيقونة وعنوان، وتحته جسم بخلفية color-bg-surface (أبيض في الفاتح، gray-900 في الداكن) فيه تنبيه اختياري وحقول على عمودين.": "One section of a long form: a brand-shade-20 header with an icon and title, and below a color-bg-surface body (white in light, gray-900 in dark) with an optional alert and fields in two columns.",
+  "خلفية الجسم color-bg-surface وليست color-bg-page: في الداكن bg-page هو لون الشاشة نفسه (gray-950) فتختفي البطاقة.": "The body background is color-bg-surface, not color-bg-page: in dark mode bg-page is the screen colour itself (gray-950), so the card would disappear.",
+  "زر تبديل الوضع الفاتح/الداكن في الشريط العلوي": "Light/dark mode toggle in the top strip",
+  "الوضع الحالي: يحدد أيقونة الزر": "Current mode: sets the button icon",
+  "الشاشة تبدّل data-theme على <html> وتحدّث IsDark": "The screen switches data-theme on <html> and updates IsDark",
+  "زر الوضع (قبل زر اللغة) يعرض الوضع اللي ينتقل له المستخدم: قمر moon في الفاتح، وشمس sun في الداكن. لا يوضع في Placeholder Tools بأيقونة ثابتة.": "The mode button (before the language switch) shows the mode the user will switch to: moon in light mode, sun in dark mode. Don't put it in the Tools placeholder with a fixed icon."
  },
  "tree": {
   "Expression :: \"mco-icon mco-i-\" + Name + \" mco-size-\" + Size + If(IsFlipped, \" mco-flip\", \"\") + \" \" + ExtraClass :: Value = \"\" · aria-hidden = If(AriaLabel = \"\", \"true\", \"false\") · role = \"img\" و aria-label = AriaLabel عند وجوده": "Expression :: \"mco-icon mco-i-\" + Name + \" mco-size-\" + Size + If(IsFlipped, \" mco-flip\", \"\") + \" \" + ExtraClass :: Value = \"\" · aria-hidden = If(AriaLabel = \"\", \"true\", \"false\") · role = \"img\" and aria-label = AriaLabel when set",
@@ -545,6 +550,9 @@
   "Expression :: mco-tchart__key mco-tchart__key--line :: \"المستهدف التراكمي\"": "Expression :: mco-tchart__key mco-tchart__key--line :: \"Cumulative target\"",
   "Expression :: mco-tchart__months :: \"يناير – مارس\"": "Expression :: mco-tchart__months :: \"January – March\"",
   "Expression :: mco-tchart__qname :: \"الربع الأول\"": "Expression :: mco-tchart__qname :: \"Q1\"",
-  "Expression :: mco-tchart__tag :: \"الربع الحالي\"": "Expression :: mco-tchart__tag :: \"Current quarter\""
+  "Expression :: mco-tchart__tag :: \"الربع الحالي\"": "Expression :: mco-tchart__tag :: \"Current quarter\"",
+  "If :: — :: ShowThemeToggle": "If :: — :: ShowThemeToggle",
+  "Button :: mco-nav__tool mco-nav__theme :: OnClick → OnThemeToggle · aria-pressed = IsDark · aria-label = If(IsDark, \"التبديل إلى الوضع الفاتح\", \"التبديل إلى الوضع الداكن\")": "Button :: mco-nav__tool mco-nav__theme :: OnClick → OnThemeToggle · aria-pressed = IsDark · aria-label = If(IsDark, \"Switch to light mode\", \"Switch to dark mode\")",
+  "MCO_Icon :: — :: Name = If(IsDark, \"sun\", \"moon\") · Size = 24": "MCO_Icon :: — :: Name = If(IsDark, \"sun\", \"moon\") · Size = 24"
  }
 }
