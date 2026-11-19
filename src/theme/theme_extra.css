@@ -302,7 +302,7 @@ span.mco-icon, div.mco-icon, i.mco-icon {
 .mco-fsection__head { display: flex; align-items: center; gap: 10px; min-height: 70px; padding: var(--space-16) var(--space-32); background: var(--brand-shade-20); border: 1px solid var(--brand-shade-40); border-radius: 5px 5px 0 0; color: var(--brand-default); }
 .mco-fsection__head .mco-icon { width: 29px; height: 29px; }
 .mco-fsection__title { margin: 0; font-size: 20px; line-height: 32px; font-weight: 400; color: var(--brand-default); }
-.mco-fsection__body { display: flex; flex-direction: column; gap: var(--space-32); margin-top: -1px; padding: var(--space-32); background: var(--bg-main); border: 1px solid var(--grey-soft); border-radius: 0 0 5px 5px; }
+.mco-fsection__body { display: flex; flex-direction: column; gap: var(--space-32); margin-top: -1px; padding: var(--space-32); background: var(--color-bg-surface); border: 1px solid var(--grey-soft); border-radius: 0 0 5px 5px; }
 .mco-fsection__grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--space-32); }
 .mco-fsection__body .mco-field__label { font-size: 20px; line-height: 32px; font-weight: 700; color: var(--font-primary); }
 @media (max-width: 768px) { .mco-fsection__body { padding: var(--space-16); gap: var(--space-24); } .mco-fsection__grid { grid-template-columns: minmax(0, 1fr); gap: var(--space-24); } .mco-fsection__head { padding-inline: var(--space-16); } }

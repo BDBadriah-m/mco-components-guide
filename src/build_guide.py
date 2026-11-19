@@ -360,6 +360,10 @@ def build():
     for k in ('NAVBAR', 'LAYOUT'):
         if k in rp:
             rp[k] = re.sub(r'(<div class="mco-nav__tools">.*?)(</div>)', lambda m: m.group(1) + lang_btn + m.group(2), rp[k], flags=re.S)
+    # زر الوضع في شريط التنقل: كلاس mco-nav__theme، والأيقونة (moon/sun) ونص aria-label يتبدّلان مع زر الوضع الداكن في الدليل (shell.html)
+    for k in ('NAVBAR', 'LAYOUT'):
+        if k in rp:
+            rp[k] = re.sub(r'aria-label="الوضع الداكن"(\s+)class="mco-nav__tool"', r'aria-label="التبديل إلى الوضع الداكن" aria-pressed="false"\1class="mco-nav__tool mco-nav__theme"', rp[k])
     # زر الرجوع في شريط التنقل: أيقونة chevron-right من Figma (arrow-right 2:30264) بدل arrow-left المعكوس
     for k in ('NAVBAR', 'LAYOUT'):
         if k in rp:
