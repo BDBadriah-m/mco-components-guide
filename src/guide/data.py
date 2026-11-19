@@ -660,7 +660,7 @@ C['fsection'] = dict(name='بطاقة قسم النموذج', mco='MCO_FormSecti
         'الحقول توضع في Container بكلاس mco-fsection__grid: عمودان بمسافة 32px، وعمود واحد على الجوال.',
         'ثلاثة أعمدة: أضف mco-fsection__grid--3 (مثل «بيانات الخطة»: حقل العام ثم حقلا قراءة MCO_InfoField بـ Style = "form"، من Sprint-1 1:21299).',
         'خلفية الجسم color-bg-surface وليست color-bg-page: في الداكن bg-page هو لون الشاشة نفسه (gray-950) فتختفي البطاقة.', 'Figma سمّى الإطار «Frame 1820548551»، والاسم المقترح هنا MCO_FormSection.'],
- preview='FSECTION')
+ preview='FSECTION', css=['mco-fsection'])
 
 C['empty'] = dict(name='الحالة الفارغة', mco='MCO_EmptyState', kind=BLOCK, figma='719:7652',
  summary='أيقونة ونص عريض وزر إجراء أساسي عند غياب المحتوى. شكلان: داخل قسم نموذج (مربع أيقونة 67px)، أو بطاقة مستقلة بدائرة أيقونة 72px ووصف مختصر كما في Figma «Empty state».',

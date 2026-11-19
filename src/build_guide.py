@@ -32,6 +32,8 @@ CHROME_EN = {
  'الاسم': 'Name', 'النوع': 'Type', 'الوصف': 'Description', 'كلاسات إضافية على الجذر': 'Extra classes on the root',
  'يمرّر': 'Passes', 'يوضع فيه': 'Holds', 'شجرة الودجات': 'Widget tree', 'مثال في Service Studio': 'Example in Service Studio',
  'نمط OutSystems UI': 'OutSystems UI pattern', 'Block مخصّص': 'Custom Block', 'ودجت المنصة + Block': 'Platform widget + Block',
+ 'عرض CSS': 'Show CSS', 'قاعدة': 'rules', 'نسخ': 'Copy', 'تم النسخ': 'Copied',
+ 'من ملف الثيم MCO_OutSystems_Theme.css كما هو، والألوان متغيرات تتبدّل مع الوضع الداكن': 'Straight from MCO_OutSystems_Theme.css; colours are variables that switch with dark mode',
  'القسم': 'Section', 'الأول': '1', 'الثاني': '2', 'مكوّناً': 'components',
 }
 
@@ -292,6 +294,71 @@ def table(head, rows, codecols=()):
         trs += '<tr>%s</tr>' % tds
     return '<div class="tw"><table class="spec"><thead><tr>%s</tr></thead><tbody>%s</tbody></table></div>' % (th, trs)
 
+# ───── CSS المكوّن من ملف الثيم (زر «عرض CSS») ─────
+# يُسحب وقت البناء من MCO_OutSystems_Theme.css نفسه حسب كلاسات المكوّن (c['css'])، فيبقى مطابقاً للثيم دائماً
+def _css_rules(src):
+    """يقسم CSS لقواعد [(media, selector, body)] بدون التعليقات"""
+    src = re.sub(r'/\*.*?\*/', '', src, flags=re.S)
+    out = []; i = 0; n = len(src)
+    def block(start):
+        depth = 0
+        for j in range(start, n):
+            if src[j] == '{': depth += 1
+            elif src[j] == '}':
+                depth -= 1
+                if depth == 0: return j
+        return n - 1
+    while i < n:
+        b = src.find('{', i)
+        if b < 0: break
+        head = src[i:b].strip(); e = block(b)
+        if head.startswith('@media') or head.startswith('@supports'):
+            inner = src[b + 1:e]
+            for _, sel, body in _css_rules(inner): out.append((head, sel, body))
+        elif not head.startswith('@'):
+            out.append((None, head, src[b + 1:e].strip()))
+        i = e + 1
+    return out
+_THEME_RULES = None
+def css_for(prefixes):
+    global _THEME_RULES
+    if _THEME_RULES is None: _THEME_RULES = _css_rules(theme)
+    pat = re.compile(r'\.(?:%s)(?![a-z0-9-]|-(?!-))' % '|'.join(re.escape(p) for p in prefixes)) if False else \
+          re.compile(r'\.(?:%s)(?:__[a-z0-9-]+|--[a-z0-9-]+)?(?![a-z0-9_-])' % '|'.join(re.escape(p) for p in prefixes))
+    hits = [(m, sel, body) for m, sel, body in _THEME_RULES if pat.search(sel)]
+    lines = []; cur = None
+    for m, sel, body in hits:
+        if m != cur:
+            if cur: lines.append('}')
+            if m: lines.append(m + ' {')
+            cur = m
+        ind = '  ' if m else ''
+        sels = ',\n'.join(ind + x.strip() for x in sel.split(','))
+        decls = [d.strip() for d in re.split(r';(?![^(]*\))', body) if d.strip()]
+        lines.append(sels + ' {'); lines += [ind + '  ' + d + ';' for d in decls]; lines.append(ind + '}')
+    if cur: lines.append('}')
+    return len(hits), '\n'.join(lines)
+def css_hl(code):
+    """تلوين بسيط: المحدِّد، الخاصية، المتغيرات"""
+    outl = []
+    for ln in code.split('\n'):
+        e = html.escape(ln, quote=False)
+        if re.match(r'\s*[a-z-]+\s*:', ln) and not ln.rstrip().endswith('{') and not ln.rstrip().endswith(','):
+            e = re.sub(r'^(\s*)([a-z-]+)(\s*:)', r'\1<span class="cp">\2</span>\3', e)
+            e = re.sub(r'var\((--[a-z0-9-]+)', r'var(<span class="cv">\1</span>', e)
+        elif ln.strip() not in ('}', ''):
+            e = '<span class="cs">%s</span>' % e
+        outl.append(e)
+    return '\n'.join(outl)
+def css_html(c):
+    if not c.get('css'): return ''
+    n, code = css_for(c['css'])
+    if not n: return ''
+    return ('<details class="cssbox"><summary><span class="mco-icon mco-i-code mco-size-16" aria-hidden="true"></span>%s <em>%d %s</em></summary>'
+            '<div class="cssbox__bar"><span>%s</span><button type="button" class="btn btn-small" data-copy-css>%s</button></div>'
+            '<pre class="cssbox__code" dir="ltr"><code>%s</code></pre></details>') % (
+        T('عرض CSS'), n, T('قاعدة'), T('من ملف الثيم MCO_OutSystems_Theme.css كما هو، والألوان متغيرات تتبدّل مع الوضع الداكن'), T('نسخ'), css_hl(code))
+
 def comp_html(key, num, prev):
     c = C[key]
     kc, kl = KIND_LABEL[c['kind']]; kl = T(kl)
@@ -317,6 +384,7 @@ def comp_html(key, num, prev):
     parts.append('<div class="build%s">%s%s</div>' % (' os' if (c['kind'] == OS or 'variants' in c) else '', tree, spec))
     if c.get('notes'):
         parts.append('<ul class="notes">%s</ul>' % ''.join('<li>%s</li>' % bidi(tr(n)) for n in c['notes']))
+    parts.append(css_html(c))
     parts.append('</article>')
     return ''.join(parts)
 
