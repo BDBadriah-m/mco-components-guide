@@ -764,6 +764,83 @@ button.mco-avatar { cursor: pointer; } button.mco-avatar:hover { background: var
   .mco-planhero__stats { flex-direction: column; margin-inline: var(--space-16); }
   .mco-planhero__stat + .mco-planhero__stat { border-inline-start: 0; border-top: 1px solid var(--color-bg-brand-soft); } }
 
+/* 11.21–11.26 مكوّنات Sprint 2 (أُضيفت لمكتبة MCO Design system في «Sprint 2 — مكونات منقولة»)
+   توكنز ناقصة من ملف التصدير بنفس أسماء متغيرات Figma، تنتقل لملف التوكنز في المزامنة الجاية */
+:root {
+  --color-status-warning-border-subtle: var(--color-amber-200); --color-status-success-border-subtle: #B9E7BE;
+  --color-status-success-text-strong: #1E8729; --color-status-success-dot: #2CBE3B;
+  --color-border-brand-soft: var(--color-blue-50); --color-text-brand-strong: var(--color-blue-950); --color-bg-disabled: #E9E9E9;
+}
+/* 11.21 الوسم — MCO_Tag («Tag / وسم»): نص 12px عريض بحد وخلفية فاتحة بلون النوع، ونقطة اختيارية في بداية السطر */
+.mco-tag { display: inline-flex; align-items: center; gap: 6px; box-sizing: border-box; height: 28px; padding: 4px 10px; border: 1px solid var(--color-border-brand-subtle); border-radius: 8px;
+  background: var(--color-bg-brand-subtle); color: var(--color-text-brand); font-size: 12px; line-height: 18px; font-weight: 700; white-space: nowrap; }
+.mco-tag__dot { flex: none; width: 6px; height: 6px; border-radius: 50%; background: var(--color-blue-900); }
+.mco-tag--warning { background: var(--color-status-warning-icon-bg); border-color: var(--color-status-warning-border-subtle); color: var(--color-status-warning-text); }
+.mco-tag--warning .mco-tag__dot { background: var(--color-amber-400); }
+.mco-tag--success { background: var(--color-status-success-bg); border-color: var(--color-status-success-border-subtle); color: var(--color-status-success-text-strong); }
+.mco-tag--success .mco-tag__dot { background: var(--color-status-success-dot); }
+.mco-tags { display: flex; flex-wrap: wrap; gap: var(--space-8); }
+/* زر أيقونة بحد بلون الإجراء (38×38): تعديل بالأزرق، حذف بالأحمر، عرض وتحميل بلون التركيز */
+.mco-obtn { display: inline-flex; align-items: center; justify-content: center; flex: none; box-sizing: border-box; width: 38px; height: 38px; padding: 0; border: 1px solid var(--color-border-focus); border-radius: 8px;
+  background: transparent; color: var(--color-border-focus); cursor: pointer; transition: background-color .15s; }
+.mco-obtn .mco-icon { width: 20px; height: 20px; }
+.mco-obtn:hover { background: var(--color-bg-brand-subtle); }
+.mco-obtn--edit { border-color: var(--color-action-primary-default); color: var(--color-action-primary-default); }
+.mco-obtn--delete { border-color: var(--color-action-danger-default); color: var(--color-action-danger-default); }
+.mco-obtn--delete:hover { background: var(--color-status-danger-bg); }
+.mco-obtns { display: flex; gap: var(--space-8); flex: none; margin-inline-start: auto; }
+/* 11.22 إجراءات صف الجدول — MCO_TableActions («Table actions» 1169:8564): زر «عرض» وبجانبه زر قائمة الإجراءات */
+.mco-tactions { display: inline-flex; align-items: center; gap: var(--space-8); padding: 2px; }
+.mco-tactions .btn { height: 32px; min-height: 32px; padding: 0 var(--space-12); gap: var(--space-8); border-radius: 8px; font-size: 14px; line-height: 20px; }
+.mco-tactions__more { display: inline-flex; align-items: center; justify-content: center; box-sizing: border-box; width: 32px; height: 32px; padding: 0; border: 1px solid var(--color-border-default); border-radius: 8px;
+  background: var(--color-bg-surface); color: var(--color-icon-tertiary); cursor: pointer; }
+.mco-tactions__more::before { content: ""; width: 4px; height: 18px; background: radial-gradient(circle, currentColor 0 2px, transparent 2.3px) center top / 4px 7px repeat-y; }
+.mco-tactions__more:hover { background: var(--mco-bg-light-grey); }
+/* حقل قراءة صغير مشترك: عنوان 12px وقيمة 14–15px عريضة */
+.mco-kv { display: flex; flex-direction: column; gap: 4px; min-width: 0; }
+.mco-kv__label { font-size: 12px; line-height: 18px; color: var(--color-text-tertiary); }
+.mco-kv__value { font-size: 14px; line-height: 21px; font-weight: 700; color: var(--color-text-primary); }
+/* 11.23 بطاقة النشاط الأفقية — MCO_ActivityRow («Activity card / horizontal» 1170:8572) */
+.mco-actrow { display: flex; align-items: center; gap: var(--space-24); padding: 18px; padding-inline: 20px 24px; border: 1px solid var(--color-border-default); border-radius: 10px; background: var(--color-bg-surface); }
+.mco-actrow__divider { flex: none; width: 1px; height: 48px; background: var(--color-border-default); }
+.mco-actrow .mco-kv { flex: 1 1 0; gap: 2px; }
+.mco-actrow .mco-kv__label { line-height: 20px; color: var(--color-text-secondary); }
+.mco-actrow .mco-kv__value { font-size: 15px; line-height: 17px; }
+/* 11.24 بطاقة البرنامج — MCO_ProgramCard («Program card» 1171:8576) */
+.mco-program { display: flex; align-items: center; gap: var(--space-20); padding: 18px 20px; border: 1px solid var(--color-border-default); border-radius: 10px; background: var(--color-bg-surface); }
+.mco-program__content { flex: 1 1 auto; min-width: 0; display: flex; flex-direction: column; gap: var(--space-12); }
+.mco-program__title { margin: 0; font-size: 16px; line-height: 24px; font-weight: 700; color: var(--color-text-primary); }
+.mco-program__fields, .mco-reportrow__fields { display: flex; flex-wrap: wrap; gap: var(--space-12) 48px; }
+/* 11.25 صف التقرير — MCO_ReportRow («Report row» 1171:8630) */
+.mco-reportrow { display: flex; align-items: center; gap: var(--space-20); padding: 18px 20px; border: 1px solid var(--color-border-default); border-radius: 10px; background: var(--color-bg-surface); }
+.mco-reportrow__icon { flex: none; display: inline-flex; align-items: center; justify-content: center; width: 48px; height: 48px; border-radius: 8px; background: var(--color-bg-brand-subtle); color: var(--color-border-brand); }
+.mco-reportrow__icon .mco-icon { width: 24px; height: 24px; }
+.mco-reportrow__name { flex: 0 1 320px; min-width: 0; margin: 0; font-size: 15px; line-height: 22px; font-weight: 700; color: var(--color-text-primary); }
+.mco-reportrow .mco-status { height: 26px; }
+/* 11.26 بطاقة الخدمة — MCO_ServiceCard («Service card / بطاقة خدمة» 1172:8718): Default · Hover · Disabled */
+.mco-svccard { position: relative; isolation: isolate; overflow: hidden; display: flex; align-items: flex-start; gap: var(--space-20); padding: var(--space-24); border: 1px solid var(--color-border-brand-soft); border-radius: 12px;
+  background: var(--color-bg-surface); box-shadow: 0 8px 24px rgba(7, 63, 104, .06); transition: border-color .15s, box-shadow .15s; }
+.mco-svccard::before { content: ""; position: absolute; z-index: -1; pointer-events: none; width: 230px; height: 230px; inset-inline-end: -55px; bottom: -105px;
+  background: radial-gradient(circle, transparent 0 52px, var(--color-border-brand-soft) 52px 53px, transparent 53px 83px, var(--color-border-brand-soft) 83px 84px, transparent 84px 114px, var(--color-border-brand-subtle) 114px 115px, transparent 115px); }
+.mco-svccard:not(.is-disabled):hover { border-color: var(--color-bg-brand-muted); box-shadow: 0 12px 32px var(--color-alpha-navy-14); }
+.mco-svccard__tile { flex: none; display: inline-flex; align-items: center; justify-content: center; width: 64px; height: 64px; border-radius: 12px; color: var(--color-sky-300);
+  background: linear-gradient(160deg, var(--color-info-900) 0%, var(--color-blue-950) 60%, var(--color-action-primary-default) 100%); box-shadow: 0 8px 18px rgba(7, 63, 104, .25); }
+.mco-svccard__tile .mco-icon { width: 28px; height: 28px; }
+.mco-svccard__content { flex: 1 1 auto; min-width: 0; display: flex; flex-direction: column; gap: 10px; }
+.mco-svccard__title { margin: 0; font-size: 20px; line-height: 28px; font-weight: 800; color: var(--color-text-brand-strong); }
+.mco-svccard__desc { margin: 0; font-size: 14px; line-height: 22px; color: var(--color-text-tertiary); }
+.mco-svccard__cta { flex: none; align-self: flex-end; display: inline-flex; align-items: center; gap: var(--space-8); height: 44px; padding: 0 var(--space-16); border: 0; border-radius: 8px;
+  background: var(--color-bg-brand-soft); color: var(--color-text-brand); font-size: 14px; line-height: 20px; font-weight: 700; cursor: pointer; transition: background-color .15s, color .15s; }
+.mco-svccard__cta .mco-icon { width: 20px; height: 20px; color: var(--color-icon-brand-strong); }
+.mco-svccard:not(.is-disabled):hover .mco-svccard__cta { background: var(--color-blue-950); color: var(--color-text-on-brand); }
+.mco-svccard:not(.is-disabled):hover .mco-svccard__cta .mco-icon { color: var(--color-sky-300); }
+.mco-svccard.is-disabled .mco-svccard__cta { background: var(--color-bg-disabled); color: var(--color-text-disabled); cursor: not-allowed; }
+.mco-svccard.is-disabled .mco-svccard__cta .mco-icon { color: var(--color-icon-tertiary); }
+.mco-svcgrid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--space-24); }
+@media (max-width: 900px) {
+  .mco-actrow, .mco-program, .mco-reportrow { flex-wrap: wrap; } .mco-actrow__divider { display: none; } .mco-actrow .mco-kv { flex-basis: 40%; }
+  .mco-svcgrid { grid-template-columns: minmax(0, 1fr); } .mco-svccard { flex-wrap: wrap; } .mco-svccard__cta { order: 3; align-self: auto; } }
+
 /* ===========================================================================
    10. دعم الإنجليزي (LTR)
    القاعدة: العربي يضيف OutSystems كلاس is-rtl على body، والإنجليزي بدونه.

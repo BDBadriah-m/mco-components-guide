@@ -327,4 +327,29 @@ def build(I):
     sd = lambda st, label: '<span class="mco-status mco-status--%s mco-status--on-dark"><span aria-hidden="true" class="mco-status__dot"></span>%s</span>' % (st, label)
     P['STATUSDARK'] = '<div class="pv-stack" style="margin-top:24px"><span class="pv-k">على خلفية داكنة · <bdi dir="ltr">ExtraClass = "mco-status--on-dark"</bdi></span>%s</div>' % dark(
         '<div class="pv-row">%s%s%s%s%s</div>' % (sd('success', 'مكتملة'), sd('info', 'تحت المراجعة'), sd('warning', 'معاد بملاحظات'), sd('danger', 'مرفوضة'), sd('default', 'لم تبدأ بعد')))
+
+    # 11.21–11.26 مكوّنات Sprint 2
+    tag = lambda t, label, dot=False: '<span class="mco-tag mco-tag--%s">%s%s</span>' % (t, '<span class="mco-tag__dot" aria-hidden="true"></span>' if dot else '', label)
+    P['TAG'] = ('<div class="pv-stack"><div class="pv-row">%s%s%s</div><span class="pv-k">ShowDot = True</span><div class="pv-row">%s%s</div></div>') % (
+        tag('neutral', 'زيارة'), tag('warning', 'بانتظار الاعتماد'), tag('success', 'مرفوع'), tag('warning', '3 بانتظار التقرير', True), tag('success', '5 تقارير مرفوعة', True))
+    P['TACTIONS'] = ('<div class="pv-row"><div class="mco-tactions"><button type="button" class="btn btn-small">%s<span>عرض</span></button>'
+                     '<button type="button" class="mco-tactions__more" aria-label="إجراءات أخرى" aria-haspopup="menu"></button></div></div>') % I('eye', 20)
+    dtile2 = lambda d, m: '<div class="mco-datetile" role="img" aria-label="%s %s 2026"><span class="mco-datetile__month">%s</span><span class="mco-datetile__day">%s</span><span class="mco-datetile__year">2026</span></div>' % (d, m, m, d)
+    kv = lambda l, v: '<div class="mco-kv"><span class="mco-kv__label">%s</span><span class="mco-kv__value">%s</span></div>' % (l, v)
+    P['ACTROW'] = ('<article class="mco-actrow">%s<span class="mco-actrow__divider" aria-hidden="true"></span>%s%s%s%s</article>') % (
+        dtile2('22', 'مايو'), kv('اسم النشاط', 'تعزيز العلاقات الدبلوماسية'), kv('التصنيف الرئيسي', 'فئة نشاط'), kv('التصنيف الفرعي', 'نشاط فرعي'), kv('هدف التواصل الاستراتيجي المرتبط', 'هدف التواصل'))
+    obtn = lambda kind, ic, label: '<button type="button" class="mco-obtn mco-obtn--%s" aria-label="%s">%s</button>' % (kind, label, I(ic, 20))
+    P['PROGRAM'] = ('<article class="mco-program">%s<div class="mco-program__content"><h3 class="mco-program__title">حفل الاستقبال الرسمي</h3><div class="mco-program__fields">%s%s%s</div></div>'
+                    '<div class="mco-obtns">%s%s</div></article>') % (dtile2('22', 'مايو'), kv('نوع البرنامج', 'مراسم رسمية'), kv('الوقت', '10:00 ص – 11:30 ص'), kv('الموقع', 'قصر كريستيانسبورغ، كوبنهاغن'),
+                                                                      obtn('edit', 'edit', 'تعديل'), obtn('delete', 'trash', 'حذف'))
+    P['REPORTROW'] = ('<article class="mco-reportrow"><span class="mco-reportrow__icon" aria-hidden="true">%s</span><h3 class="mco-reportrow__name">تقرير زيارة الدنمارك</h3>'
+                      '<div class="mco-reportrow__fields">%s%s<div class="mco-kv"><span class="mco-kv__label">حالة التقرير</span><span class="mco-status mco-status--info mco-status--small"><span class="mco-status__dot" aria-hidden="true"></span>تحت المراجعة</span></div></div>'
+                      '<div class="mco-obtns">%s%s</div></article>') % (I('document-text', 24), kv('تاريخ الرفع', '28-05-2026'), kv('رُفع بواسطة', 'محمد أحمد عبدالله'), obtn('view', 'eye', 'عرض'), obtn('download', 'document-download', 'تحميل'))
+    svc = lambda ic, title, desc, tags, cta, cls='': ('<article class="mco-svccard%s"><span class="mco-svccard__tile" aria-hidden="true">%s</span><div class="mco-svccard__content"><h3 class="mco-svccard__title">%s</h3>'
+                                                     '<p class="mco-svccard__desc">%s</p><div class="mco-tags">%s</div></div><button type="button" class="mco-svccard__cta"%s><span>%s</span>%s</button></article>') % (
+        cls, I(ic, 28), title, desc, tags, ' disabled' if 'disabled' in cls else '', cta, I('arrow-left', 20))
+    s1 = svc('add', 'إضافة أنشطة تواصل', 'يمكنك إضافة نشاط من نوع زيارة، استقبال، نشاط آخر إلى الخطة', tag('neutral', 'زيارة') + tag('neutral', 'استقبال') + tag('neutral', 'نشاط آخر'), 'إضافة نشاط')
+    s2 = svc('document-text', 'التقارير', 'يمكنك الاطلاع على التقارير المضافة والأنشطة التي بحاجة إلى إضافة تقرير', tag('warning', '3 بانتظار التقرير', True) + tag('success', '5 تقارير مرفوعة', True), 'عرض التقارير')
+    s3 = svc('add', 'إضافة أنشطة تواصل', 'يمكنك إضافة نشاط من نوع زيارة، استقبال، نشاط آخر إلى الخطة', tag('neutral', 'زيارة'), 'إضافة نشاط', ' is-disabled')
+    P['SVCCARD'] = '<div class="pv-stack"><div class="mco-svcgrid">%s%s</div><span class="pv-k">IsDisabled = True</span><div class="mco-svcgrid">%s</div></div>' % (s1, s2, s3)
     return P
