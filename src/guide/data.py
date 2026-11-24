@@ -6,7 +6,7 @@ OS, BLOCK, MIX = 'os', 'block', 'mix'
 
 SECTIONS = [
  {'id': 's1', 'title': 'المكونات الفردية', 'lead': 'العناصر الصغيرة اللي تُستخدم داخل أي شاشة أو Block: الأيقونات والأزرار والحقول وعناصر التنقل.', 'groups': [
-  {'title': 'الأساسيات', 'items': ['icon', 'status', 'ctag', 'stat', 'avatar', 'ifield', 'datetile', 'fact']},
+  {'title': 'الأساسيات', 'items': ['icon', 'status', 'tag', 'ctag', 'stat', 'avatar', 'ifield', 'datetile', 'fact']},
   {'title': 'الأزرار', 'items': ['button', 'herobtn']},
   {'title': 'حقول الإدخال والاختيار', 'items': ['textfield', 'dropdown', 'chips', 'checkbox', 'radio', 'switch', 'choicecard']},
   {'title': 'عناصر التنقل', 'items': ['tabs', 'maintabs', 'pagination', 'csteps', 'wizard']},
@@ -15,10 +15,10 @@ SECTIONS = [
   {'title': 'هيكل الصفحة', 'items': ['layout', 'navbar', 'sidemenu', 'usercard', 'subheader', 'actionsbar', 'footer']},
   {'title': 'النماذج', 'items': ['fsection', 'empty']},
   {'title': 'الرسائل والنوافذ', 'items': ['toast', 'popup', 'formpopup', 'dialog', 'loader']},
-  {'title': 'عرض البيانات', 'items': ['table', 'filterbar', 'pfooter', 'mcard', 'info', 'points', 'quarters', 'tchart', 'timeline', 'addmore']},
-  {'title': 'عرض التفاصيل للقراءة فقط', 'items': ['dhead', 'summary', 'cardhead', 'record', 'activity', 'file', 'slide', 'dcard', 'xtext', 'gallery', 'person', 'addbanner']},
+  {'title': 'عرض البيانات', 'items': ['table', 'tactions', 'filterbar', 'pfooter', 'mcard', 'info', 'points', 'quarters', 'tchart', 'timeline', 'addmore']},
+  {'title': 'عرض التفاصيل للقراءة فقط', 'items': ['dhead', 'summary', 'cardhead', 'record', 'activity', 'actrow', 'program', 'file', 'reportrow', 'slide', 'dcard', 'xtext', 'gallery', 'person', 'addbanner']},
   {'title': 'صفحة الخدمة', 'items': ['svchero', 'svcsteps', 'phase', 'svcpage']},
-  {'title': 'الخطة السنوية', 'items': ['planhero']},
+  {'title': 'الخطة السنوية', 'items': ['planhero', 'svccard']},
  ]},
 ]
 
@@ -855,7 +855,134 @@ C['planhero'] = dict(name='رأس الخطة السنوية', mco='MCO_PlanHero'
         'تحت 900px تنزل الأزرار تحت العنوان، ويتمرّر الخط الزمني أفقياً، وتصير المؤشرات فوق بعض.'],
  preview='PLANHERO')
 
-NEW = {'planhero', 'herobtn', 'tchart', 'fsection', 'ifield', 'svchero', 'svcsteps', 'phase', 'svcpage', 'dialog', 'csteps', 'avatar', 'ifield', 'datetile', 'fact', 'cardhead', 'activity', 'file', 'dhead', 'loader', 'footer', 'fsection', 'empty', 'record', 'stat', 'maintabs', 'usercard', 'summary', 'slide', 'dcard', 'xtext', 'gallery', 'person', 'addbanner'}
+
+C['tag'] = dict(name='الوسم', mco='MCO_Tag', kind=BLOCK, figma='1168:8574',
+ summary='وسم بحد: نص 12px عريض على خلفية فاتحة بلون النوع، ونقطة اختيارية في بداية السطر. neutral للتصنيف (زيارة، استقبال)، وwarning وsuccess للعدّادات.',
+ inputs=[('Type', 'Text = "neutral"', 'neutral · warning · success'), ('Label', 'Text', ''), ('ShowDot', 'Boolean = False', '')],
+ tree="""MCO_Tag :: — :: Block
+  Container :: "mco-tag mco-tag--" + Type + " " + ExtraClass
+    If :: — :: ShowDot
+      Container :: mco-tag__dot :: aria-hidden = "true"
+    Expression :: — :: Value = Label""",
+ notes=['يختلف عن MCO_StatusBadge: الوسم له حد وارتفاعه 28px، ويُستخدم للتصنيف والعدّادات لا لحالة السجل.', 'أكثر من وسم: Container بكلاس mco-tags يرتّبها بمسافة 8px.'],
+ preview='TAG')
+
+C['tactions'] = dict(name='إجراءات صف الجدول', mco='MCO_TableActions', kind=BLOCK, figma='1169:8564',
+ summary='آخر خلية في صف الجدول: زر «عرض» بأيقونة العين، وبجانبه زر النقاط الثلاث لقائمة الإجراءات الأخرى.',
+ inputs=[('ShowMore', 'Boolean = True', 'يخفي زر القائمة لو ما فيه إجراءات أخرى')],
+ events=[('OnView', '—'), ('OnMore', '—')],
+ tree="""MCO_TableActions :: — :: Block
+  Container :: "mco-tactions " + ExtraClass
+    Button :: btn btn-small :: OnClick → OnView
+      MCO_Icon :: — :: Name = "eye" · Size = 20
+      Expression :: — :: Value = "عرض"
+    If :: — :: ShowMore
+      Button :: mco-tactions__more :: OnClick → OnMore · aria-label = "إجراءات أخرى" · aria-haspopup = "menu" · بدون محتوى (النقاط الثلاث من الثيم)""",
+ notes=['يوضع في خلية الإجراءات في Table بدل زر «عرض» وحده.'],
+ preview='TACTIONS')
+
+C['actrow'] = dict(name='بطاقة النشاط الأفقية', mco='MCO_ActivityRow', kind=BLOCK, figma='1170:8572',
+ summary='نسخة أفقية من بطاقة النشاط لقوائم الأنشطة بعرض الصفحة: مربع التاريخ ثم فاصل، ثم اسم النشاط والتصنيف الرئيسي والفرعي وهدف التواصل في صف واحد بأعمدة متساوية.',
+ inputs=[('Date', 'Date', ''), ('Name', 'Text', 'اسم النشاط'), ('MainCategory', 'Text', ''), ('SubCategory', 'Text', ''), ('Goal', 'Text', 'هدف التواصل الاستراتيجي المرتبط')],
+ tree="""MCO_ActivityRow :: — :: Block
+  HTML Element (article) :: "mco-actrow " + ExtraClass
+    MCO_DateTile :: — :: Date = Date
+    Container :: mco-actrow__divider :: aria-hidden = "true"
+    Container :: mco-kv
+      Expression :: mco-kv__label :: Value = "اسم النشاط"
+      Expression :: mco-kv__value :: Value = Name
+    Container :: mco-kv
+      Expression :: mco-kv__label :: Value = "التصنيف الرئيسي"
+      Expression :: mco-kv__value :: Value = MainCategory
+    Container :: mco-kv
+      Expression :: mco-kv__label :: Value = "التصنيف الفرعي"
+      Expression :: mco-kv__value :: Value = SubCategory
+    Container :: mco-kv
+      Expression :: mco-kv__label :: Value = "هدف التواصل الاستراتيجي المرتبط"
+      Expression :: mco-kv__value :: Value = Goal""",
+ notes=['البطاقة العمودية MCO_ActivityCard تبقى لشبكة الثلاثة أعمدة في صفحات التفاصيل.', 'تحت 900px يختفي الفاصل وتنزل الحقول في صفين.'],
+ preview='ACTROW')
+
+C['program'] = dict(name='بطاقة البرنامج', mco='MCO_ProgramCard', kind=BLOCK, figma='1171:8576',
+ summary='بند في برنامج الزيارة أو الاستقبال: مربع التاريخ، واسم البرنامج، وحقول نوع البرنامج والوقت والموقع، وزرا تعديل وحذف بحد بلون الإجراء في نهاية السطر.',
+ inputs=[('Date', 'Date', ''), ('Title', 'Text', 'اسم البرنامج'), ('Type', 'Text', 'نوع البرنامج'), ('Time', 'Text', 'مثل: 10:00 ص – 11:30 ص'), ('Location', 'Text', ''), ('ShowActions', 'Boolean = True', '')],
+ events=[('OnEdit', '—'), ('OnDelete', '—')],
+ tree="""MCO_ProgramCard :: — :: Block
+  HTML Element (article) :: "mco-program " + ExtraClass
+    MCO_DateTile :: — :: Date = Date
+    Container :: mco-program__content
+      HTML Element (h3) :: mco-program__title
+        Expression :: — :: Value = Title
+      Container :: mco-program__fields
+        Container :: mco-kv
+          Expression :: mco-kv__label :: Value = "نوع البرنامج"
+          Expression :: mco-kv__value :: Value = Type
+        Container :: mco-kv
+          Expression :: mco-kv__label :: Value = "الوقت"
+          Expression :: mco-kv__value :: Value = Time
+        Container :: mco-kv
+          Expression :: mco-kv__label :: Value = "الموقع"
+          Expression :: mco-kv__value :: Value = Location
+    If :: — :: ShowActions
+      Container :: mco-obtns
+        Button :: mco-obtn mco-obtn--edit :: OnClick → OnEdit · aria-label = "تعديل"
+          MCO_Icon :: — :: Name = "edit" · Size = 20
+        Button :: mco-obtn mco-obtn--delete :: OnClick → OnDelete · aria-label = "حذف"
+          MCO_Icon :: — :: Name = "trash" · Size = 20""",
+ notes=['الأزرار في نهاية السطر (يسار في العربي)، وحدّها بلون الإجراء: أزرق للتعديل وأحمر للحذف.', 'كل زر أيقونة له aria-label لأنه بدون نص.'],
+ preview='PROGRAM')
+
+C['reportrow'] = dict(name='صف التقرير', mco='MCO_ReportRow', kind=BLOCK, figma='1171:8630',
+ summary='تقرير مرفوع في قائمة: أيقونة الملف واسم التقرير، وتاريخ الرفع ومن رفعه وحالة التقرير، وزرا عرض وتحميل في نهاية السطر.',
+ inputs=[('Name', 'Text', 'اسم التقرير'), ('UploadedOn', 'Text', 'تاريخ الرفع dd-mm-yyyy'), ('UploadedBy', 'Text', ''), ('Status', 'MCO_Status Identifier', ''), ('StatusLabel', 'Text', '')],
+ events=[('OnView', '—'), ('OnDownload', '—')],
+ tree="""MCO_ReportRow :: — :: Block
+  HTML Element (article) :: "mco-reportrow " + ExtraClass
+    Container :: mco-reportrow__icon :: aria-hidden = "true"
+      MCO_Icon :: — :: Name = "document-text" · Size = 24
+    HTML Element (h3) :: mco-reportrow__name
+      Expression :: — :: Value = Name
+    Container :: mco-reportrow__fields
+      Container :: mco-kv
+        Expression :: mco-kv__label :: Value = "تاريخ الرفع"
+        Expression :: mco-kv__value :: Value = UploadedOn
+      Container :: mco-kv
+        Expression :: mco-kv__label :: Value = "رُفع بواسطة"
+        Expression :: mco-kv__value :: Value = UploadedBy
+      Container :: mco-kv
+        Expression :: mco-kv__label :: Value = "حالة التقرير"
+        MCO_StatusBadge :: — :: Size = "small" · Status = Status · Label = StatusLabel
+    Container :: mco-obtns
+      Button :: mco-obtn :: OnClick → OnView · aria-label = "عرض"
+        MCO_Icon :: — :: Name = "eye" · Size = 20
+      Button :: mco-obtn :: OnClick → OnDownload · aria-label = "تحميل"
+        MCO_Icon :: — :: Name = "document-download" · Size = 20""",
+ notes=['للمرفقات العامة مع الملاحظات استخدم MCO_FileItem.'],
+ preview='REPORTROW')
+
+C['svccard'] = dict(name='بطاقة الخدمة', mco='MCO_ServiceCard', kind=BLOCK, figma='1172:8718',
+ summary='بطاقة خدمة في صفحة الخطة السنوية: أيقونة في مربع متدرّج، وعنوان ووصف ووسوم اختيارية، وزر إجراء أسفل نهاية السطر (يسار في العربي)، مع حلقات زخرفية في الزاوية. عند المرور يتلوّن حد البطاقة ويصير الزر كحلياً.',
+ inputs=[('Icon', 'Text = "add"', 'أيقونة المربع'), ('Title', 'Text', ''), ('Description', 'Text', ''), ('CtaLabel', 'Text', ''), ('ShowCta', 'Boolean = True', ''), ('IsDisabled', 'Boolean = False', 'الزر رمادي وبدون حالة مرور')],
+ events=[('OnAction', '—')],
+ placeholders=[('Tags', 'MCO_Tag داخل Container بكلاس mco-tags')],
+ tree="""MCO_ServiceCard :: — :: Block
+  HTML Element (article) :: "mco-svccard" + If(IsDisabled, " is-disabled", "") + " " + ExtraClass
+    Container :: mco-svccard__tile :: aria-hidden = "true"
+      MCO_Icon :: — :: Name = Icon · Size = 28
+    Container :: mco-svccard__content
+      HTML Element (h3) :: mco-svccard__title
+        Expression :: — :: Value = Title
+      HTML Element (p) :: mco-svccard__desc
+        Expression :: — :: Value = Description
+      Placeholder :: — :: Tags
+    If :: — :: ShowCta
+      Button :: mco-svccard__cta :: OnClick → OnAction · Enabled = not IsDisabled
+        Expression :: — :: Value = CtaLabel
+        MCO_Icon :: — :: Name = "arrow-left" · Size = 20""",
+ notes=['بطاقتان جنب بعض: Container بكلاس mco-svcgrid (عمودان، وعمود واحد تحت 900px).', 'حالة المرور يرسمها الثيم على البطاقة كاملة، وIsDisabled يلغيها.'],
+ preview='SVCCARD')
+
+NEW = {'tag', 'tactions', 'actrow', 'program', 'reportrow', 'svccard', 'planhero', 'herobtn', 'tchart', 'fsection', 'ifield', 'svchero', 'svcsteps', 'phase', 'svcpage', 'dialog', 'csteps', 'avatar', 'ifield', 'datetile', 'fact', 'cardhead', 'activity', 'file', 'dhead', 'loader', 'footer', 'fsection', 'empty', 'record', 'stat', 'maintabs', 'usercard', 'summary', 'slide', 'dcard', 'xtext', 'gallery', 'person', 'addbanner'}
 
 C['stat'] = dict(name='بطاقة الرقم', mco='MCO_StatTile', kind=BLOCK, figma='467:12414',
  summary='رقم أو تاريخ بارز مع عنوانه وأيقونة في مربع متدرّج، داخل بطاقة الملخص أو أي لوحة أرقام.',
