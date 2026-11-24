@@ -473,7 +473,6 @@
   "تحت 900px تنزل الأزرار تحت العنوان، ويتمرّر الخط الزمني أفقياً، وتصير المؤشرات فوق بعض.": "Below 900px the buttons move under the title, the timeline scrolls horizontally, and the indicators stack.",
   "ترتيب العناصر هو ترتيب القراءة: العنوان ثم الأزرار، فتظهر الأزرار في نهاية السطر (يسار في العربي).": "Element order is reading order: title, then buttons, so the buttons sit at the end of the line (left in Arabic).",
   "حالات Figma في نسخة hero: مكتمل = success، تحت المراجعة = inProgress (دائرة مضيئة)، معاد بملاحظات = onHold (علامة !)، مرفوض = failure (علامة ×)، لم تبدأ = notStarted (دائرة متقطّعة).": "Figma states in the hero version: Completed = success, Under review = inProgress (glowing circle), Returned with notes = onHold (! mark), Rejected = failure (× mark), Not started = notStarted (dashed circle).",
-  "خلفية بيضاء 6% وحد أبيض 18%": "6% white fill and 18% white border",
   "رأس الخطة السنوية": "Annual plan header",
   "رأس الخطة يبقى داكناً في الوضعين، وبطاقة المؤشرات تتبع ألوان الوضع الداكن.": "The header stays dark in both modes; the indicators card follows dark mode colors.",
   "زر رأس الخطة": "Plan header button",
@@ -485,8 +484,9 @@
   "ملخص المرحلة: «قطعت الخطة مرحلتين من أربع · المحطة الحالية: مراجعة المكتب»": "Stage summary: “The plan has passed 2 of 4 stages · Current stop: office review”",
   "من 1 إلى 3 أزرار «btn mco-herobtn»": "1 to 3 “btn mco-herobtn” buttons",
   "نسخة رأس الخطة السنوية (Figma «Timeline stage» 1053:8182): ExtraClass = \"mco-timeline--hero\" على خلفية داكنة. الدائرة فوق الاسم، والخط بين المراحل متصل حتى المرحلة الحالية ومتقطّع بعدها، وأيقونة التاريخ مخفية. أول وآخر مرحلة بدون خط خارجي تلقائياً.": "Annual plan header version (Figma “Timeline stage” 1053:8182): ExtraClass = \"mco-timeline--hero\" on a dark background. The circle sits above the name, the line is solid up to the current stage and dashed after it, and the date icon is hidden. The first and last stages drop their outer line automatically.",
-  "يرسمه الثيم: خلفية سماوية 16% وحد 60% وتوهّج": "Drawn by the theme: 16% sky fill, 60% border and a glow",
-  "نص التاريخ في نسخة hero: «منذ» + التاريخ للمرحلة تحت المراجعة، و«لم يُحدد بعد» للمرحلة اللي ما بدأت. التاريخ في Container بـ dir = \"ltr\" حتى ما تنقلب أرقامه بعد «منذ».": "Date text in the hero version: “Since” + date for the stage under review, and “Not set yet” for stages that haven’t started. Put the date in a Container with dir = \"ltr\" so its digits don’t flip after “Since”."
+  "نص التاريخ في نسخة hero: «منذ» + التاريخ للمرحلة تحت المراجعة، و«لم يُحدد بعد» للمرحلة اللي ما بدأت. التاريخ في Container بـ dir = \"ltr\" حتى ما تنقلب أرقامه بعد «منذ».": "Date text in the hero version: “Since” + date for the stage under review, and “Not set yet” for stages that haven’t started. Put the date in a Container with dir = \"ltr\" so its digits don’t flip after “Since”.",
+  "خلفية بيضاء 8% وحد أبيض 18%": "8% white fill and 18% white border",
+  "يرسمه الثيم: خلفية سماوية 16% وحد 50% وتوهّج": "Drawn by the theme: 16% sky fill, 50% border and a glow"
  },
  "tree": {
   "Expression :: \"mco-icon mco-i-\" + Name + \" mco-size-\" + Size + If(IsFlipped, \" mco-flip\", \"\") + \" \" + ExtraClass :: Value = \"\" · aria-hidden = If(AriaLabel = \"\", \"true\", \"false\") · role = \"img\" و aria-label = AriaLabel عند وجوده": "Expression :: \"mco-icon mco-i-\" + Name + \" mco-size-\" + Size + If(IsFlipped, \" mco-flip\", \"\") + \" \" + ExtraClass :: Value = \"\" · aria-hidden = If(AriaLabel = \"\", \"true\", \"false\") · role = \"img\" and aria-label = AriaLabel when set",

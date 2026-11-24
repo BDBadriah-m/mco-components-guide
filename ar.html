@@ -20900,74 +20900,83 @@ button.mco-avatar { cursor: pointer; } button.mco-avatar:hover { background: var
 /* 11.20 رأس الخطة السنوية — MCO_PlanHero («Plan hero / رأس الخطة السنوية» 1055:8121، من Sprint 2 91:9904)
    خلفية داكنة متدرّجة بتموّجات، سطر علوي وعنوان ووصف، أزرار الخطة (mco-herobtn) في نهاية السطر،
    MCO_Timeline بنسخة hero، وتحتها بطاقة مؤشرات بيضاء عائمة.
-   ألوان السماوي والشفافيات (sky/300 وalpha/white-…) ما لها توكنز في ملف التصدير بعد، فهي مكتوبة كقيم ثابتة. */
+   ألوانه متغيرات Figma (sky/… وalpha/…) غير الموجودة في ملف التوكنز المصدَّر بعد، فمعرّفة هنا بنفس أسمائها،
+   وتنتقل لملف التوكنز في المزامنة الجاية. الدرجات المتقاربة موحّدة: 18 لوناً (كانت 28). */
+:root {
+  --color-sky-100: #CFE8FB; --color-sky-300: #8CC8F2; --color-green-350: #5BE3A4; --color-amber-350: #FACB6A; --color-red-350: #FF8A94;
+  --color-alpha-white-8: rgba(255, 255, 255, .08); --color-alpha-white-18: rgba(255, 255, 255, .18); --color-alpha-white-28: rgba(255, 255, 255, .28);
+  --color-alpha-white-50: rgba(255, 255, 255, .5); --color-alpha-white-65: rgba(255, 255, 255, .65);
+  --color-alpha-sky-16: rgba(140, 200, 242, .16); --color-alpha-sky-35: rgba(140, 200, 242, .35); --color-alpha-sky-50: rgba(140, 200, 242, .5);
+  --color-alpha-green-16: rgba(91, 227, 164, .16); --color-alpha-amber-16: rgba(253, 191, 33, .16); --color-alpha-red-18: rgba(255, 59, 78, .18);
+  --color-alpha-navy-4: rgba(7, 63, 104, .04); --color-alpha-navy-14: rgba(7, 63, 104, .14);
+}
 .mco-planhero { position: relative; display: flex; flex-direction: column; }
 .mco-planhero__top { position: relative; isolation: isolate; overflow: hidden; display: flex; flex-direction: column; gap: 36px; padding: var(--space-32) var(--space-32) 84px; border-radius: 12px;
   background: linear-gradient(calc(var(--mco-ga) + 15deg * var(--mco-dir)), var(--color-action-primary-default) 0%, var(--color-blue-950) 55%, var(--color-blue-950) 100%); color: var(--color-base-white); }
 .mco-planhero__top::before, .mco-planhero__top::after { content: ""; position: absolute; z-index: -1; pointer-events: none; border-radius: 50%;
-  background: repeating-radial-gradient(circle, transparent 0 11px, rgba(255, 255, 255, .6) 11px 12px); }
+  background: repeating-radial-gradient(circle, transparent 0 11px, var(--color-alpha-white-65) 11px 12px); }
 .mco-planhero__top::before { width: 816px; height: 816px; top: -132px; inset-inline-start: calc(100% - 312px); opacity: .12;
   -webkit-mask-image: radial-gradient(closest-side, #000, transparent); mask-image: radial-gradient(closest-side, #000, transparent); }
 .mco-planhero__top::after { width: 288px; height: 288px; top: -2px; inset-inline-start: calc(100% - 282px); opacity: .1;
   -webkit-mask-image: radial-gradient(closest-side, #000 20%, transparent); mask-image: radial-gradient(closest-side, #000 20%, transparent); }
 .mco-planhero__head { display: flex; align-items: flex-start; justify-content: space-between; gap: var(--space-24); }
 .mco-planhero__titles { display: flex; flex-direction: column; gap: var(--space-8); min-width: 0; }
-.mco-planhero__eyebrow { display: inline-flex; align-items: center; gap: var(--space-8); font-size: 13px; line-height: 15px; font-weight: 700; color: #8CC8F2; }
+.mco-planhero__eyebrow { display: inline-flex; align-items: center; gap: var(--space-8); font-size: 13px; line-height: 15px; font-weight: 700; color: var(--color-sky-300); }
 .mco-planhero__eyebrow::after { content: ""; width: 24px; height: 1px; background: currentColor; }
 .mco-planhero__title { margin: 0; font-size: 34px; line-height: 44px; font-weight: 800; color: var(--color-base-white); }
 .mco-planhero__subtitle { margin: 0; font-size: 14px; line-height: 20px; color: var(--color-base-white); }
 .mco-planhero__subtitle b, .mco-planhero__subtitle strong { font-weight: 700; }
 .mco-planhero__actions { flex: none; display: flex; flex-wrap: wrap; justify-content: flex-end; gap: var(--space-8); }
 /* زر رأس الخطة — Button بكلاس «btn mco-herobtn» («Plan hero button» 1053:8205): شفاف على الخلفية الداكنة */
-.btn.mco-herobtn { height: 40px; min-height: 40px; padding: 0 14px; gap: var(--space-8); border-radius: 8px; border: 1px solid rgba(255, 255, 255, .18); background: rgba(255, 255, 255, .06);
+.btn.mco-herobtn { height: 40px; min-height: 40px; padding: 0 14px; gap: var(--space-8); border-radius: 8px; border: 1px solid var(--color-alpha-white-18); background: var(--color-alpha-white-8);
   color: var(--color-base-white); font-size: 13px; line-height: 15px; font-weight: 700; box-shadow: none; transition: background-color .15s, border-color .15s, box-shadow .15s; }
-.btn.mco-herobtn .mco-icon { width: 20px; height: 20px; color: #8CC8F2; }
-.btn.mco-herobtn:hover, .btn.mco-herobtn:focus-visible { background: rgba(140, 200, 242, .16); border-color: rgba(140, 200, 242, .6); color: var(--color-base-white); box-shadow: 0 0 16px rgba(140, 200, 242, .35); }
-.btn.mco-herobtn:hover:active { background: rgba(140, 200, 242, .24); }
+.btn.mco-herobtn .mco-icon { width: 20px; height: 20px; color: var(--color-sky-300); }
+.btn.mco-herobtn:hover, .btn.mco-herobtn:focus-visible { background: var(--color-alpha-sky-16); border-color: var(--color-alpha-sky-50); color: var(--color-base-white); box-shadow: 0 0 16px var(--color-alpha-sky-35); }
+.btn.mco-herobtn:hover:active { background: var(--color-alpha-sky-35); }
 /* MCO_Timeline بنسخة hero (ExtraClass = "mco-timeline--hero"): الدائرة فوق الاسم، وخط واصل بين المراحل.
    «معاد بملاحظات» = State onHold. Line in = جهة المرحلة السابقة (بداية السطر)، Line out = جهة التالية. */
 .mco-timeline--hero { gap: 0; }
 .mco-timeline--hero .mco-tl { min-width: 150px; align-items: center; gap: 10px; text-align: center; }
 .mco-timeline--hero .mco-tl__track { order: -1; height: 30px; justify-content: center; }
 .mco-timeline--hero .mco-tl__track::before, .mco-timeline--hero .mco-tl__track::after { content: ""; display: block; position: absolute; top: 50%; height: 2px; transform: translateY(-50%);
-  background: repeating-linear-gradient(90deg, rgba(255, 255, 255, .28) 0 6px, transparent 6px 11px); }
+  background: repeating-linear-gradient(90deg, var(--color-alpha-white-28) 0 6px, transparent 6px 11px); }
 .mco-timeline--hero .mco-tl__track::before { inset-inline-start: 0; inset-inline-end: calc(50% + 15px); }
 .mco-timeline--hero .mco-tl__track::after { inset-inline-start: calc(50% + 15px); inset-inline-end: 0; }
 .mco-timeline--hero .mco-tl:not(.mco-tl--notStarted) .mco-tl__track::before,
-.mco-timeline--hero .mco-tl--success .mco-tl__track::after { height: 3px; background: var(--color-base-white); box-shadow: 0 0 10px #8CC8F2; }
+.mco-timeline--hero .mco-tl--success .mco-tl__track::after { height: 3px; background: var(--color-base-white); box-shadow: 0 0 10px var(--color-sky-300); }
 .mco-timeline--hero .mco-tl:first-child .mco-tl__track::before, .mco-timeline--hero .mco-tl:last-child .mco-tl__track::after { display: none; }
 .mco-timeline--hero .mco-tl__dot { width: 30px; height: 30px; border: 0; background: transparent; color: var(--color-blue-950); }
-.mco-timeline--hero .mco-tl__dot::before { position: absolute; inset: 4px; width: auto; height: auto; border-radius: 50%; background: var(--color-info-900); border: 2px dashed rgba(255, 255, 255, .45); }
+.mco-timeline--hero .mco-tl__dot::before { position: absolute; inset: 4px; width: auto; height: auto; border-radius: 50%; background: var(--color-info-900); border: 2px dashed var(--color-alpha-white-50); }
 .mco-timeline--hero .mco-tl__dot .mco-icon { position: relative; }
 .mco-timeline--hero .mco-tl--success .mco-tl__dot { background: transparent; }
-.mco-timeline--hero .mco-tl--success .mco-tl__dot::before { display: block; border: 0; background: var(--color-base-white); box-shadow: 0 0 0 5px rgba(255, 255, 255, .22); }
-.mco-timeline--hero .mco-tl--inProgress .mco-tl__dot::before { inset: 0; background: #8CC8F2; border: 4px solid var(--color-base-white); box-shadow: 0 0 0 8px rgba(140, 200, 242, .35), 0 0 30px #8CC8F2; }
-.mco-timeline--hero .mco-tl--failure .mco-tl__dot::before { border: 0; background: var(--color-red-400); box-shadow: 0 0 0 5px rgba(255, 59, 78, .3); }
-.mco-timeline--hero .mco-tl--onHold .mco-tl__dot::before { border: 0; background: var(--color-amber-400); box-shadow: 0 0 0 5px rgba(253, 191, 33, .25); }
+.mco-timeline--hero .mco-tl--success .mco-tl__dot::before { display: block; border: 0; background: var(--color-base-white); box-shadow: 0 0 0 5px var(--color-alpha-white-18); }
+.mco-timeline--hero .mco-tl--inProgress .mco-tl__dot::before { inset: 0; background: var(--color-sky-300); border: 4px solid var(--color-base-white); box-shadow: 0 0 0 8px var(--color-alpha-sky-35), 0 0 30px var(--color-sky-300); }
+.mco-timeline--hero .mco-tl--failure .mco-tl__dot::before { border: 0; background: var(--color-red-400); box-shadow: 0 0 0 5px var(--color-alpha-red-18); }
+.mco-timeline--hero .mco-tl--onHold .mco-tl__dot::before { border: 0; background: var(--color-amber-400); box-shadow: 0 0 0 5px var(--color-alpha-amber-16); }
 .mco-timeline--hero .mco-tl--failure .mco-tl__dot::after, .mco-timeline--hero .mco-tl--onHold .mco-tl__dot::after { content: ""; position: relative; width: 10px; height: 10px; background: var(--color-base-white);
   -webkit-mask: var(--mco-tl-glyph) center / contain no-repeat; mask: var(--mco-tl-glyph) center / contain no-repeat; }
 .mco-timeline--hero .mco-tl--failure { --mco-tl-glyph: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 10 10'%3E%3Cpath d='M1 1l8 8M9 1L1 9' stroke='%23000' stroke-width='2' stroke-linecap='round'/%3E%3C/svg%3E"); }
 .mco-timeline--hero .mco-tl--onHold { --mco-tl-glyph: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 10 10'%3E%3Cpath d='M5 1v4.5' stroke='%23000' stroke-width='2.2' stroke-linecap='round'/%3E%3Ccircle cx='5' cy='8.4' r='1.3'/%3E%3C/svg%3E"); }
 .mco-timeline--hero .mco-tl--onHold .mco-tl__dot::after { background: var(--color-info-900); }
 .mco-timeline--hero .mco-tl__name { padding-top: 6px; font-size: 14px; line-height: 19px; font-weight: 800; color: var(--color-base-white); }
-.mco-timeline--hero .mco-tl--notStarted .mco-tl__name { color: rgba(255, 255, 255, .65); }
-.mco-timeline--hero .mco-tl__date { font-size: 12px; line-height: 16px; font-weight: 400; color: rgba(255, 255, 255, .65); }
+.mco-timeline--hero .mco-tl--notStarted .mco-tl__name { color: var(--color-alpha-white-65); }
+.mco-timeline--hero .mco-tl__date { font-size: 12px; line-height: 16px; font-weight: 400; color: var(--color-alpha-white-65); }
 .mco-timeline--hero .mco-tl__date .mco-icon { display: none; }
 /* شارة الحالة على الخلفية الداكنة (داخل رأس الخطة) */
 .mco-timeline--hero .mco-status, .mco-status.mco-status--on-dark { height: 26px; padding: 5px 10px; gap: 6px; border-radius: 8px; font-size: 12px; line-height: 16px; font-weight: 700;
-  background: rgba(255, 255, 255, .08); color: rgba(255, 255, 255, .75); }
-.mco-timeline--hero .mco-status__dot, .mco-status--on-dark .mco-status__dot { width: 6px; height: 6px; background: rgba(255, 255, 255, .5); }
-:is(.mco-timeline--hero .mco-status--success, .mco-status--on-dark.mco-status--success) { background: rgba(91, 227, 164, .16); color: var(--color-green-300); }
-:is(.mco-timeline--hero .mco-status--success, .mco-status--on-dark.mco-status--success) .mco-status__dot { background: #5BE3A4; }
-:is(.mco-timeline--hero .mco-status--info, .mco-status--on-dark.mco-status--info) { height: 28px; background: rgba(140, 200, 242, .18); border: 1px solid rgba(140, 200, 242, .5); color: #CFE8FB; }
-:is(.mco-timeline--hero .mco-status--info, .mco-status--on-dark.mco-status--info) .mco-status__dot { background: #8CC8F2; }
-:is(.mco-timeline--hero .mco-status--warning, .mco-status--on-dark.mco-status--warning) { background: rgba(253, 191, 33, .16); color: #FACB6A; }
+  background: var(--color-alpha-white-8); color: var(--color-alpha-white-65); }
+.mco-timeline--hero .mco-status__dot, .mco-status--on-dark .mco-status__dot { width: 6px; height: 6px; background: var(--color-alpha-white-50); }
+:is(.mco-timeline--hero .mco-status--success, .mco-status--on-dark.mco-status--success) { background: var(--color-alpha-green-16); color: var(--color-green-300); }
+:is(.mco-timeline--hero .mco-status--success, .mco-status--on-dark.mco-status--success) .mco-status__dot { background: var(--color-green-350); }
+:is(.mco-timeline--hero .mco-status--info, .mco-status--on-dark.mco-status--info) { height: 28px; background: var(--color-alpha-sky-16); border: 1px solid var(--color-alpha-sky-50); color: var(--color-sky-100); }
+:is(.mco-timeline--hero .mco-status--info, .mco-status--on-dark.mco-status--info) .mco-status__dot { background: var(--color-sky-300); }
+:is(.mco-timeline--hero .mco-status--warning, .mco-status--on-dark.mco-status--warning) { background: var(--color-alpha-amber-16); color: var(--color-amber-350); }
 :is(.mco-timeline--hero .mco-status--warning, .mco-status--on-dark.mco-status--warning) .mco-status__dot { background: var(--color-amber-400); }
-:is(.mco-timeline--hero .mco-status--danger, .mco-status--on-dark.mco-status--danger) { background: rgba(255, 59, 78, .18); color: #FF8A94; }
+:is(.mco-timeline--hero .mco-status--danger, .mco-status--on-dark.mco-status--danger) { background: var(--color-alpha-red-18); color: var(--color-red-350); }
 :is(.mco-timeline--hero .mco-status--danger, .mco-status--on-dark.mco-status--danger) .mco-status__dot { background: var(--color-red-400); }
 /* مؤشرات رأس الخطة: بطاقة بيضاء تطفو 44px فوق حافة الرأس */
 .mco-planhero__stats { position: relative; z-index: 1; display: flex; margin: -44px var(--space-32) 0; border: 1px solid var(--color-bg-brand-soft); border-radius: 12px; background: var(--color-bg-surface);
-  box-shadow: 0 12px 32px rgba(7, 63, 104, .14), 0 1px 2px rgba(7, 63, 104, .04); }
+  box-shadow: 0 12px 32px var(--color-alpha-navy-14), 0 1px 2px var(--color-alpha-navy-4); }
 .mco-planhero__stat { flex: 1 1 0; min-width: 0; display: flex; align-items: center; gap: 14px; padding: 18px var(--space-24); }
 .mco-planhero__stat + .mco-planhero__stat { border-inline-start: 1px solid var(--color-bg-brand-soft); }
 .mco-planhero__stat-icon { flex: none; width: 44px; height: 44px; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; background: var(--color-bg-brand-soft); color: var(--color-icon-brand); }
@@ -22320,7 +22329,7 @@ body { background: var(--gd-ground); color: var(--gd-ink); font-family: var(--fo
 <span class="cs">.btn.mco-herobtn .mco-icon {</span>
   <span class="cp">width</span>: 20px;
   <span class="cp">height</span>: 20px;
-  <span class="cp">color</span>: #8CC8F2;
+  <span class="cp">color</span>: var(<span class="cv">--color-sky-300</span>);
 }
 <span class="cs">.mco-timeline--hero .mco-tl__dot .mco-icon {</span>
   <span class="cp">position</span>: relative;
@@ -22403,41 +22412,41 @@ body { background: var(--gd-ground); color: var(--gd-ink); font-family: var(--fo
   <span class="cp">font-size</span>: 12px;
   <span class="cp">line-height</span>: 16px;
   <span class="cp">font-weight</span>: 700;
-  <span class="cp">background</span>: rgba(255, 255, 255, .08);
-  <span class="cp">color</span>: rgba(255, 255, 255, .75);
+  <span class="cp">background</span>: var(<span class="cv">--color-alpha-white-8</span>);
+  <span class="cp">color</span>: var(<span class="cv">--color-alpha-white-65</span>);
 }
 <span class="cs">.mco-timeline--hero .mco-status__dot,</span>
 <span class="cs">.mco-status--on-dark .mco-status__dot {</span>
   <span class="cp">width</span>: 6px;
   <span class="cp">height</span>: 6px;
-  <span class="cp">background</span>: rgba(255, 255, 255, .5);
+  <span class="cp">background</span>: var(<span class="cv">--color-alpha-white-50</span>);
 }
 <span class="cs">:is(.mco-timeline--hero .mco-status--success, .mco-status--on-dark.mco-status--success) {</span>
-  <span class="cp">background</span>: rgba(91, 227, 164, .16);
+  <span class="cp">background</span>: var(<span class="cv">--color-alpha-green-16</span>);
   <span class="cp">color</span>: var(<span class="cv">--color-green-300</span>);
 }
 <span class="cs">:is(.mco-timeline--hero .mco-status--success, .mco-status--on-dark.mco-status--success) .mco-status__dot {</span>
-  <span class="cp">background</span>: #5BE3A4;
+  <span class="cp">background</span>: var(<span class="cv">--color-green-350</span>);
 }
 <span class="cs">:is(.mco-timeline--hero .mco-status--info, .mco-status--on-dark.mco-status--info) {</span>
   <span class="cp">height</span>: 28px;
-  <span class="cp">background</span>: rgba(140, 200, 242, .18);
-  <span class="cp">border</span>: 1px solid rgba(140, 200, 242, .5);
-  <span class="cp">color</span>: #CFE8FB;
+  <span class="cp">background</span>: var(<span class="cv">--color-alpha-sky-16</span>);
+  <span class="cp">border</span>: 1px solid var(<span class="cv">--color-alpha-sky-50</span>);
+  <span class="cp">color</span>: var(<span class="cv">--color-sky-100</span>);
 }
 <span class="cs">:is(.mco-timeline--hero .mco-status--info, .mco-status--on-dark.mco-status--info) .mco-status__dot {</span>
-  <span class="cp">background</span>: #8CC8F2;
+  <span class="cp">background</span>: var(<span class="cv">--color-sky-300</span>);
 }
 <span class="cs">:is(.mco-timeline--hero .mco-status--warning, .mco-status--on-dark.mco-status--warning) {</span>
-  <span class="cp">background</span>: rgba(253, 191, 33, .16);
-  <span class="cp">color</span>: #FACB6A;
+  <span class="cp">background</span>: var(<span class="cv">--color-alpha-amber-16</span>);
+  <span class="cp">color</span>: var(<span class="cv">--color-amber-350</span>);
 }
 <span class="cs">:is(.mco-timeline--hero .mco-status--warning, .mco-status--on-dark.mco-status--warning) .mco-status__dot {</span>
   <span class="cp">background</span>: var(<span class="cv">--color-amber-400</span>);
 }
 <span class="cs">:is(.mco-timeline--hero .mco-status--danger, .mco-status--on-dark.mco-status--danger) {</span>
-  <span class="cp">background</span>: rgba(255, 59, 78, .18);
-  <span class="cp">color</span>: #FF8A94;
+  <span class="cp">background</span>: var(<span class="cv">--color-alpha-red-18</span>);
+  <span class="cp">color</span>: var(<span class="cv">--color-red-350</span>);
 }
 <span class="cs">:is(.mco-timeline--hero .mco-status--danger, .mco-status--on-dark.mco-status--danger) .mco-status__dot {</span>
   <span class="cp">background</span>: var(<span class="cv">--color-red-400</span>);
@@ -22959,14 +22968,14 @@ body { background: var(--gd-ground); color: var(--gd-ink); font-family: var(--fo
 }
 <span class="cs">.mco-btn {</span>
   <span class="cp">direction</span>: inherit;
-}</code></pre></details></article><article class="comp" id="herobtn"><header class="ch"><div class="ct"><span class="num">1.10</span><h3>زر رأس الخطة</h3><code class="mco" dir="ltr">Button</code><span class="new">جديد</span><a class="fig" href="https://www.figma.com/design/Ka5SJhV7MC80LJucRUtFl9/MCO-Design-system?node-id=1053-8205" target="_blank" rel="noopener">فتح في Figma</a></div><div class="ch-tools"><button type="button" class="pv-lang" data-pv-lang aria-pressed="false" aria-label="تبديل المعاينة بين العربي والإنجليزي"><span data-l="ar" class="on">عربي</span><span data-l="en">EN</span></button><span class="kind kind-os">نمط OutSystems UI</span></div></header><p class="sum">زر شفاف على الخلفية الداكنة في رأس الخطة السنوية: أيقونة ونص <bdi dir="ltr">13px</bdi> عريض، وحد أبيض خفيف. عند المرور يتلوّن بالسماوي مع توهّج.</p><div class="pv" aria-label="معاينة"><div class="pv-dark" style="padding:24px;border-radius:12px;background:var(--color-blue-950)"><div class="pv-row"><button type="button" class="btn mco-herobtn"><span class="mco-icon mco-i-task-square" style="width:20px;height:20px" aria-hidden="true"></span><span>الأهداف الاستراتيجية</span></button><button type="button" class="btn mco-herobtn"><span class="mco-icon mco-i-global" style="width:20px;height:20px" aria-hidden="true"></span><span>أولويات الدول</span></button><button type="button" class="btn mco-herobtn"><span class="mco-icon mco-i-calendar" style="width:20px;height:20px" aria-hidden="true"></span><span>عرض التقويم</span></button></div></div></div><div class="build os"><div class="tree-col"><h4>مثال في Service Studio</h4><div class="tree" dir="ltr"><div class="tr"><span class="w k-act">Button</span><code>btn mco-herobtn</code><span class="n" dir="ltr">OnClick = …</span></div><div class="tr"><i class="g t"></i><span class="w k-block">MCO_Icon</span><span class="n" dir="ltr">Name = &quot;task-square&quot; · Size = 20 (الأيقونة قبل النص)</span></div><div class="tr"><i class="g l"></i><span class="w k-expr">Text</span><span class="n" dir="ltr">&quot;الأهداف الاستراتيجية&quot;</span></div></div></div><div class="spec-col"><h4>الاستخدام</h4><div class="tw"><table class="spec"><thead><tr><th>الحالة</th><th>في OutSystems</th><th>ملاحظة</th></tr></thead><tbody><tr><td><bdi dir="ltr">Default</bdi></td><td><code dir="ltr">btn mco-herobtn</code></td><td>خلفية بيضاء 6% وحد أبيض 18%</td></tr><tr><td><bdi dir="ltr">Hover</bdi></td><td><code dir="ltr">—</code></td><td>يرسمه الثيم: خلفية سماوية 16% وحد 60% وتوهّج</td></tr></tbody></table></div></div></div><ul class="notes"><li>للخلفيات الداكنة فقط (داخل <bdi dir="ltr">mco-planhero__actions)</bdi>. على الخلفية البيضاء استخدم <bdi dir="ltr">btn</bdi> العادي.</li></ul><details class="cssbox"><summary><span class="mco-icon mco-i-code mco-size-16" aria-hidden="true"></span>عرض CSS <em>4 قاعدة</em></summary><div class="cssbox__bar"><span>من ملف الثيم MCO_OutSystems_Theme.css كما هو، والألوان متغيرات تتبدّل مع الوضع الداكن</span><button type="button" class="btn btn-small" data-copy-css>نسخ</button></div><pre class="cssbox__code" dir="ltr"><code><span class="cs">.btn.mco-herobtn {</span>
+}</code></pre></details></article><article class="comp" id="herobtn"><header class="ch"><div class="ct"><span class="num">1.10</span><h3>زر رأس الخطة</h3><code class="mco" dir="ltr">Button</code><span class="new">جديد</span><a class="fig" href="https://www.figma.com/design/Ka5SJhV7MC80LJucRUtFl9/MCO-Design-system?node-id=1053-8205" target="_blank" rel="noopener">فتح في Figma</a></div><div class="ch-tools"><button type="button" class="pv-lang" data-pv-lang aria-pressed="false" aria-label="تبديل المعاينة بين العربي والإنجليزي"><span data-l="ar" class="on">عربي</span><span data-l="en">EN</span></button><span class="kind kind-os">نمط OutSystems UI</span></div></header><p class="sum">زر شفاف على الخلفية الداكنة في رأس الخطة السنوية: أيقونة ونص <bdi dir="ltr">13px</bdi> عريض، وحد أبيض خفيف. عند المرور يتلوّن بالسماوي مع توهّج.</p><div class="pv" aria-label="معاينة"><div class="pv-dark" style="padding:24px;border-radius:12px;background:var(--color-blue-950)"><div class="pv-row"><button type="button" class="btn mco-herobtn"><span class="mco-icon mco-i-task-square" style="width:20px;height:20px" aria-hidden="true"></span><span>الأهداف الاستراتيجية</span></button><button type="button" class="btn mco-herobtn"><span class="mco-icon mco-i-global" style="width:20px;height:20px" aria-hidden="true"></span><span>أولويات الدول</span></button><button type="button" class="btn mco-herobtn"><span class="mco-icon mco-i-calendar" style="width:20px;height:20px" aria-hidden="true"></span><span>عرض التقويم</span></button></div></div></div><div class="build os"><div class="tree-col"><h4>مثال في Service Studio</h4><div class="tree" dir="ltr"><div class="tr"><span class="w k-act">Button</span><code>btn mco-herobtn</code><span class="n" dir="ltr">OnClick = …</span></div><div class="tr"><i class="g t"></i><span class="w k-block">MCO_Icon</span><span class="n" dir="ltr">Name = &quot;task-square&quot; · Size = 20 (الأيقونة قبل النص)</span></div><div class="tr"><i class="g l"></i><span class="w k-expr">Text</span><span class="n" dir="ltr">&quot;الأهداف الاستراتيجية&quot;</span></div></div></div><div class="spec-col"><h4>الاستخدام</h4><div class="tw"><table class="spec"><thead><tr><th>الحالة</th><th>في OutSystems</th><th>ملاحظة</th></tr></thead><tbody><tr><td><bdi dir="ltr">Default</bdi></td><td><code dir="ltr">btn mco-herobtn</code></td><td>خلفية بيضاء 8% وحد أبيض 18%</td></tr><tr><td><bdi dir="ltr">Hover</bdi></td><td><code dir="ltr">—</code></td><td>يرسمه الثيم: خلفية سماوية 16% وحد 50% وتوهّج</td></tr></tbody></table></div></div></div><ul class="notes"><li>للخلفيات الداكنة فقط (داخل <bdi dir="ltr">mco-planhero__actions)</bdi>. على الخلفية البيضاء استخدم <bdi dir="ltr">btn</bdi> العادي.</li></ul><details class="cssbox"><summary><span class="mco-icon mco-i-code mco-size-16" aria-hidden="true"></span>عرض CSS <em>4 قاعدة</em></summary><div class="cssbox__bar"><span>من ملف الثيم MCO_OutSystems_Theme.css كما هو، والألوان متغيرات تتبدّل مع الوضع الداكن</span><button type="button" class="btn btn-small" data-copy-css>نسخ</button></div><pre class="cssbox__code" dir="ltr"><code><span class="cs">.btn.mco-herobtn {</span>
   <span class="cp">height</span>: 40px;
   <span class="cp">min-height</span>: 40px;
   <span class="cp">padding</span>: 0 14px;
   <span class="cp">gap</span>: var(<span class="cv">--space-8</span>);
   <span class="cp">border-radius</span>: 8px;
-  <span class="cp">border</span>: 1px solid rgba(255, 255, 255, .18);
-  <span class="cp">background</span>: rgba(255, 255, 255, .06);
+  <span class="cp">border</span>: 1px solid var(<span class="cv">--color-alpha-white-18</span>);
+  <span class="cp">background</span>: var(<span class="cv">--color-alpha-white-8</span>);
   <span class="cp">color</span>: var(<span class="cv">--color-base-white</span>);
   <span class="cp">font-size</span>: 13px;
   <span class="cp">line-height</span>: 15px;
@@ -22977,17 +22986,17 @@ body { background: var(--gd-ground); color: var(--gd-ink); font-family: var(--fo
 <span class="cs">.btn.mco-herobtn .mco-icon {</span>
   <span class="cp">width</span>: 20px;
   <span class="cp">height</span>: 20px;
-  <span class="cp">color</span>: #8CC8F2;
+  <span class="cp">color</span>: var(<span class="cv">--color-sky-300</span>);
 }
 <span class="cs">.btn.mco-herobtn:hover,</span>
 <span class="cs">.btn.mco-herobtn:focus-visible {</span>
-  <span class="cp">background</span>: rgba(140, 200, 242, .16);
-  <span class="cp">border-color</span>: rgba(140, 200, 242, .6);
+  <span class="cp">background</span>: var(<span class="cv">--color-alpha-sky-16</span>);
+  <span class="cp">border-color</span>: var(<span class="cv">--color-alpha-sky-50</span>);
   <span class="cp">color</span>: var(<span class="cv">--color-base-white</span>);
-  <span class="cp">box-shadow</span>: 0 0 16px rgba(140, 200, 242, .35);
+  <span class="cp">box-shadow</span>: 0 0 16px var(<span class="cv">--color-alpha-sky-35</span>);
 }
 <span class="cs">.btn.mco-herobtn:hover:active {</span>
-  <span class="cp">background</span>: rgba(140, 200, 242, .24);
+  <span class="cp">background</span>: var(<span class="cv">--color-alpha-sky-35</span>);
 }</code></pre></details></article></section><section class="grp"><h3 class="gt">حقول الإدخال والاختيار</h3><article class="comp" id="textfield"><header class="ch"><div class="ct"><span class="num">1.11</span><h3>حقل الإدخال</h3><code class="mco" dir="ltr">MCO_TextField</code></div><div class="ch-tools"><button type="button" class="pv-lang" data-pv-lang aria-pressed="false" aria-label="تبديل المعاينة بين العربي والإنجليزي"><span data-l="ar" class="on">عربي</span><span data-l="en">EN</span></button><span class="kind kind-mix">ودجت المنصة + Block</span></div></header><p class="sum"><bdi dir="ltr">Block</bdi> يلفّ ودجت الإدخال حق المنصة <bdi dir="ltr">(Input</bdi> أو <bdi dir="ltr">TextArea</bdi> أو <bdi dir="ltr">Date Picker</bdi> أو <bdi dir="ltr">Upload)</bdi> ويضيف العنوان والنص المساعد ورسالة الخطأ.</p><div class="pv" aria-label="معاينة"><div class="pv-grid3"><div class="mco-field mco-field--text"><label class="mco-field__label" for="mco-f1">عنوان الحقل<span aria-hidden="true" class="mco-icon mco-i-info-circle" style="width:22px;height:22px"></span></label><div class="mco-field__box"><input aria-describedby="mco-f1-help" class="mco-field__control" id="mco-f1" placeholder="النص الإرشادي" type="text" value=""/></div><div class="mco-field__foot" id="mco-f1-help"><span>نص مساعد لتوضيح متطلبات الحقل</span></div></div><div class="mco-field mco-field--text is-error"><label class="mco-field__label" for="mco-f2">عنوان الحقل</label><div class="mco-field__box"><input aria-describedby="mco-f2-help" aria-invalid="true" class="mco-field__control" id="mco-f2" type="text" value="قيمة مدخلة"/></div><div class="mco-field__foot" id="mco-f2-help"><span>هذا الحقل مطلوب</span></div></div><div class="mco-field mco-field--text is-disabled"><label class="mco-field__label" for="mco-f3">عنوان الحقل</label><div class="mco-field__box"><input aria-describedby="mco-f3-help" class="mco-field__control" disabled="" id="mco-f3" type="text" value="قيمة معطلة"/></div><div class="mco-field__foot" id="mco-f3-help"><span>نص مساعد</span></div></div><div class="mco-field mco-field--date"><label class="mco-field__label" for="mco-f4">التاريخ</label><div class="mco-field__box"><input class="mco-field__control" id="mco-f4" inputmode="numeric" placeholder="يوم / شهر / سنة" type="text" value=""/><span class="mco-field__trail"><span aria-hidden="true" class="mco-icon mco-i-calendar" style="width:22px;height:22px"></span></span></div></div><div class="mco-field mco-field--file"><label class="mco-field__label" for="mco-f5">إرفاق ملف</label><div class="mco-field__box"><input class="mco-field__control" id="mco-f5" placeholder="اسحب الملف أو اضغط للرفع" readonly="" type="text" value=""/><span class="mco-field__trail"><span aria-hidden="true" class="mco-icon mco-i-direct-send" style="width:22px;height:22px"></span></span></div></div><div class="mco-field mco-field--textarea"><label class="mco-field__label" for="mco-f6">الوصف</label><div class="mco-field__box"><textarea class="mco-field__control" id="mco-f6" maxlength="500" placeholder="اكتب الوصف" rows="4"></textarea></div><div class="mco-field__foot" id="mco-f6-help"><span></span><span class="mco-field__count">بحد أقصى 500 حرف ( 0/500 )</span></div></div></div></div><div class="build"><div class="tree-col"><h4>شجرة الودجات</h4><div class="tree" dir="ltr"><div class="tr"><span class="w k-block">MCO_TextField</span><span class="n" dir="ltr">Block</span></div><div class="tr"><i class="g l"></i><span class="w k-box">Container</span><code>&quot;mco-field mco-field--&quot; + Type + If(ErrorText &lt;&gt; &quot;&quot;, &quot; is-error&quot;, &quot;&quot;) + If(IsDisabled, &quot; is-disabled&quot;, &quot;&quot;) + If(Size = &quot;mobile&quot;, &quot; mco-field--mobile&quot;, &quot;&quot;) + &quot; &quot; + ExtraClass</code></div><div class="tr"><i class="g"></i><i class="g t"></i><span class="w k-html">HTML Element (label)</span><code>mco-field__label</code><span class="n" dir="ltr">for = InputId</span></div><div class="tr"><i class="g"></i><i class="g v"></i><i class="g t"></i><span class="w k-expr">Expression</span><span class="n" dir="ltr">Value = Label</span></div><div class="tr"><i class="g"></i><i class="g v"></i><i class="g t"></i><span class="w k-if">If</span><span class="n" dir="ltr">IsRequired</span></div><div class="tr"><i class="g"></i><i class="g v"></i><i class="g v"></i><i class="g l"></i><span class="w k-expr">Expression</span><code>mco-field__req</code><span class="n" dir="ltr">Value = &quot;*&quot;</span></div><div class="tr"><i class="g"></i><i class="g v"></i><i class="g l"></i><span class="w k-if">If</span><span class="n" dir="ltr">ShowInfo</span></div><div class="tr"><i class="g"></i><i class="g v"></i><i class="g"></i><i class="g l"></i><span class="w k-block">MCO_Icon</span><span class="n" dir="ltr">Name = &quot;info-circle&quot; · Size = 20</span></div><div class="tr"><i class="g"></i><i class="g t"></i><span class="w k-if">If</span><span class="n" dir="ltr">HasBox</span></div><div class="tr"><i class="g"></i><i class="g v"></i><i class="g l"></i><span class="w k-box">Container</span><code>mco-field__box</code></div><div class="tr"><i class="g"></i><i class="g v"></i><i class="g"></i><i class="g t"></i><span class="w k-ph">Placeholder</span><span class="n" dir="ltr">Input</span></div><div class="tr"><i class="g"></i><i class="g v"></i><i class="g"></i><i class="g l"></i><span class="w k-if">If</span><span class="n" dir="ltr">Type = &quot;date&quot; أو &quot;file&quot; أو &quot;select&quot;</span></div><div class="tr"><i class="g"></i><i class="g v"></i><i class="g"></i><i class="g"></i><i class="g l"></i><span class="w k-box">Container</span><code>mco-field__trail</code></div><div class="tr"><i class="g"></i><i class="g v"></i><i class="g"></i><i class="g"></i><i class="g"></i><i class="g l"></i><span class="w k-block">MCO_Icon</span><span class="n" dir="ltr">Name = &quot;calendar&quot; / &quot;direct-send&quot; / &quot;chevron-down&quot; · Size = 22</span></div><div class="tr"><i class="g"></i><i class="g t"></i><span class="w k-if">Else</span></div><div class="tr"><i class="g"></i><i class="g v"></i><i class="g l"></i><span class="w k-ph">Placeholder</span><span class="n" dir="ltr">Input</span></div><div class="tr"><i class="g"></i><i class="g l"></i><span class="w k-if">If</span><span class="n" dir="ltr">HelperText &lt;&gt; &quot;&quot; or ErrorText &lt;&gt; &quot;&quot; or MaxLength &gt; 0</span></div><div class="tr"><i class="g"></i><i class="g"></i><i class="g l"></i><span class="w k-box">Container</span><code>mco-field__foot</code><span class="n" dir="ltr">id = InputId + &quot;-help&quot;</span></div><div class="tr"><i class="g"></i><i class="g"></i><i class="g"></i><i class="g t"></i><span class="w k-expr">Expression</span><span class="n" dir="ltr">Value = If(ErrorText &lt;&gt; &quot;&quot;, ErrorText, HelperText)</span></div><div class="tr"><i class="g"></i><i class="g"></i><i class="g"></i><i class="g l"></i><span class="w k-if">If</span><span class="n" dir="ltr">MaxLength &gt; 0</span></div><div class="tr"><i class="g"></i><i class="g"></i><i class="g"></i><i class="g"></i><i class="g l"></i><span class="w k-expr">Expression</span><code>mco-field__count</code><span class="n" dir="ltr">Value = &quot;بحد أقصى &quot; + MaxLength + &quot; حرف ( &quot; + CurrentLength + &quot;/&quot; + MaxLength + &quot; )&quot;</span></div></div></div><div class="spec-col"><h4>Input Parameters</h4><div class="tw"><table class="spec"><thead><tr><th>الاسم</th><th>النوع</th><th>الوصف</th></tr></thead><tbody><tr><td><code dir="ltr">InputId</code></td><td><bdi dir="ltr">Text</bdi></td><td><bdi dir="ltr">Id</bdi> ودجت الإدخال اللي في الـ <bdi dir="ltr">Placeholder</bdi>، لربط العنوان والنص المساعد</td></tr><tr><td><code dir="ltr">Label</code></td><td><bdi dir="ltr">Text</bdi></td><td></td></tr><tr><td><code dir="ltr">Type</code></td><td><bdi dir="ltr">Text = &quot;text&quot;</bdi></td><td><bdi dir="ltr">text · textarea · date · file · select</bdi> (يحدد الأيقونة)</td></tr><tr><td><code dir="ltr">IsRequired</code></td><td><bdi dir="ltr">Boolean = False</bdi></td><td>يضيف *</td></tr><tr><td><code dir="ltr">ShowInfo</code></td><td><bdi dir="ltr">Boolean = False</bdi></td><td>أيقونة <bdi dir="ltr">info-circle</bdi> بجانب العنوان</td></tr><tr><td><code dir="ltr">HelperText</code></td><td><bdi dir="ltr">Text</bdi></td><td></td></tr><tr><td><code dir="ltr">ErrorText</code></td><td><bdi dir="ltr">Text</bdi></td><td>إذا فيه نص يتحول الحقل لحالة الخطأ</td></tr><tr><td><code dir="ltr">IsDisabled</code></td><td><bdi dir="ltr">Boolean = False</bdi></td><td></td></tr><tr><td><code dir="ltr">HasBox</code></td><td><bdi dir="ltr">Boolean = True</bdi></td><td><bdi dir="ltr">False</bdi> مع <bdi dir="ltr">Dropdown</bdi> لأن له إطاره</td></tr><tr><td><code dir="ltr">MaxLength</code></td><td><bdi dir="ltr">Integer = 0</bdi></td><td>يظهر العدّاد إذا أكبر من 0</td></tr><tr><td><code dir="ltr">CurrentLength</code></td><td><bdi dir="ltr">Integer = 0</bdi></td><td>طول القيمة الحالية في الحقل</td></tr><tr><td><code dir="ltr">Size</code></td><td><bdi dir="ltr">Text = &quot;default&quot;</bdi></td><td><bdi dir="ltr">default · mobile</bdi> (خط <bdi dir="ltr">16px)</bdi></td></tr><tr><td><code dir="ltr">ExtraClass</code></td><td><bdi dir="ltr">Text</bdi></td><td>كلاسات إضافية على الجذر</td></tr></tbody></table></div><h4>Placeholders</h4><div class="tw"><table class="spec"><thead><tr><th>الاسم</th><th>يوضع فيه</th></tr></thead><tbody><tr><td><code dir="ltr">Input</code></td><td>ودجت الإدخال بكلاس <bdi dir="ltr">mco-field__control</bdi> بدل <bdi dir="ltr">form-control</bdi></td></tr></tbody></table></div></div></div><ul class="notes"><li>التحقق: مرّر <bdi dir="ltr">ErrorText = If(Input.Valid, &quot;&quot;, Input.ValidationMessage)</bdi>. الثيم يخفي رسالة المنصة الافتراضية داخل الحقل حتى لا تتكرر.</li><li>التاريخ: نمط <bdi dir="ltr">Date Picker</bdi> من <bdi dir="ltr">OutSystems UI</bdi> على <bdi dir="ltr">Input</bdi> بكلاس <bdi dir="ltr">mco-field__control</bdi>.</li><li>خارج النماذج (مثل شريط البحث في <bdi dir="ltr">FilterBar)</bdi> يكفي <bdi dir="ltr">Input</bdi> عادي بكلاس <bdi dir="ltr">form-control</bdi>.</li></ul><details class="cssbox"><summary><span class="mco-icon mco-i-code mco-size-16" aria-hidden="true"></span>عرض CSS <em>42 قاعدة</em></summary><div class="cssbox__bar"><span>من ملف الثيم MCO_OutSystems_Theme.css كما هو، والألوان متغيرات تتبدّل مع الوضع الداكن</span><button type="button" class="btn btn-small" data-copy-css>نسخ</button></div><pre class="cssbox__code" dir="ltr"><code><span class="cs">.form-control {</span>
   <span class="cp">min-height</span>: 46px;
   <span class="cp">height</span>: auto;
@@ -26579,7 +26588,7 @@ body { background: var(--gd-ground); color: var(--gd-ink); font-family: var(--fo
   <span class="cp">top</span>: 50%;
   <span class="cp">height</span>: 2px;
   <span class="cp">transform</span>: translateY(-50%);
-  <span class="cp">background</span>: repeating-linear-gradient(90deg, rgba(255, 255, 255, .28) 0 6px, transparent 6px 11px);
+  <span class="cp">background</span>: repeating-linear-gradient(90deg, var(<span class="cv">--color-alpha-white-28</span>) 0 6px, transparent 6px 11px);
 }
 <span class="cs">.mco-timeline--hero .mco-tl__track::before {</span>
   <span class="cp">inset-inline-start</span>: 0;
@@ -26593,7 +26602,7 @@ body { background: var(--gd-ground); color: var(--gd-ink); font-family: var(--fo
 <span class="cs">.mco-timeline--hero .mco-tl--success .mco-tl__track::after {</span>
   <span class="cp">height</span>: 3px;
   <span class="cp">background</span>: var(<span class="cv">--color-base-white</span>);
-  <span class="cp">box-shadow</span>: 0 0 10px #8CC8F2;
+  <span class="cp">box-shadow</span>: 0 0 10px var(<span class="cv">--color-sky-300</span>);
 }
 <span class="cs">.mco-timeline--hero .mco-tl:first-child .mco-tl__track::before,</span>
 <span class="cs">.mco-timeline--hero .mco-tl:last-child .mco-tl__track::after {</span>
@@ -26613,7 +26622,7 @@ body { background: var(--gd-ground); color: var(--gd-ink); font-family: var(--fo
   <span class="cp">height</span>: auto;
   <span class="cp">border-radius</span>: 50%;
   <span class="cp">background</span>: var(<span class="cv">--color-info-900</span>);
-  <span class="cp">border</span>: 2px dashed rgba(255, 255, 255, .45);
+  <span class="cp">border</span>: 2px dashed var(<span class="cv">--color-alpha-white-50</span>);
 }
 <span class="cs">.mco-timeline--hero .mco-tl__dot .mco-icon {</span>
   <span class="cp">position</span>: relative;
@@ -26625,23 +26634,23 @@ body { background: var(--gd-ground); color: var(--gd-ink); font-family: var(--fo
   <span class="cp">display</span>: block;
   <span class="cp">border</span>: 0;
   <span class="cp">background</span>: var(<span class="cv">--color-base-white</span>);
-  <span class="cp">box-shadow</span>: 0 0 0 5px rgba(255, 255, 255, .22);
+  <span class="cp">box-shadow</span>: 0 0 0 5px var(<span class="cv">--color-alpha-white-18</span>);
 }
 <span class="cs">.mco-timeline--hero .mco-tl--inProgress .mco-tl__dot::before {</span>
   <span class="cp">inset</span>: 0;
-  <span class="cp">background</span>: #8CC8F2;
+  <span class="cp">background</span>: var(<span class="cv">--color-sky-300</span>);
   <span class="cp">border</span>: 4px solid var(<span class="cv">--color-base-white</span>);
-  <span class="cp">box-shadow</span>: 0 0 0 8px rgba(140, 200, 242, .35), 0 0 30px #8CC8F2;
+  <span class="cp">box-shadow</span>: 0 0 0 8px var(<span class="cv">--color-alpha-sky-35</span>), 0 0 30px var(<span class="cv">--color-sky-300</span>);
 }
 <span class="cs">.mco-timeline--hero .mco-tl--failure .mco-tl__dot::before {</span>
   <span class="cp">border</span>: 0;
   <span class="cp">background</span>: var(<span class="cv">--color-red-400</span>);
-  <span class="cp">box-shadow</span>: 0 0 0 5px rgba(255, 59, 78, .3);
+  <span class="cp">box-shadow</span>: 0 0 0 5px var(<span class="cv">--color-alpha-red-18</span>);
 }
 <span class="cs">.mco-timeline--hero .mco-tl--onHold .mco-tl__dot::before {</span>
   <span class="cp">border</span>: 0;
   <span class="cp">background</span>: var(<span class="cv">--color-amber-400</span>);
-  <span class="cp">box-shadow</span>: 0 0 0 5px rgba(253, 191, 33, .25);
+  <span class="cp">box-shadow</span>: 0 0 0 5px var(<span class="cv">--color-alpha-amber-16</span>);
 }
 <span class="cs">.mco-timeline--hero .mco-tl--failure .mco-tl__dot::after,</span>
 <span class="cs">.mco-timeline--hero .mco-tl--onHold .mco-tl__dot::after {</span>
@@ -26670,13 +26679,13 @@ body { background: var(--gd-ground); color: var(--gd-ink); font-family: var(--fo
   <span class="cp">color</span>: var(<span class="cv">--color-base-white</span>);
 }
 <span class="cs">.mco-timeline--hero .mco-tl--notStarted .mco-tl__name {</span>
-  <span class="cp">color</span>: rgba(255, 255, 255, .65);
+  <span class="cp">color</span>: var(<span class="cv">--color-alpha-white-65</span>);
 }
 <span class="cs">.mco-timeline--hero .mco-tl__date {</span>
   <span class="cp">font-size</span>: 12px;
   <span class="cp">line-height</span>: 16px;
   <span class="cp">font-weight</span>: 400;
-  <span class="cp">color</span>: rgba(255, 255, 255, .65);
+  <span class="cp">color</span>: var(<span class="cv">--color-alpha-white-65</span>);
 }
 <span class="cs">.mco-timeline--hero .mco-tl__date .mco-icon {</span>
   <span class="cp">display</span>: none;
@@ -26689,40 +26698,40 @@ body { background: var(--gd-ground); color: var(--gd-ink); font-family: var(--fo
   <span class="cp">font-size</span>: 12px;
   <span class="cp">line-height</span>: 16px;
   <span class="cp">font-weight</span>: 700;
-  <span class="cp">background</span>: rgba(255, 255, 255, .08);
-  <span class="cp">color</span>: rgba(255, 255, 255, .75);
+  <span class="cp">background</span>: var(<span class="cv">--color-alpha-white-8</span>);
+  <span class="cp">color</span>: var(<span class="cv">--color-alpha-white-65</span>);
 }
 <span class="cs">.mco-timeline--hero .mco-status__dot {</span>
   <span class="cp">width</span>: 6px;
   <span class="cp">height</span>: 6px;
-  <span class="cp">background</span>: rgba(255, 255, 255, .5);
+  <span class="cp">background</span>: var(<span class="cv">--color-alpha-white-50</span>);
 }
 <span class="cs">:is(.mco-timeline--hero .mco-status--success, .mco-status--on-dark.mco-status--success) {</span>
-  <span class="cp">background</span>: rgba(91, 227, 164, .16);
+  <span class="cp">background</span>: var(<span class="cv">--color-alpha-green-16</span>);
   <span class="cp">color</span>: var(<span class="cv">--color-green-300</span>);
 }
 <span class="cs">:is(.mco-timeline--hero .mco-status--success, .mco-status--on-dark.mco-status--success) .mco-status__dot {</span>
-  <span class="cp">background</span>: #5BE3A4;
+  <span class="cp">background</span>: var(<span class="cv">--color-green-350</span>);
 }
 <span class="cs">:is(.mco-timeline--hero .mco-status--info, .mco-status--on-dark.mco-status--info) {</span>
   <span class="cp">height</span>: 28px;
-  <span class="cp">background</span>: rgba(140, 200, 242, .18);
-  <span class="cp">border</span>: 1px solid rgba(140, 200, 242, .5);
-  <span class="cp">color</span>: #CFE8FB;
+  <span class="cp">background</span>: var(<span class="cv">--color-alpha-sky-16</span>);
+  <span class="cp">border</span>: 1px solid var(<span class="cv">--color-alpha-sky-50</span>);
+  <span class="cp">color</span>: var(<span class="cv">--color-sky-100</span>);
 }
 <span class="cs">:is(.mco-timeline--hero .mco-status--info, .mco-status--on-dark.mco-status--info) .mco-status__dot {</span>
-  <span class="cp">background</span>: #8CC8F2;
+  <span class="cp">background</span>: var(<span class="cv">--color-sky-300</span>);
 }
 <span class="cs">:is(.mco-timeline--hero .mco-status--warning, .mco-status--on-dark.mco-status--warning) {</span>
-  <span class="cp">background</span>: rgba(253, 191, 33, .16);
-  <span class="cp">color</span>: #FACB6A;
+  <span class="cp">background</span>: var(<span class="cv">--color-alpha-amber-16</span>);
+  <span class="cp">color</span>: var(<span class="cv">--color-amber-350</span>);
 }
 <span class="cs">:is(.mco-timeline--hero .mco-status--warning, .mco-status--on-dark.mco-status--warning) .mco-status__dot {</span>
   <span class="cp">background</span>: var(<span class="cv">--color-amber-400</span>);
 }
 <span class="cs">:is(.mco-timeline--hero .mco-status--danger, .mco-status--on-dark.mco-status--danger) {</span>
-  <span class="cp">background</span>: rgba(255, 59, 78, .18);
-  <span class="cp">color</span>: #FF8A94;
+  <span class="cp">background</span>: var(<span class="cv">--color-alpha-red-18</span>);
+  <span class="cp">color</span>: var(<span class="cv">--color-red-350</span>);
 }
 <span class="cs">:is(.mco-timeline--hero .mco-status--danger, .mco-status--on-dark.mco-status--danger) .mco-status__dot {</span>
   <span class="cp">background</span>: var(<span class="cv">--color-red-400</span>);
@@ -27993,7 +28002,7 @@ body { background: var(--gd-ground); color: var(--gd-ink); font-family: var(--fo
   <span class="cp">z-index</span>: -1;
   <span class="cp">pointer-events</span>: none;
   <span class="cp">border-radius</span>: 50%;
-  <span class="cp">background</span>: repeating-radial-gradient(circle, transparent 0 11px, rgba(255, 255, 255, .6) 11px 12px);
+  <span class="cp">background</span>: repeating-radial-gradient(circle, transparent 0 11px, var(<span class="cv">--color-alpha-white-65</span>) 11px 12px);
 }
 <span class="cs">.mco-planhero__top::before {</span>
   <span class="cp">width</span>: 816px;
@@ -28032,7 +28041,7 @@ body { background: var(--gd-ground); color: var(--gd-ink); font-family: var(--fo
   <span class="cp">font-size</span>: 13px;
   <span class="cp">line-height</span>: 15px;
   <span class="cp">font-weight</span>: 700;
-  <span class="cp">color</span>: #8CC8F2;
+  <span class="cp">color</span>: var(<span class="cv">--color-sky-300</span>);
 }
 <span class="cs">.mco-planhero__eyebrow::after {</span>
   <span class="cp">content</span>: "";
@@ -28072,7 +28081,7 @@ body { background: var(--gd-ground); color: var(--gd-ink); font-family: var(--fo
   <span class="cp">border</span>: 1px solid var(<span class="cv">--color-bg-brand-soft</span>);
   <span class="cp">border-radius</span>: 12px;
   <span class="cp">background</span>: var(<span class="cv">--color-bg-surface</span>);
-  <span class="cp">box-shadow</span>: 0 12px 32px rgba(7, 63, 104, .14), 0 1px 2px rgba(7, 63, 104, .04);
+  <span class="cp">box-shadow</span>: 0 12px 32px var(<span class="cv">--color-alpha-navy-14</span>), 0 1px 2px var(<span class="cv">--color-alpha-navy-4</span>);
 }
 <span class="cs">.mco-planhero__stat {</span>
   <span class="cp">flex</span>: 1 1 0;

@@ -812,7 +812,7 @@ C['svcpage'] = dict(name='قالب صفحة الخدمة', mco='Screen: ServiceL
 
 C['herobtn'] = dict(name='زر رأس الخطة', mco='Button', kind=OS, figma='1053:8205',
  summary='زر شفاف على الخلفية الداكنة في رأس الخطة السنوية: أيقونة ونص 13px عريض، وحد أبيض خفيف. عند المرور يتلوّن بالسماوي مع توهّج.',
- variants=[('Default', 'btn mco-herobtn', 'خلفية بيضاء 6% وحد أبيض 18%'), ('Hover', '—', 'يرسمه الثيم: خلفية سماوية 16% وحد 60% وتوهّج')],
+ variants=[('Default', 'btn mco-herobtn', 'خلفية بيضاء 8% وحد أبيض 18%'), ('Hover', '—', 'يرسمه الثيم: خلفية سماوية 16% وحد 50% وتوهّج')],
  tree="""Button :: btn mco-herobtn :: OnClick = …
   MCO_Icon :: — :: Name = "task-square" · Size = 20 (الأيقونة قبل النص)
   Text :: — :: "الأهداف الاستراتيجية\"""",
