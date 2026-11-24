@@ -681,13 +681,32 @@ button.mco-avatar { cursor: pointer; } button.mco-avatar:hover { background: var
 }
 .mco-planhero { position: relative; display: flex; flex-direction: column; }
 .mco-planhero__top { position: relative; isolation: isolate; overflow: hidden; display: flex; flex-direction: column; gap: 36px; padding: var(--space-32) var(--space-32) 84px; border-radius: 12px;
-  background: linear-gradient(calc(var(--mco-ga) + 15deg * var(--mco-dir)), var(--color-action-primary-default) 0%, var(--color-blue-950) 55%, var(--color-blue-950) 100%); color: var(--color-base-white); }
-.mco-planhero__top::before, .mco-planhero__top::after { content: ""; position: absolute; z-index: -1; pointer-events: none; border-radius: 50%;
-  background: repeating-radial-gradient(circle, transparent 0 11px, var(--color-alpha-white-65) 11px 12px); }
-.mco-planhero__top::before { width: 816px; height: 816px; top: -132px; inset-inline-start: calc(100% - 312px); opacity: .12;
-  -webkit-mask-image: radial-gradient(closest-side, #000, transparent); mask-image: radial-gradient(closest-side, #000, transparent); }
-.mco-planhero__top::after { width: 288px; height: 288px; top: -2px; inset-inline-start: calc(100% - 282px); opacity: .1;
-  -webkit-mask-image: radial-gradient(closest-side, #000 20%, transparent); mask-image: radial-gradient(closest-side, #000 20%, transparent); }
+  /* السماء الليلية (صورة الخلفية في Sprint 2 91:9904) مرسومة بالـ CSS: تدرّج من الكحلي الداكن للأزرق مع إضاءة الأفق في المنتصف */
+  background: radial-gradient(60% 55% at 50% 100%, rgba(40, 110, 170, .55), transparent 70%),
+    linear-gradient(180deg, #051120 0%, #0A1D33 27%, #0E2B4A 59%, #093E66 100%); color: var(--color-base-white); }
+/* النجوم والأقواس الخفيفة في الزاوية */
+.mco-planhero__top::before { content: ""; position: absolute; inset: 0; z-index: -1; pointer-events: none;
+  background: radial-gradient(1.5px 1.5px at 50% 4%, rgba(255, 255, 255, 0.8), transparent),
+    radial-gradient(1px 1px at 84% 15%, rgba(255, 255, 255, 0.6), transparent),
+    radial-gradient(1.5px 1.5px at 90% 34%, rgba(255, 255, 255, 0.7), transparent),
+    radial-gradient(1px 1px at 8% 32%, rgba(255, 255, 255, 0.5), transparent),
+    radial-gradient(1px 1px at 43% 58%, rgba(255, 255, 255, 0.4), transparent),
+    radial-gradient(1px 1px at 22% 12%, rgba(255, 255, 255, 0.5), transparent),
+    radial-gradient(1px 1px at 67% 40%, rgba(255, 255, 255, 0.4), transparent),
+    radial-gradient(1.5px 1.5px at 31% 46%, rgba(255, 255, 255, 0.5), transparent),
+    radial-gradient(1px 1px at 97% 8%, rgba(255, 255, 255, 0.6), transparent),
+    radial-gradient(1px 1px at 58% 22%, rgba(255, 255, 255, 0.5), transparent),
+    radial-gradient(1px 1px at 14% 64%, rgba(255, 255, 255, 0.35), transparent),
+    radial-gradient(1px 1px at 76% 62%, rgba(255, 255, 255, 0.35), transparent),
+    radial-gradient(1px 1px at 3% 14%, rgba(255, 255, 255, 0.5), transparent),
+    radial-gradient(1px 1px at 38% 6%, rgba(255, 255, 255, 0.5), transparent),
+    radial-gradient(1.5px 1.5px at 70% 9%, rgba(255, 255, 255, 0.6), transparent),
+    radial-gradient(1px 1px at 93% 52%, rgba(255, 255, 255, 0.4), transparent),
+    radial-gradient(circle at 0 0, transparent 0 279px, rgba(255, 255, 255, .07) 280px 281px, transparent 282px),
+    radial-gradient(circle at 0 0, transparent 0 379px, rgba(255, 255, 255, .05) 380px 381px, transparent 382px); }
+/* خط الأفق المضيء */
+.mco-planhero__top::after { content: ""; position: absolute; z-index: -1; pointer-events: none; left: -25%; right: -25%; bottom: -150px; height: 220px; border-radius: 50%;
+  border-top: 1px solid var(--color-alpha-sky-35); box-shadow: 0 -10px 40px rgba(140, 200, 242, .12), inset 0 10px 40px rgba(140, 200, 242, .1); }
 .mco-planhero__head { display: flex; align-items: flex-start; justify-content: space-between; gap: var(--space-24); }
 .mco-planhero__titles { display: flex; flex-direction: column; gap: var(--space-8); min-width: 0; }
 .mco-planhero__eyebrow { display: inline-flex; align-items: center; gap: var(--space-8); font-size: 13px; line-height: 15px; font-weight: 700; color: var(--color-sky-300); }

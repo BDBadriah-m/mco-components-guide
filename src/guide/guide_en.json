@@ -481,12 +481,12 @@
   "للخلفيات الداكنة فقط (داخل mco-planhero__actions). على الخلفية البيضاء استخدم btn العادي.": "For dark backgrounds only (inside mco-planhero__actions). On white, use the regular btn.",
   "مثل: الخطة السنوية لعام 2026": "e.g. 2026 Annual Plan",
   "مراحل الاعتماد بالترتيب (نفس Structure حق MCO_Timeline)": "Approval stages in order (same Structure as MCO_Timeline)",
-  "ملخص المرحلة: «قطعت الخطة مرحلتين من أربع · المحطة الحالية: مراجعة المكتب»": "Stage summary: “The plan has passed 2 of 4 stages · Current stop: office review”",
   "من 1 إلى 3 أزرار «btn mco-herobtn»": "1 to 3 “btn mco-herobtn” buttons",
   "نسخة رأس الخطة السنوية (Figma «Timeline stage» 1053:8182): ExtraClass = \"mco-timeline--hero\" على خلفية داكنة. الدائرة فوق الاسم، والخط بين المراحل متصل حتى المرحلة الحالية ومتقطّع بعدها، وأيقونة التاريخ مخفية. أول وآخر مرحلة بدون خط خارجي تلقائياً.": "Annual plan header version (Figma “Timeline stage” 1053:8182): ExtraClass = \"mco-timeline--hero\" on a dark background. The circle sits above the name, the line is solid up to the current stage and dashed after it, and the date icon is hidden. The first and last stages drop their outer line automatically.",
   "نص التاريخ في نسخة hero: «منذ» + التاريخ للمرحلة تحت المراجعة، و«لم يُحدد بعد» للمرحلة اللي ما بدأت. التاريخ في Container بـ dir = \"ltr\" حتى ما تنقلب أرقامه بعد «منذ».": "Date text in the hero version: “Since” + date for the stage under review, and “Not set yet” for stages that haven’t started. Put the date in a Container with dir = \"ltr\" so its digits don’t flip after “Since”.",
   "خلفية بيضاء 8% وحد أبيض 18%": "8% white fill and 18% white border",
-  "يرسمه الثيم: خلفية سماوية 16% وحد 50% وتوهّج": "Drawn by the theme: 16% sky fill, 50% border and a glow"
+  "يرسمه الثيم: خلفية سماوية 16% وحد 50% وتوهّج": "Drawn by the theme: 16% sky fill, 50% border and a glow",
+  "ملخص المرحلة: «قطعت الخطة مرحلتين من أربع · المحطة الحالية: مراجعة المكتب»، والعدد بخط عريض (Escape Content = No مع <b>)": "Stage summary: “The plan has passed 2 of 4 stages · Current stop: office review”, with the count in bold (Escape Content = No with <b>)"
  },
  "tree": {
   "Expression :: \"mco-icon mco-i-\" + Name + \" mco-size-\" + Size + If(IsFlipped, \" mco-flip\", \"\") + \" \" + ExtraClass :: Value = \"\" · aria-hidden = If(AriaLabel = \"\", \"true\", \"false\") · role = \"img\" و aria-label = AriaLabel عند وجوده": "Expression :: \"mco-icon mco-i-\" + Name + \" mco-size-\" + Size + If(IsFlipped, \" mco-flip\", \"\") + \" \" + ExtraClass :: Value = \"\" · aria-hidden = If(AriaLabel = \"\", \"true\", \"false\") · role = \"img\" and aria-label = AriaLabel when set",
