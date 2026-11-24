@@ -319,8 +319,8 @@ def build(I):
                     hstat('task-square', 'عدد الأهداف', '4'), hstat('calendar-2', 'عدد أنشطة التواصل', '12'), hstat('global', 'عدد الدول المستهدفة', '8'))
     dark = lambda inner: '<div class="pv-dark" style="padding:24px;border-radius:12px;background:var(--color-blue-950)">%s</div>' % inner
     P['PLANHERO'] = ('<div class="pv-stack" style="gap:24px">%s<span class="pv-k">معاد بملاحظات من مكتب تواصل الوزراء · <bdi dir="ltr">State = onHold</bdi></span>%s</div>') % (
-        planhero([S_DONE1, S_DONE2, S_REVIEW3, S_WAIT4], 'قطعت الخطة مرحلتين من أربع · المحطة الحالية: مراجعة المكتب'),
-        planhero([S_DONE1, S_DONE2, ('onHold', 'warning', 'اعتماد مكتب تواصل الوزراء', 'معاد بملاحظات', '01-06-2026'), S_WAIT4], 'قطعت الخطة مرحلتين من أربع · المحطة الحالية: تعديل الخطة', False))
+        planhero([S_DONE1, S_DONE2, S_REVIEW3, S_WAIT4], 'قطعت الخطة <b>مرحلتين من أربع</b> · المحطة الحالية: مراجعة المكتب'),
+        planhero([S_DONE1, S_DONE2, ('onHold', 'warning', 'اعتماد مكتب تواصل الوزراء', 'معاد بملاحظات', '01-06-2026'), S_WAIT4], 'قطعت الخطة <b>مرحلتين من أربع</b> · المحطة الحالية: تعديل الخطة', False))
     P['HEROBTN'] = dark('<div class="pv-row">%s%s%s</div>' % (herobtn('task-square', 'الأهداف الاستراتيجية'), herobtn('global', 'أولويات الدول'), herobtn('calendar', 'عرض التقويم')))
     P['TLHERO'] = '<div class="pv-stack" style="margin-top:24px"><span class="pv-k">نسخة رأس الخطة · <bdi dir="ltr">ExtraClass = "mco-timeline--hero"</bdi></span>%s</div>' % dark(tl_hero([
         S_DONE1, ('onHold', 'warning', 'اعتماد الوزارة', 'معاد بملاحظات', '22-05-2026'), ('failure', 'danger', 'اعتماد مكتب تواصل الوزراء', 'مرفوضة', '01-06-2026'), ('inProgress', 'info', 'إعادة الرفع', 'تحت المراجعة', 'منذ 05-06-2026'), S_WAIT4]))
