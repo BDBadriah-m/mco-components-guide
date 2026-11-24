@@ -462,7 +462,31 @@
   "زر تبديل الوضع الفاتح/الداكن في الشريط العلوي": "Light/dark mode toggle in the top strip",
   "الوضع الحالي: يحدد أيقونة الزر": "Current mode: sets the button icon",
   "الشاشة تبدّل data-theme على <html> وتحدّث IsDark": "The screen switches data-theme on <html> and updates IsDark",
-  "زر الوضع (قبل زر اللغة) يعرض الوضع اللي ينتقل له المستخدم: قمر moon في الفاتح، وشمس sun في الداكن. لا يوضع في Placeholder Tools بأيقونة ثابتة.": "The mode button (before the language switch) shows the mode the user will switch to: moon in light mode, sun in dark mode. Don't put it in the Tools placeholder with a fixed icon."
+  "زر الوضع (قبل زر اللغة) يعرض الوضع اللي ينتقل له المستخدم: قمر moon في الفاتح، وشمس sun في الداكن. لا يوضع في Placeholder Tools بأيقونة ثابتة.": "The mode button (before the language switch) shows the mode the user will switch to: moon in light mode, sun in dark mode. Don't put it in the Tools placeholder with a fixed icon.",
+  "False يخفي أزرار الرأس": "False hides the header buttons",
+  "Subtitle يُحسب من Stages: عدد المراحل المكتملة من مجموعها، والمحطة الحالية = أول مرحلة غير مكتملة. لا تكتبه ثابتاً حتى ما يختلف عن الخط الزمني.": "Compute Subtitle from Stages: completed stages out of the total, and the current stop = the first stage that isn’t completed. Don’t hard-code it, so it never contradicts the timeline.",
+  "Text = \"رحلة اعتماد الخطة\"": "Text = \"Plan approval journey\"",
+  "{Label, Value, Icon}: عدد الأهداف · عدد أنشطة التواصل · عدد الدول المستهدفة": "{Label, Value, Icon}: goals · communication activities · target countries",
+  "أعلى شاشة الخطة السنوية: خلفية كحلية متدرّجة بتموّجات، وسطر علوي واسم الخطة ووصف يلخّص مرحلتها، وأزرار الخطة في نهاية السطر، ورحلة اعتماد الخطة كخط زمني، وتحتها بطاقة مؤشرات بيضاء تطفو على حافة الرأس.": "Top of the annual plan screen: a navy gradient with ripples, an eyebrow line, the plan name and a summary of its stage, the plan buttons at the end of the line, the plan approval journey as a timeline, and a white indicators card floating on the header’s edge.",
+  "الخطة السنوية": "Annual plan",
+  "السطر العلوي: «رحلة اعتماد الخطة» أو اسم الوزارة": "Top line: “Plan approval journey” or the ministry name",
+  "تحت 900px تنزل الأزرار تحت العنوان، ويتمرّر الخط الزمني أفقياً، وتصير المؤشرات فوق بعض.": "Below 900px the buttons move under the title, the timeline scrolls horizontally, and the indicators stack.",
+  "ترتيب العناصر هو ترتيب القراءة: العنوان ثم الأزرار، فتظهر الأزرار في نهاية السطر (يسار في العربي).": "Element order is reading order: title, then buttons, so the buttons sit at the end of the line (left in Arabic).",
+  "حالات Figma في نسخة hero: مكتمل = success، تحت المراجعة = inProgress (دائرة مضيئة)، معاد بملاحظات = onHold (علامة !)، مرفوض = failure (علامة ×)، لم تبدأ = notStarted (دائرة متقطّعة).": "Figma states in the hero version: Completed = success, Under review = inProgress (glowing circle), Returned with notes = onHold (! mark), Rejected = failure (× mark), Not started = notStarted (dashed circle).",
+  "رأس الخطة السنوية": "Annual plan header",
+  "رأس الخطة يبقى داكناً في الوضعين، وبطاقة المؤشرات تتبع ألوان الوضع الداكن.": "The header stays dark in both modes; the indicators card follows dark mode colors.",
+  "زر رأس الخطة": "Plan header button",
+  "زر شفاف على الخلفية الداكنة في رأس الخطة السنوية: أيقونة ونص 13px عريض، وحد أبيض خفيف. عند المرور يتلوّن بالسماوي مع توهّج.": "A translucent button on the dark annual plan header: icon and 13px bold text with a light white border. On hover it turns sky blue with a glow.",
+  "على خلفية داكنة (رأس الخطة السنوية مثلاً): ExtraClass = \"mco-status--on-dark\" مع Size = \"small\". الخلفية شفافة بلون الحالة والنص أفتح، فيبقى مقروءاً على الكحلي. داخل MCO_Timeline بنسخة hero تُطبَّق تلقائياً.": "On a dark background (e.g. the annual plan header): ExtraClass = \"mco-status--on-dark\" with Size = \"small\". The fill is a translucent status color and the text is lighter, so it stays readable on navy. Inside the hero version of MCO_Timeline it applies automatically.",
+  "للخلفيات الداكنة فقط (داخل mco-planhero__actions). على الخلفية البيضاء استخدم btn العادي.": "For dark backgrounds only (inside mco-planhero__actions). On white, use the regular btn.",
+  "مثل: الخطة السنوية لعام 2026": "e.g. 2026 Annual Plan",
+  "مراحل الاعتماد بالترتيب (نفس Structure حق MCO_Timeline)": "Approval stages in order (same Structure as MCO_Timeline)",
+  "ملخص المرحلة: «قطعت الخطة مرحلتين من أربع · المحطة الحالية: مراجعة المكتب»": "Stage summary: “The plan has passed 2 of 4 stages · Current stop: office review”",
+  "من 1 إلى 3 أزرار «btn mco-herobtn»": "1 to 3 “btn mco-herobtn” buttons",
+  "نسخة رأس الخطة السنوية (Figma «Timeline stage» 1053:8182): ExtraClass = \"mco-timeline--hero\" على خلفية داكنة. الدائرة فوق الاسم، والخط بين المراحل متصل حتى المرحلة الحالية ومتقطّع بعدها، وأيقونة التاريخ مخفية. أول وآخر مرحلة بدون خط خارجي تلقائياً.": "Annual plan header version (Figma “Timeline stage” 1053:8182): ExtraClass = \"mco-timeline--hero\" on a dark background. The circle sits above the name, the line is solid up to the current stage and dashed after it, and the date icon is hidden. The first and last stages drop their outer line automatically.",
+  "نص التاريخ في نسخة hero: «منذ» + التاريخ للمرحلة تحت المراجعة، و«لم يُحدد بعد» للمرحلة اللي ما بدأت. التاريخ في Container بـ dir = \"ltr\" حتى ما تنقلب أرقامه بعد «منذ».": "Date text in the hero version: “Since” + date for the stage under review, and “Not set yet” for stages that haven’t started. Put the date in a Container with dir = \"ltr\" so its digits don’t flip after “Since”.",
+  "خلفية بيضاء 8% وحد أبيض 18%": "8% white fill and 18% white border",
+  "يرسمه الثيم: خلفية سماوية 16% وحد 50% وتوهّج": "Drawn by the theme: 16% sky fill, 50% border and a glow"
  },
  "tree": {
   "Expression :: \"mco-icon mco-i-\" + Name + \" mco-size-\" + Size + If(IsFlipped, \" mco-flip\", \"\") + \" \" + ExtraClass :: Value = \"\" · aria-hidden = If(AriaLabel = \"\", \"true\", \"false\") · role = \"img\" و aria-label = AriaLabel عند وجوده": "Expression :: \"mco-icon mco-i-\" + Name + \" mco-size-\" + Size + If(IsFlipped, \" mco-flip\", \"\") + \" \" + ExtraClass :: Value = \"\" · aria-hidden = If(AriaLabel = \"\", \"true\", \"false\") · role = \"img\" and aria-label = AriaLabel when set",
@@ -553,6 +577,9 @@
   "Expression :: mco-tchart__tag :: \"الربع الحالي\"": "Expression :: mco-tchart__tag :: \"Current quarter\"",
   "If :: — :: ShowThemeToggle": "If :: — :: ShowThemeToggle",
   "Button :: mco-nav__tool mco-nav__theme :: OnClick → OnThemeToggle · aria-pressed = IsDark · aria-label = If(IsDark, \"التبديل إلى الوضع الفاتح\", \"التبديل إلى الوضع الداكن\")": "Button :: mco-nav__tool mco-nav__theme :: OnClick → OnThemeToggle · aria-pressed = IsDark · aria-label = If(IsDark, \"Switch to light mode\", \"Switch to dark mode\")",
-  "MCO_Icon :: — :: Name = If(IsDark, \"sun\", \"moon\") · Size = 24": "MCO_Icon :: — :: Name = If(IsDark, \"sun\", \"moon\") · Size = 24"
+  "MCO_Icon :: — :: Name = If(IsDark, \"sun\", \"moon\") · Size = 24": "MCO_Icon :: — :: Name = If(IsDark, \"sun\", \"moon\") · Size = 24",
+  "HTML Element (section) :: \"mco-planhero \" + ExtraClass :: aria-labelledby = Id الخاص بالعنوان": "HTML Element (section) :: \"mco-planhero \" + ExtraClass :: aria-labelledby = the title’s Id",
+  "MCO_Icon :: — :: Name = \"task-square\" · Size = 20 (الأيقونة قبل النص)": "MCO_Icon :: — :: Name = \"task-square\" · Size = 20 (icon before the text)",
+  "Text :: — :: \"الأهداف الاستراتيجية\"": "Text :: — :: \"Strategic goals\""
  }
 }

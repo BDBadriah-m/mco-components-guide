@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 """معاينات المكوّنات اللي ما لها مقابل في bundle.js (مكوّنات Figma الجديدة وتحديثاتها).
 كل معاينة HTML بنفس الكلاسات اللي تبنيها شجرة الودجات، وأزرارها btn من OutSystems UI."""
-import base64, os, urllib.parse
+import base64, os, re, urllib.parse
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 ASSETS = os.path.join(HERE, '..', 'assets')
@@ -294,4 +294,37 @@ def build(I):
             '<div class="mco-tchart__curve">%s</div>' % tchart_svg(vals) if has_data else '', qs,
             '' if has_data else '<div class="mco-tchart__empty">%s<span class="mco-tchart__empty-title">لا توجد بيانات بعد</span><span class="mco-tchart__empty-hint">أدخل نسبة المستهدف لكل ربع ليظهر الرسم البياني</span></div>' % I('chart', 28))
     P['TCHART'] = '<div class="pv-stack" style="gap:16px">%s<span class="pv-k">HasData = False</span>%s</div>' % (tchart([20, 45, 70, 100], 2), tchart([0, 0, 0, 0], 2, False))
+
+    # 11.20 رأس الخطة السنوية («Plan hero» 1055:8121، من Sprint 2) — زر الرأس، والخط الزمني بنسخة hero، والشارة على الخلفية الداكنة
+    herobtn = lambda ic, label: '<button type="button" class="btn mco-herobtn">%s<span>%s</span></button>' % (I(ic, 20), label)
+    def tl_stage(state, status, name, label, date):
+        glyph = I('check', 12) if state == 'success' else ''
+        return ('<li class="mco-tl mco-tl--%s"><span class="mco-tl__name">%s</span><span class="mco-tl__track"><span aria-hidden="true" class="mco-tl__dot">%s</span></span>'
+                '<span class="mco-status mco-status--%s mco-status--small"><span aria-hidden="true" class="mco-status__dot"></span>%s</span>'
+                '<span class="mco-tl__date">%s%s</span></li>') % (state, name, glyph, status, label, I('calendar', 16), re.sub(r'(\d[\d-]+)', r'<bdi dir="ltr">\1</bdi>', date))
+    def tl_hero(stages):
+        return '<ol class="mco-timeline mco-timeline--hero">%s</ol>' % ''.join(tl_stage(*x) for x in stages)
+    S_DONE1 = ('success', 'success', 'رفع الخطة', 'مكتملة', '10-05-2026')
+    S_DONE2 = ('success', 'success', 'اعتماد الوزارة', 'مكتملة', '22-05-2026')
+    S_REVIEW3 = ('inProgress', 'info', 'اعتماد مكتب تواصل الوزراء', 'تحت المراجعة', 'منذ 01-06-2026')
+    S_WAIT4 = ('notStarted', 'default', 'اعتماد الخطة', 'لم تبدأ بعد', 'لم يُحدد بعد')
+    hstat = lambda ic, label, value: ('<div class="mco-planhero__stat"><span class="mco-planhero__stat-icon" aria-hidden="true">%s</span><div class="mco-planhero__stat-text">'
+                                      '<span class="mco-planhero__stat-label">%s</span><span class="mco-planhero__stat-value">%s</span></div></div>') % (I(ic, 22), label, value)
+    def planhero(stages, sub, actions=True):
+        acts = '<div class="mco-planhero__actions">%s%s%s</div>' % (herobtn('task-square', 'الأهداف الاستراتيجية'), herobtn('global', 'أولويات الدول'), herobtn('calendar', 'عرض التقويم')) if actions else ''
+        return ('<section class="mco-planhero" aria-labelledby="ph-title"><div class="mco-planhero__top"><div class="mco-planhero__head"><div class="mco-planhero__titles">'
+                '<span class="mco-planhero__eyebrow">رحلة اعتماد الخطة</span><h3 class="mco-planhero__title" id="ph-title">الخطة السنوية لعام 2026</h3>'
+                '<p class="mco-planhero__subtitle">%s</p></div>%s</div>%s</div>'
+                '<div class="mco-planhero__stats">%s%s%s</div></section>') % (sub, acts, tl_hero(stages),
+                    hstat('task-square', 'عدد الأهداف', '4'), hstat('calendar-2', 'عدد أنشطة التواصل', '12'), hstat('global', 'عدد الدول المستهدفة', '8'))
+    dark = lambda inner: '<div class="pv-dark" style="padding:24px;border-radius:12px;background:var(--color-blue-950)">%s</div>' % inner
+    P['PLANHERO'] = ('<div class="pv-stack" style="gap:24px">%s<span class="pv-k">معاد بملاحظات من مكتب تواصل الوزراء · <bdi dir="ltr">State = onHold</bdi></span>%s</div>') % (
+        planhero([S_DONE1, S_DONE2, S_REVIEW3, S_WAIT4], 'قطعت الخطة مرحلتين من أربع · المحطة الحالية: مراجعة المكتب'),
+        planhero([S_DONE1, S_DONE2, ('onHold', 'warning', 'اعتماد مكتب تواصل الوزراء', 'معاد بملاحظات', '01-06-2026'), S_WAIT4], 'قطعت الخطة مرحلتين من أربع · المحطة الحالية: تعديل الخطة', False))
+    P['HEROBTN'] = dark('<div class="pv-row">%s%s%s</div>' % (herobtn('task-square', 'الأهداف الاستراتيجية'), herobtn('global', 'أولويات الدول'), herobtn('calendar', 'عرض التقويم')))
+    P['TLHERO'] = '<div class="pv-stack" style="margin-top:24px"><span class="pv-k">نسخة رأس الخطة · <bdi dir="ltr">ExtraClass = "mco-timeline--hero"</bdi></span>%s</div>' % dark(tl_hero([
+        S_DONE1, ('onHold', 'warning', 'اعتماد الوزارة', 'معاد بملاحظات', '22-05-2026'), ('failure', 'danger', 'اعتماد مكتب تواصل الوزراء', 'مرفوضة', '01-06-2026'), ('inProgress', 'info', 'إعادة الرفع', 'تحت المراجعة', 'منذ 05-06-2026'), S_WAIT4]))
+    sd = lambda st, label: '<span class="mco-status mco-status--%s mco-status--on-dark"><span aria-hidden="true" class="mco-status__dot"></span>%s</span>' % (st, label)
+    P['STATUSDARK'] = '<div class="pv-stack" style="margin-top:24px"><span class="pv-k">على خلفية داكنة · <bdi dir="ltr">ExtraClass = "mco-status--on-dark"</bdi></span>%s</div>' % dark(
+        '<div class="pv-row">%s%s%s%s%s</div>' % (sd('success', 'مكتملة'), sd('info', 'تحت المراجعة'), sd('warning', 'معاد بملاحظات'), sd('danger', 'مرفوضة'), sd('default', 'لم تبدأ بعد')))
     return P

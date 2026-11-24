@@ -474,6 +474,10 @@ def build():
     # الحوار المضمّن الصغير بزر جانبي (Figma 1021:8123) تحت أمثلة MCO_InlineDialog
     if 'dialog' in rp and rp['dialog'].endswith('</div>'):
         rp['dialog'] = rp['dialog'][:-len('</div>')] + op['DLGSMALL'] + '</div>'
+    # 11.20 نسخة رأس الخطة من MCO_Timeline، والشارة على الخلفية الداكنة، تحت أمثلة bundle.js
+    for k, extra in (('timeline', 'TLHERO'), ('status', 'STATUSDARK')):
+        if k in rp:
+            rp[k] = '<div class="pv-stack" style="gap:0">%s%s</div>' % (rp[k], op[extra])
     for LANG in ('ar', 'en'):
         page_for(rp, op)
 

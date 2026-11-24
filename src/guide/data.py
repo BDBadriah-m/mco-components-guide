@@ -7,7 +7,7 @@ OS, BLOCK, MIX = 'os', 'block', 'mix'
 SECTIONS = [
  {'id': 's1', 'title': 'المكونات الفردية', 'lead': 'العناصر الصغيرة اللي تُستخدم داخل أي شاشة أو Block: الأيقونات والأزرار والحقول وعناصر التنقل.', 'groups': [
   {'title': 'الأساسيات', 'items': ['icon', 'status', 'ctag', 'stat', 'avatar', 'ifield', 'datetile', 'fact']},
-  {'title': 'الأزرار', 'items': ['button']},
+  {'title': 'الأزرار', 'items': ['button', 'herobtn']},
   {'title': 'حقول الإدخال والاختيار', 'items': ['textfield', 'dropdown', 'chips', 'checkbox', 'radio', 'switch', 'choicecard']},
   {'title': 'عناصر التنقل', 'items': ['tabs', 'maintabs', 'pagination', 'csteps', 'wizard']},
  ]},
@@ -18,6 +18,7 @@ SECTIONS = [
   {'title': 'عرض البيانات', 'items': ['table', 'filterbar', 'pfooter', 'mcard', 'info', 'points', 'quarters', 'tchart', 'timeline', 'addmore']},
   {'title': 'عرض التفاصيل للقراءة فقط', 'items': ['dhead', 'summary', 'cardhead', 'record', 'activity', 'file', 'slide', 'dcard', 'xtext', 'gallery', 'person', 'addbanner']},
   {'title': 'صفحة الخدمة', 'items': ['svchero', 'svcsteps', 'phase', 'svcpage']},
+  {'title': 'الخطة السنوية', 'items': ['planhero']},
  ]},
 ]
 
@@ -46,6 +47,7 @@ C['status'] = dict(name='شارة الحالة', mco='MCO_StatusBadge', kind=BLO
     If :: — :: ShowDot
       Container :: mco-status__dot :: aria-hidden = "true"
     Expression :: — :: Value = Label''',
+ notes=['على خلفية داكنة (رأس الخطة السنوية مثلاً): ExtraClass = "mco-status--on-dark" مع Size = "small". الخلفية شفافة بلون الحالة والنص أفتح، فيبقى مقروءاً على الكحلي. داخل MCO_Timeline بنسخة hero تُطبَّق تلقائياً.'],
  preview_js="row([h(M.StatusBadge,null,'مسودة'),h(M.StatusBadge,{status:'success'},'مكتمل'),h(M.StatusBadge,{status:'info'},'قيد المعالجة'),h(M.StatusBadge,{status:'warning'},'بانتظار الاعتماد'),h(M.StatusBadge,{status:'danger'},'مرفوض'),h(M.StatusBadge,{status:'success',size:'small'},'صغير'),h(M.StatusBadge,{status:'info',dot:false},'بدون نقطة')])")
 
 C['ctag'] = dict(name='اسم الدولة أو الجهة', mco='MCO_CountryTag', kind=BLOCK,
@@ -605,7 +607,10 @@ C['timeline'] = dict(name='الخط الزمني', mco='MCO_Timeline', kind=BLOC
       Container :: mco-tl__date
         MCO_Icon :: — :: Name = "calendar" · Size = 16
         Expression :: — :: Value = Date''',
- notes=['StateToStatus: success → success، inProgress → info، onHold → warning، failure → danger، notStarted → default.'],
+ notes=['StateToStatus: success → success، inProgress → info، onHold → warning، failure → danger، notStarted → default.',
+        'نسخة رأس الخطة السنوية (Figma «Timeline stage» 1053:8182): ExtraClass = "mco-timeline--hero" على خلفية داكنة. الدائرة فوق الاسم، والخط بين المراحل متصل حتى المرحلة الحالية ومتقطّع بعدها، وأيقونة التاريخ مخفية. أول وآخر مرحلة بدون خط خارجي تلقائياً.',
+        'حالات Figma في نسخة hero: مكتمل = success، تحت المراجعة = inProgress (دائرة مضيئة)، معاد بملاحظات = onHold (علامة !)، مرفوض = failure (علامة ×)، لم تبدأ = notStarted (دائرة متقطّعة).',
+        'نص التاريخ في نسخة hero: «منذ» + التاريخ للمرحلة تحت المراجعة، و«لم يُحدد بعد» للمرحلة اللي ما بدأت. التاريخ في Container بـ dir = "ltr" حتى ما تنقلب أرقامه بعد «منذ».'],
  preview_js="h(M.Timeline,{stages:[{name:'التخطيط',state:'success',statusLabel:'مكتملة',date:'20-10-2026'},{name:'الاعتماد',state:'inProgress',statusLabel:'قيد التنفيذ',date:'05-11-2026'},{name:'التنفيذ',state:'onHold',statusLabel:'معلّقة',date:'20-11-2026'},{name:'المراجعة',state:'failure',statusLabel:'متعثرة',date:'01-12-2026'},{name:'الإغلاق',state:'notStarted',statusLabel:'لم تبدأ',date:'20-12-2026'}]})")
 
 C['addmore'] = dict(name='إضافة المزيد', mco='MCO_AddMore', kind=BLOCK,
@@ -804,7 +809,53 @@ C['svcpage'] = dict(name='قالب صفحة الخدمة', mco='Screen: ServiceL
         'بين أقسام المحتوى 24px، والمحتوى بعرض أقصى 1304px في منتصف الصفحة.'],
  preview='SVCPAGE')
 
-NEW = {'tchart', 'fsection', 'ifield', 'svchero', 'svcsteps', 'phase', 'svcpage', 'dialog', 'csteps', 'avatar', 'ifield', 'datetile', 'fact', 'cardhead', 'activity', 'file', 'dhead', 'loader', 'footer', 'fsection', 'empty', 'record', 'stat', 'maintabs', 'usercard', 'summary', 'slide', 'dcard', 'xtext', 'gallery', 'person', 'addbanner'}
+
+C['herobtn'] = dict(name='زر رأس الخطة', mco='Button', kind=OS, figma='1053:8205',
+ summary='زر شفاف على الخلفية الداكنة في رأس الخطة السنوية: أيقونة ونص 13px عريض، وحد أبيض خفيف. عند المرور يتلوّن بالسماوي مع توهّج.',
+ variants=[('Default', 'btn mco-herobtn', 'خلفية بيضاء 8% وحد أبيض 18%'), ('Hover', '—', 'يرسمه الثيم: خلفية سماوية 16% وحد 50% وتوهّج')],
+ tree="""Button :: btn mco-herobtn :: OnClick = …
+  MCO_Icon :: — :: Name = "task-square" · Size = 20 (الأيقونة قبل النص)
+  Text :: — :: "الأهداف الاستراتيجية\"""",
+ notes=['للخلفيات الداكنة فقط (داخل mco-planhero__actions). على الخلفية البيضاء استخدم btn العادي.'],
+ css=['mco-herobtn'], preview='HEROBTN')
+
+C['planhero'] = dict(name='رأس الخطة السنوية', mco='MCO_PlanHero', kind=BLOCK, figma='1055:8121',
+ summary='أعلى شاشة الخطة السنوية: خلفية كحلية متدرّجة بتموّجات، وسطر علوي واسم الخطة ووصف يلخّص مرحلتها، وأزرار الخطة في نهاية السطر، ورحلة اعتماد الخطة كخط زمني، وتحتها بطاقة مؤشرات بيضاء تطفو على حافة الرأس.',
+ inputs=[('Eyebrow', 'Text = "رحلة اعتماد الخطة"', 'السطر العلوي: «رحلة اعتماد الخطة» أو اسم الوزارة'), ('Title', 'Text', 'مثل: الخطة السنوية لعام 2026'),
+         ('Subtitle', 'Text', 'ملخص المرحلة: «قطعت الخطة مرحلتين من أربع · المحطة الحالية: مراجعة المكتب»'),
+         ('Stages', 'List of MCO_Stage', 'مراحل الاعتماد بالترتيب (نفس Structure حق MCO_Timeline)'),
+         ('Indicators', 'List of MCO_Indicator', '{Label, Value, Icon}: عدد الأهداف · عدد أنشطة التواصل · عدد الدول المستهدفة'),
+         ('ShowActions', 'Boolean = True', 'False يخفي أزرار الرأس')],
+ placeholders=[('Actions', 'من 1 إلى 3 أزرار «btn mco-herobtn»')],
+ tree="""MCO_PlanHero :: — :: Block
+  HTML Element (section) :: "mco-planhero " + ExtraClass :: aria-labelledby = Id الخاص بالعنوان
+    Container :: mco-planhero__top
+      Container :: mco-planhero__head
+        Container :: mco-planhero__titles
+          If :: — :: Eyebrow <> ""
+            Expression :: mco-planhero__eyebrow :: Value = Eyebrow
+          HTML Element (h1) :: mco-planhero__title
+            Expression :: — :: Value = Title
+          HTML Element (p) :: mco-planhero__subtitle
+            Expression :: — :: Value = Subtitle
+        If :: — :: ShowActions
+          Container :: mco-planhero__actions
+            Placeholder :: — :: Actions
+      MCO_Timeline :: — :: Stages = Stages · ExtraClass = "mco-timeline--hero"
+    List :: mco-planhero__stats :: Source = Indicators
+      Container :: mco-planhero__stat
+        Container :: mco-planhero__stat-icon :: aria-hidden = "true"
+          MCO_Icon :: — :: Name = Indicators.Current.Icon · Size = 22
+        Container :: mco-planhero__stat-text
+          Expression :: mco-planhero__stat-label :: Value = Label
+          Expression :: mco-planhero__stat-value :: Value = Value""",
+ notes=['ترتيب العناصر هو ترتيب القراءة: العنوان ثم الأزرار، فتظهر الأزرار في نهاية السطر (يسار في العربي).',
+        'Subtitle يُحسب من Stages: عدد المراحل المكتملة من مجموعها، والمحطة الحالية = أول مرحلة غير مكتملة. لا تكتبه ثابتاً حتى ما يختلف عن الخط الزمني.',
+        'رأس الخطة يبقى داكناً في الوضعين، وبطاقة المؤشرات تتبع ألوان الوضع الداكن.',
+        'تحت 900px تنزل الأزرار تحت العنوان، ويتمرّر الخط الزمني أفقياً، وتصير المؤشرات فوق بعض.'],
+ preview='PLANHERO')
+
+NEW = {'planhero', 'herobtn', 'tchart', 'fsection', 'ifield', 'svchero', 'svcsteps', 'phase', 'svcpage', 'dialog', 'csteps', 'avatar', 'ifield', 'datetile', 'fact', 'cardhead', 'activity', 'file', 'dhead', 'loader', 'footer', 'fsection', 'empty', 'record', 'stat', 'maintabs', 'usercard', 'summary', 'slide', 'dcard', 'xtext', 'gallery', 'person', 'addbanner'}
 
 C['stat'] = dict(name='بطاقة الرقم', mco='MCO_StatTile', kind=BLOCK, figma='467:12414',
  summary='رقم أو تاريخ بارز مع عنوانه وأيقونة في مربع متدرّج، داخل بطاقة الملخص أو أي لوحة أرقام.',

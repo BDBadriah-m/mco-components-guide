@@ -2391,6 +2391,101 @@ button.mco-avatar { cursor: pointer; } button.mco-avatar:hover { background: var
 .mco-tchart__empty-title { font-size: 14px; line-height: 20px; font-weight: 700; color: var(--color-text-primary); }
 .mco-tchart__empty-hint { font-size: 12px; line-height: 20px; color: var(--color-text-tertiary); }
 
+/* 11.20 رأس الخطة السنوية — MCO_PlanHero («Plan hero / رأس الخطة السنوية» 1055:8121، من Sprint 2 91:9904)
+   خلفية داكنة متدرّجة بتموّجات، سطر علوي وعنوان ووصف، أزرار الخطة (mco-herobtn) في نهاية السطر،
+   MCO_Timeline بنسخة hero، وتحتها بطاقة مؤشرات بيضاء عائمة.
+   ألوانه متغيرات Figma (sky/… وalpha/…) غير الموجودة في ملف التوكنز المصدَّر بعد، فمعرّفة هنا بنفس أسمائها،
+   وتنتقل لملف التوكنز في المزامنة الجاية. الدرجات المتقاربة موحّدة: 18 لوناً (كانت 28). */
+:root {
+  --color-sky-100: #CFE8FB; --color-sky-300: #8CC8F2; --color-green-350: #5BE3A4; --color-amber-350: #FACB6A; --color-red-350: #FF8A94;
+  --color-alpha-white-8: rgba(255, 255, 255, .08); --color-alpha-white-18: rgba(255, 255, 255, .18); --color-alpha-white-28: rgba(255, 255, 255, .28);
+  --color-alpha-white-50: rgba(255, 255, 255, .5); --color-alpha-white-65: rgba(255, 255, 255, .65);
+  --color-alpha-sky-16: rgba(140, 200, 242, .16); --color-alpha-sky-35: rgba(140, 200, 242, .35); --color-alpha-sky-50: rgba(140, 200, 242, .5);
+  --color-alpha-green-16: rgba(91, 227, 164, .16); --color-alpha-amber-16: rgba(253, 191, 33, .16); --color-alpha-red-18: rgba(255, 59, 78, .18);
+  --color-alpha-navy-4: rgba(7, 63, 104, .04); --color-alpha-navy-14: rgba(7, 63, 104, .14);
+}
+.mco-planhero { position: relative; display: flex; flex-direction: column; }
+.mco-planhero__top { position: relative; isolation: isolate; overflow: hidden; display: flex; flex-direction: column; gap: 36px; padding: var(--space-32) var(--space-32) 84px; border-radius: 12px;
+  background: linear-gradient(calc(var(--mco-ga) + 15deg * var(--mco-dir)), var(--color-action-primary-default) 0%, var(--color-blue-950) 55%, var(--color-blue-950) 100%); color: var(--color-base-white); }
+.mco-planhero__top::before, .mco-planhero__top::after { content: ""; position: absolute; z-index: -1; pointer-events: none; border-radius: 50%;
+  background: repeating-radial-gradient(circle, transparent 0 11px, var(--color-alpha-white-65) 11px 12px); }
+.mco-planhero__top::before { width: 816px; height: 816px; top: -132px; inset-inline-start: calc(100% - 312px); opacity: .12;
+  -webkit-mask-image: radial-gradient(closest-side, #000, transparent); mask-image: radial-gradient(closest-side, #000, transparent); }
+.mco-planhero__top::after { width: 288px; height: 288px; top: -2px; inset-inline-start: calc(100% - 282px); opacity: .1;
+  -webkit-mask-image: radial-gradient(closest-side, #000 20%, transparent); mask-image: radial-gradient(closest-side, #000 20%, transparent); }
+.mco-planhero__head { display: flex; align-items: flex-start; justify-content: space-between; gap: var(--space-24); }
+.mco-planhero__titles { display: flex; flex-direction: column; gap: var(--space-8); min-width: 0; }
+.mco-planhero__eyebrow { display: inline-flex; align-items: center; gap: var(--space-8); font-size: 13px; line-height: 15px; font-weight: 700; color: var(--color-sky-300); }
+.mco-planhero__eyebrow::after { content: ""; width: 24px; height: 1px; background: currentColor; }
+.mco-planhero__title { margin: 0; font-size: 34px; line-height: 44px; font-weight: 800; color: var(--color-base-white); }
+.mco-planhero__subtitle { margin: 0; font-size: 14px; line-height: 20px; color: var(--color-base-white); }
+.mco-planhero__subtitle b, .mco-planhero__subtitle strong { font-weight: 700; }
+.mco-planhero__actions { flex: none; display: flex; flex-wrap: wrap; justify-content: flex-end; gap: var(--space-8); }
+/* زر رأس الخطة — Button بكلاس «btn mco-herobtn» («Plan hero button» 1053:8205): شفاف على الخلفية الداكنة */
+.btn.mco-herobtn { height: 40px; min-height: 40px; padding: 0 14px; gap: var(--space-8); border-radius: 8px; border: 1px solid var(--color-alpha-white-18); background: var(--color-alpha-white-8);
+  color: var(--color-base-white); font-size: 13px; line-height: 15px; font-weight: 700; box-shadow: none; transition: background-color .15s, border-color .15s, box-shadow .15s; }
+.btn.mco-herobtn .mco-icon { width: 20px; height: 20px; color: var(--color-sky-300); }
+.btn.mco-herobtn:hover, .btn.mco-herobtn:focus-visible { background: var(--color-alpha-sky-16); border-color: var(--color-alpha-sky-50); color: var(--color-base-white); box-shadow: 0 0 16px var(--color-alpha-sky-35); }
+.btn.mco-herobtn:hover:active { background: var(--color-alpha-sky-35); }
+/* MCO_Timeline بنسخة hero (ExtraClass = "mco-timeline--hero"): الدائرة فوق الاسم، وخط واصل بين المراحل.
+   «معاد بملاحظات» = State onHold. Line in = جهة المرحلة السابقة (بداية السطر)، Line out = جهة التالية. */
+.mco-timeline--hero { gap: 0; }
+.mco-timeline--hero .mco-tl { min-width: 150px; align-items: center; gap: 10px; text-align: center; }
+.mco-timeline--hero .mco-tl__track { order: -1; height: 30px; justify-content: center; }
+.mco-timeline--hero .mco-tl__track::before, .mco-timeline--hero .mco-tl__track::after { content: ""; display: block; position: absolute; top: 50%; height: 2px; transform: translateY(-50%);
+  background: repeating-linear-gradient(90deg, var(--color-alpha-white-28) 0 6px, transparent 6px 11px); }
+.mco-timeline--hero .mco-tl__track::before { inset-inline-start: 0; inset-inline-end: calc(50% + 15px); }
+.mco-timeline--hero .mco-tl__track::after { inset-inline-start: calc(50% + 15px); inset-inline-end: 0; }
+.mco-timeline--hero .mco-tl:not(.mco-tl--notStarted) .mco-tl__track::before,
+.mco-timeline--hero .mco-tl--success .mco-tl__track::after { height: 3px; background: var(--color-base-white); box-shadow: 0 0 10px var(--color-sky-300); }
+.mco-timeline--hero .mco-tl:first-child .mco-tl__track::before, .mco-timeline--hero .mco-tl:last-child .mco-tl__track::after { display: none; }
+.mco-timeline--hero .mco-tl__dot { width: 30px; height: 30px; border: 0; background: transparent; color: var(--color-blue-950); }
+.mco-timeline--hero .mco-tl__dot::before { position: absolute; inset: 4px; width: auto; height: auto; border-radius: 50%; background: var(--color-info-900); border: 2px dashed var(--color-alpha-white-50); }
+.mco-timeline--hero .mco-tl__dot .mco-icon { position: relative; }
+.mco-timeline--hero .mco-tl--success .mco-tl__dot { background: transparent; }
+.mco-timeline--hero .mco-tl--success .mco-tl__dot::before { display: block; border: 0; background: var(--color-base-white); box-shadow: 0 0 0 5px var(--color-alpha-white-18); }
+.mco-timeline--hero .mco-tl--inProgress .mco-tl__dot::before { inset: 0; background: var(--color-sky-300); border: 4px solid var(--color-base-white); box-shadow: 0 0 0 8px var(--color-alpha-sky-35), 0 0 30px var(--color-sky-300); }
+.mco-timeline--hero .mco-tl--failure .mco-tl__dot::before { border: 0; background: var(--color-red-400); box-shadow: 0 0 0 5px var(--color-alpha-red-18); }
+.mco-timeline--hero .mco-tl--onHold .mco-tl__dot::before { border: 0; background: var(--color-amber-400); box-shadow: 0 0 0 5px var(--color-alpha-amber-16); }
+.mco-timeline--hero .mco-tl--failure .mco-tl__dot::after, .mco-timeline--hero .mco-tl--onHold .mco-tl__dot::after { content: ""; position: relative; width: 10px; height: 10px; background: var(--color-base-white);
+  -webkit-mask: var(--mco-tl-glyph) center / contain no-repeat; mask: var(--mco-tl-glyph) center / contain no-repeat; }
+.mco-timeline--hero .mco-tl--failure { --mco-tl-glyph: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 10 10'%3E%3Cpath d='M1 1l8 8M9 1L1 9' stroke='%23000' stroke-width='2' stroke-linecap='round'/%3E%3C/svg%3E"); }
+.mco-timeline--hero .mco-tl--onHold { --mco-tl-glyph: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 10 10'%3E%3Cpath d='M5 1v4.5' stroke='%23000' stroke-width='2.2' stroke-linecap='round'/%3E%3Ccircle cx='5' cy='8.4' r='1.3'/%3E%3C/svg%3E"); }
+.mco-timeline--hero .mco-tl--onHold .mco-tl__dot::after { background: var(--color-info-900); }
+.mco-timeline--hero .mco-tl__name { padding-top: 6px; font-size: 14px; line-height: 19px; font-weight: 800; color: var(--color-base-white); }
+.mco-timeline--hero .mco-tl--notStarted .mco-tl__name { color: var(--color-alpha-white-65); }
+.mco-timeline--hero .mco-tl__date { font-size: 12px; line-height: 16px; font-weight: 400; color: var(--color-alpha-white-65); }
+.mco-timeline--hero .mco-tl__date .mco-icon { display: none; }
+/* شارة الحالة على الخلفية الداكنة (داخل رأس الخطة) */
+.mco-timeline--hero .mco-status, .mco-status.mco-status--on-dark { height: 26px; padding: 5px 10px; gap: 6px; border-radius: 8px; font-size: 12px; line-height: 16px; font-weight: 700;
+  background: var(--color-alpha-white-8); color: var(--color-alpha-white-65); }
+.mco-timeline--hero .mco-status__dot, .mco-status--on-dark .mco-status__dot { width: 6px; height: 6px; background: var(--color-alpha-white-50); }
+:is(.mco-timeline--hero .mco-status--success, .mco-status--on-dark.mco-status--success) { background: var(--color-alpha-green-16); color: var(--color-green-300); }
+:is(.mco-timeline--hero .mco-status--success, .mco-status--on-dark.mco-status--success) .mco-status__dot { background: var(--color-green-350); }
+:is(.mco-timeline--hero .mco-status--info, .mco-status--on-dark.mco-status--info) { height: 28px; background: var(--color-alpha-sky-16); border: 1px solid var(--color-alpha-sky-50); color: var(--color-sky-100); }
+:is(.mco-timeline--hero .mco-status--info, .mco-status--on-dark.mco-status--info) .mco-status__dot { background: var(--color-sky-300); }
+:is(.mco-timeline--hero .mco-status--warning, .mco-status--on-dark.mco-status--warning) { background: var(--color-alpha-amber-16); color: var(--color-amber-350); }
+:is(.mco-timeline--hero .mco-status--warning, .mco-status--on-dark.mco-status--warning) .mco-status__dot { background: var(--color-amber-400); }
+:is(.mco-timeline--hero .mco-status--danger, .mco-status--on-dark.mco-status--danger) { background: var(--color-alpha-red-18); color: var(--color-red-350); }
+:is(.mco-timeline--hero .mco-status--danger, .mco-status--on-dark.mco-status--danger) .mco-status__dot { background: var(--color-red-400); }
+/* مؤشرات رأس الخطة: بطاقة بيضاء تطفو 44px فوق حافة الرأس */
+.mco-planhero__stats { position: relative; z-index: 1; display: flex; margin: -44px var(--space-32) 0; border: 1px solid var(--color-bg-brand-soft); border-radius: 12px; background: var(--color-bg-surface);
+  box-shadow: 0 12px 32px var(--color-alpha-navy-14), 0 1px 2px var(--color-alpha-navy-4); }
+.mco-planhero__stat { flex: 1 1 0; min-width: 0; display: flex; align-items: center; gap: 14px; padding: 18px var(--space-24); }
+.mco-planhero__stat + .mco-planhero__stat { border-inline-start: 1px solid var(--color-bg-brand-soft); }
+.mco-planhero__stat-icon { flex: none; width: 44px; height: 44px; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; background: var(--color-bg-brand-soft); color: var(--color-icon-brand); }
+.mco-planhero__stat-icon .mco-icon { width: 22px; height: 22px; }
+.mco-planhero__stat-text { display: flex; flex-direction: column; gap: 4px; min-width: 0; }
+.mco-planhero__stat-label { font-size: 13px; line-height: 15px; color: var(--color-text-tertiary); }
+.mco-planhero__stat-value { font-size: 24px; line-height: 30px; font-weight: 800; color: var(--color-text-brand); }
+@media (max-width: 900px) {
+  .mco-planhero__top { padding: var(--space-24) var(--space-16) 72px; gap: var(--space-24); }
+  .mco-planhero__head { flex-direction: column; } .mco-planhero__actions { justify-content: flex-start; }
+  .mco-planhero__title { font-size: 26px; line-height: 36px; }
+  .mco-planhero .mco-timeline--hero { overflow-x: auto; padding-bottom: var(--space-8); scrollbar-width: thin; }
+  .mco-planhero__stats { flex-direction: column; margin-inline: var(--space-16); }
+  .mco-planhero__stat + .mco-planhero__stat { border-inline-start: 0; border-top: 1px solid var(--color-bg-brand-soft); } }
+
 /* ===========================================================================
    10. دعم الإنجليزي (LTR)
    القاعدة: العربي يضيف OutSystems كلاس is-rtl على body، والإنجليزي بدونه.
