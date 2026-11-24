@@ -962,7 +962,7 @@ C['reportrow'] = dict(name='صف التقرير', mco='MCO_ReportRow', kind=BLOC
 
 C['svccard'] = dict(name='بطاقة الخدمة', mco='MCO_ServiceCard', kind=BLOCK, figma='1172:8718',
  summary='بطاقة خدمة في صفحة الخطة السنوية: أيقونة في مربع متدرّج، وعنوان ووصف ووسوم اختيارية، وزر إجراء أسفل نهاية السطر (يسار في العربي)، مع حلقات زخرفية في الزاوية. عند المرور يتلوّن حد البطاقة ويصير الزر كحلياً.',
- inputs=[('Icon', 'Text = "add"', 'أيقونة المربع'), ('Title', 'Text', ''), ('Description', 'Text', ''), ('CtaLabel', 'Text', ''), ('ShowCta', 'Boolean = True', ''), ('IsDisabled', 'Boolean = False', 'الزر رمادي وبدون حالة مرور')],
+ inputs=[('Icon', 'Text = "add"', 'أيقونة المربع'), ('Title', 'Text', ''), ('Description', 'Text', ''), ('CtaLabel', 'Text', ''), ('CtaIcon', 'Text = "add"', 'أيقونة قبل نص الزر (لأزرار «إضافة …»)'), ('ShowCtaIcon', 'Boolean = True', ''), ('ShowArrow', 'Boolean = False', 'سهم «التالي» بعد النص للأزرار اللي تنقل لصفحة (عرض التقارير)'), ('ShowCta', 'Boolean = True', ''), ('IsDisabled', 'Boolean = False', 'الزر رمادي وبدون حالة مرور')],
  events=[('OnAction', '—')],
  placeholders=[('Tags', 'MCO_Tag داخل Container بكلاس mco-tags')],
  tree="""MCO_ServiceCard :: — :: Block
@@ -977,9 +977,12 @@ C['svccard'] = dict(name='بطاقة الخدمة', mco='MCO_ServiceCard', kind=
       Placeholder :: — :: Tags
     If :: — :: ShowCta
       Button :: mco-svccard__cta :: OnClick → OnAction · Enabled = not IsDisabled
+        If :: — :: ShowCtaIcon
+          MCO_Icon :: — :: Name = CtaIcon · Size = 20
         Expression :: — :: Value = CtaLabel
-        MCO_Icon :: — :: Name = "arrow-left" · Size = 20""",
- notes=['بطاقتان جنب بعض: Container بكلاس mco-svcgrid (عمودان، وعمود واحد تحت 900px).', 'حالة المرور يرسمها الثيم على البطاقة كاملة، وIsDisabled يلغيها.'],
+        If :: — :: ShowArrow
+          MCO_Icon :: — :: Name = "arrow-left" · Size = 20""",
+ notes=['بطاقتان جنب بعض: Container بكلاس mco-svcgrid (عمودان، وعمود واحد تحت 900px).', 'حالة المرور يرسمها الثيم على البطاقة كاملة، وIsDisabled يلغيها.', 'زر «إضافة …»: أيقونة add قبل النص. زر ينقل لصفحة ثانية مثل «عرض التقارير»: ShowCtaIcon = False وShowArrow = True.'],
  preview='SVCCARD')
 
 NEW = {'tag', 'tactions', 'actrow', 'program', 'reportrow', 'svccard', 'planhero', 'herobtn', 'tchart', 'fsection', 'ifield', 'svchero', 'svcsteps', 'phase', 'svcpage', 'dialog', 'csteps', 'avatar', 'ifield', 'datetile', 'fact', 'cardhead', 'activity', 'file', 'dhead', 'loader', 'footer', 'fsection', 'empty', 'record', 'stat', 'maintabs', 'usercard', 'summary', 'slide', 'dcard', 'xtext', 'gallery', 'person', 'addbanner'}

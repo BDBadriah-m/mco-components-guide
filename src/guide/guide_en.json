@@ -519,7 +519,10 @@
   "وسم بحد: نص 12px عريض على خلفية فاتحة بلون النوع، ونقطة اختيارية في بداية السطر. neutral للتصنيف (زيارة، استقبال)، وwarning وsuccess للعدّادات.": "An outlined tag: 12px bold text on a light fill in the type color, with an optional dot at the start. neutral for categories (visit, reception), warning and success for counters.",
   "يختلف عن MCO_StatusBadge: الوسم له حد وارتفاعه 28px، ويُستخدم للتصنيف والعدّادات لا لحالة السجل.": "Unlike MCO_StatusBadge, a tag has a border and is 28px tall, and is used for categories and counters, not record status.",
   "يخفي زر القائمة لو ما فيه إجراءات أخرى": "Hides the menu button when there are no other actions",
-  "يوضع في خلية الإجراءات في Table بدل زر «عرض» وحده.": "Goes in the actions cell of a Table instead of a lone “View” button."
+  "يوضع في خلية الإجراءات في Table بدل زر «عرض» وحده.": "Goes in the actions cell of a Table instead of a lone “View” button.",
+  "أيقونة قبل نص الزر (لأزرار «إضافة …»)": "Icon before the button text (for “Add …” buttons)",
+  "سهم «التالي» بعد النص للأزرار اللي تنقل لصفحة (عرض التقارير)": "“Next” arrow after the text, for buttons that open another page (View reports)",
+  "زر «إضافة …»: أيقونة add قبل النص. زر ينقل لصفحة ثانية مثل «عرض التقارير»: ShowCtaIcon = False وShowArrow = True.": "“Add …” button: add icon before the text. A button that opens another page, like “View reports”: ShowCtaIcon = False and ShowArrow = True."
  },
  "tree": {
   "Expression :: \"mco-icon mco-i-\" + Name + \" mco-size-\" + Size + If(IsFlipped, \" mco-flip\", \"\") + \" \" + ExtraClass :: Value = \"\" · aria-hidden = If(AriaLabel = \"\", \"true\", \"false\") · role = \"img\" و aria-label = AriaLabel عند وجوده": "Expression :: \"mco-icon mco-i-\" + Name + \" mco-size-\" + Size + If(IsFlipped, \" mco-flip\", \"\") + \" \" + ExtraClass :: Value = \"\" · aria-hidden = If(AriaLabel = \"\", \"true\", \"false\") · role = \"img\" and aria-label = AriaLabel when set",
@@ -629,6 +632,7 @@
   "Expression :: mco-kv__label :: Value = \"رُفع بواسطة\"": "Expression :: mco-kv__label :: Value = \"Uploaded by\"",
   "Expression :: mco-kv__label :: Value = \"نوع البرنامج\"": "Expression :: mco-kv__label :: Value = \"Program type\"",
   "Expression :: mco-kv__label :: Value = \"هدف التواصل الاستراتيجي المرتبط\"": "Expression :: mco-kv__label :: Value = \"Linked strategic communication goal\"",
-  "Expression :: — :: Value = \"عرض\"": "Expression :: — :: Value = \"View\""
+  "Expression :: — :: Value = \"عرض\"": "Expression :: — :: Value = \"View\"",
+  "MCO_Icon :: — :: Name = CtaIcon · Size = 20": "MCO_Icon :: — :: Name = CtaIcon · Size = 20"
  }
 }

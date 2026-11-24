@@ -345,11 +345,11 @@ def build(I):
     P['REPORTROW'] = ('<article class="mco-reportrow"><span class="mco-reportrow__icon" aria-hidden="true">%s</span><h3 class="mco-reportrow__name">تقرير زيارة الدنمارك</h3>'
                       '<div class="mco-reportrow__fields">%s%s<div class="mco-kv"><span class="mco-kv__label">حالة التقرير</span><span class="mco-status mco-status--info mco-status--small"><span class="mco-status__dot" aria-hidden="true"></span>تحت المراجعة</span></div></div>'
                       '<div class="mco-obtns">%s%s</div></article>') % (I('document-text', 24), kv('تاريخ الرفع', '28-05-2026'), kv('رُفع بواسطة', 'محمد أحمد عبدالله'), obtn('view', 'eye', 'عرض'), obtn('download', 'document-download', 'تحميل'))
-    svc = lambda ic, title, desc, tags, cta, cls='': ('<article class="mco-svccard%s"><span class="mco-svccard__tile" aria-hidden="true">%s</span><div class="mco-svccard__content"><h3 class="mco-svccard__title">%s</h3>'
-                                                     '<p class="mco-svccard__desc">%s</p><div class="mco-tags">%s</div></div><button type="button" class="mco-svccard__cta"%s><span>%s</span>%s</button></article>') % (
-        cls, I(ic, 28), title, desc, tags, ' disabled' if 'disabled' in cls else '', cta, I('arrow-left', 20))
+    svc = lambda ic, title, desc, tags, cta, cls='', go=False: ('<article class="mco-svccard%s"><span class="mco-svccard__tile" aria-hidden="true">%s</span><div class="mco-svccard__content"><h3 class="mco-svccard__title">%s</h3>'
+                                                     '<p class="mco-svccard__desc">%s</p><div class="mco-tags">%s</div></div><button type="button" class="mco-svccard__cta"%s>%s<span>%s</span>%s</button></article>') % (
+        cls, I(ic, 28), title, desc, tags, ' disabled' if 'disabled' in cls else '', '' if go else I('add', 20), cta, I('arrow-left', 20) if go else '')
     s1 = svc('add', 'إضافة أنشطة تواصل', 'يمكنك إضافة نشاط من نوع زيارة، استقبال، نشاط آخر إلى الخطة', tag('neutral', 'زيارة') + tag('neutral', 'استقبال') + tag('neutral', 'نشاط آخر'), 'إضافة نشاط')
-    s2 = svc('document-text', 'التقارير', 'يمكنك الاطلاع على التقارير المضافة والأنشطة التي بحاجة إلى إضافة تقرير', tag('warning', '3 بانتظار التقرير', True) + tag('success', '5 تقارير مرفوعة', True), 'عرض التقارير')
+    s2 = svc('document-text', 'التقارير', 'يمكنك الاطلاع على التقارير المضافة والأنشطة التي بحاجة إلى إضافة تقرير', tag('warning', '3 بانتظار التقرير', True) + tag('success', '5 تقارير مرفوعة', True), 'عرض التقارير', go=True)
     s3 = svc('add', 'إضافة أنشطة تواصل', 'يمكنك إضافة نشاط من نوع زيارة، استقبال، نشاط آخر إلى الخطة', tag('neutral', 'زيارة'), 'إضافة نشاط', ' is-disabled')
     P['SVCCARD'] = '<div class="pv-stack"><div class="mco-svcgrid">%s%s</div><span class="pv-k">IsDisabled = True</span><div class="mco-svcgrid">%s</div></div>' % (s1, s2, s3)
     return P
